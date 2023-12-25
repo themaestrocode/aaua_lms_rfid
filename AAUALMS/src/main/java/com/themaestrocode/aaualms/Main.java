@@ -11,15 +11,22 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("loginScene.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("loginPageScene.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+            scene.getStylesheets().add(css);
 
-        Image appIcon = new Image("C:\\Users\\user\\themaestrocode\\aaua_lms_rfid\\AAUALMS\\images\\aaua.png");
+            Image appIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/aaua.png"));
 
-        stage.setTitle("AAUA MANAGEMENT SYSTEM");
-        stage.setScene(scene);
-        stage.getIcons().add(appIcon);
-        stage.show();
+            stage.setTitle("AAUA LIBRARY MANAGEMENT SYSTEM");
+            stage.setScene(scene);
+            stage.getIcons().add(appIcon);
+            stage.show();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

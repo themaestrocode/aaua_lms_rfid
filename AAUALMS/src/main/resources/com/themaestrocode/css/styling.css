@@ -1,0 +1,20 @@
+#rootPaneID {
+    -fx-background-image: url("../images/aaua.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-opacity: 0.2;
+}
+
+#loginButton {
+    -fx-background-color: linear-gradient(to bottom, #006400, #32CD32);
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+
+#errorMessageLabel {
+    -fx-text-fill: red;
+}
+
+#hboxID {
+    -fx-background-color: #14184D;
+}
