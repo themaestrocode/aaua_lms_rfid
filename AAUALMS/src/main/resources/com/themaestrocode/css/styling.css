@@ -41,5 +41,11 @@
 }
 
 .vboxLeft {
-    -fx-background-color: #EEEEEE;
+    -fx-background-color: #E0E0E0;
+}
+
+.headerText {
+    -fx-text-color: black;
+    -fx-font-size: 30;
+    -fx-font-weight: bold;
 }
