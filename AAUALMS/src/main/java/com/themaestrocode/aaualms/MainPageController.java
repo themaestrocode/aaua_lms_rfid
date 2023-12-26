@@ -2,7 +2,7 @@ package com.themaestrocode.aaualms;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,19 +10,18 @@ import java.util.ResourceBundle;
 public class MainPageController implements Initializable {
 
     @FXML
-    private HBox hboxID;
+    private Button logoutButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        applyCustomCSS();
+
     }
 
-    private void applyCustomCSS() {
-        if(hboxID != null) {
-            hboxID.getStylesheets().add(getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm());
-        }
-//        if(loginButton != null) {
-//            loginButton.getStylesheets().add(getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm());
-//        }
+    public void changeButtonColor() {
+        logoutButton.setStyle("-fx-background-color: #6F1515");
+    }
+
+    public void reverseButtonColor() {
+        logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
     }
 }

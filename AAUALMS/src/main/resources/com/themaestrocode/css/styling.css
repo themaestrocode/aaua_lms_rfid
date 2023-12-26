@@ -1,4 +1,9 @@
-#rootPaneID {
+.myButtons {
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+
+.pane {
     -fx-background-image: url("../images/aaua.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -6,15 +11,35 @@
 }
 
 #loginButton {
-    -fx-background-color: linear-gradient(to bottom, #006400, #32CD32);
+    -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
+    -fx-font-weight: bold;
+}
+
+#logoutButton {
+    -fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107);
+    -fx-font-weight: bold;
+}
+
+.errorMessageLabel {
+    -fx-text-fill: red;
+}
+
+.hbox {
+    -fx-background-color: #14184D;
+}
+
+.menuButtons {
+    -fx-background-color: #8097AA;
     -fx-text-fill: white;
     -fx-background-radius: 5;
 }
 
-#errorMessageLabel {
-    -fx-text-fill: red;
+#menuLabelID {
+    -fx-alignment: center;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
 
-#hboxID {
-    -fx-background-color: #14184D;
+.vboxLeft {
+    -fx-background-color: #EEEEEE;
 }

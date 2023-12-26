@@ -24,7 +24,7 @@ public class LoginPageController implements Initializable {
     @FXML
     TextField accessCodeField;
     @FXML
-    Label errorMessageLabel;
+    Label errorMessageID;
     @FXML
     private Pane rootPaneID;
     @FXML
@@ -60,20 +60,32 @@ public class LoginPageController implements Initializable {
             root = loader.load();
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+
+            String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+            scene.getStylesheets().add(css);
+
             stage.setScene(scene);
             stage.show();
         }
         else {
             attempts++;
             if(attempts < MAX_ATTEMPTS) {
-                errorMessageLabel.setText("Incorrect access code! Please check and try again.");
+                errorMessageID.setText("Incorrect access code! Please check and try again.");
             }
             else {
-                errorMessageLabel.setText("Too many incorrect attempts! Wait for 30 seconds");
+                errorMessageID.setText("Too many incorrect attempts! Wait for 30 seconds");
                 loginButton.setDisable(true);
                 scheduleButtonEnable(30000);
             }
         }
+    }
+
+    public void changeButtonColor() {
+        loginButton.setStyle("-fx-background-color: #113C14");
+    }
+
+    public void reverseButtonColor() {
+        loginButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
     private void scheduleButtonEnable(int delayMillis) {
