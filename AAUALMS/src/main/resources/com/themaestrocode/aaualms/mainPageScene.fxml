@@ -4,7 +4,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,113 +16,260 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
 
-<BorderPane fx:id="borderpane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.MainPageController">
-   <top>
-      <HBox fx:id="hboxID" prefHeight="50.0" prefWidth="600.0" spacing="10.0" styleClass="hbox" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="homeButton" mnemonicParsing="false" prefWidth="70.0" styleClass="menuButtons" text="Home" />
-            <Button fx:id="settingsButton" mnemonicParsing="false" prefWidth="70.0" styleClass="menuButtons" text="Settings" />
-            <Button fx:id="contactButton" mnemonicParsing="false" prefWidth="70.0" styleClass="menuButtons" text="Contact" />
-         </children>
-         <padding>
-            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-         </padding>
-      </HBox>
-   </top>
-   <left>
-      <VBox prefHeight="350.0" prefWidth="109.0" styleClass="vboxLeft" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="menuLabelID" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="138.0" text="Menu" textAlignment="CENTER">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Hyperlink fx:id="manageUsersLabel" prefHeight="23.0" prefWidth="115.0" text="Manage Users">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Hyperlink>
-            <Hyperlink fx:id="manageBooksLabel" prefHeight="23.0" prefWidth="115.0" text="Manage Books">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Hyperlink>
-            <Hyperlink fx:id="issueBooksLabel" prefHeight="23.0" prefWidth="115.0" text="Issue Book">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Hyperlink>
-            <Hyperlink fx:id="returnBookLabel" prefHeight="23.0" prefWidth="115.0" text="Return Book">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Hyperlink>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.MainPageController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" StackPane.alignment="CENTER">
+         <top>
+            <HBox prefHeight="50.0" prefWidth="800.0" styleClass="hbox" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="109.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Home">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Settings">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Insight">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Contact">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </top>
+         <left>
+            <VBox fx:id="menuvbox" prefHeight="550.0" prefWidth="130.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="subHeaderText" text="Menu">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Hyperlink text="Manage Users">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Hyperlink>
+                  <Hyperlink text="Manage Books">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Hyperlink>
+                  <Hyperlink text="Issue Book">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Hyperlink>
+                  <Hyperlink text="Return Book">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Hyperlink>
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                      <children>
-                        <Button fx:id="logoutButton" alignment="CENTER" mnemonicParsing="false" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefWidth="70.0" styleClass="myButtons" text="Log out">
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </Button>
+                        <HBox alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                           <children>
+                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="28.0" prefWidth="70.0" styleClass="myButtons" text="Logout">
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" />
+                           </padding>
+                        </HBox>
                      </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <GridPane alignment="CENTER" hgap="10.0" vgap="5.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="221.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="215.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="199.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="136.0" minHeight="5.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="297.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="330.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="dashboardLabel" styleClass="headerText" text="Dashboard" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <HBox fx:id="searchBarsLabel" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                     <children>
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search users...">
+                           <HBox.margin>
+                              <Insets left="20.0" right="40.0" top="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search books...">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <GridPane.margin>
+                        <Insets left="10.0" right="30.0" top="15.0" />
+                     </GridPane.margin>
+                  </HBox>
+                  <Label fx:id="todayLabel" alignment="CENTER" prefWidth="900.0" styleClass="subHeaderText" text="Today's Transactions at a glance" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+                     <GridPane.margin>
+                        <Insets left="20.0" right="20.0" top="7.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <AnchorPane GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </GridPane.margin>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="717.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER">
+                                 <children>
+                                    <StackPane>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                          <Label styleClass="rectangleTexts" text="Books Issued" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                             <StackPane.margin>
+                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                             <StackPane.margin>
+                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                          <Label styleClass="rectangleTexts" text="Books Returned" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                             <StackPane.margin>
+                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                             <StackPane.margin>
+                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                          <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                             <StackPane.margin>
+                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                             <StackPane.margin>
+                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                             </StackPane.margin>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <StackPane>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4341" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="70.0" right="70.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Label styleClass="subHeaderText" text="Recent activities" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TableView GridPane.columnSpan="2147483647" GridPane.rowIndex="6" GridPane.rowSpan="2147483647">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="#" />
+                      <TableColumn prefWidth="75.0" text="ID" />
+                    </columns>
+                     <GridPane.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </GridPane.margin>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+         </center>
+         <right>
+            <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </ScrollBar>
+         </right>
+         <bottom>
+            <AnchorPane fx:id="footerAnchor" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="footerText" alignment="CENTER" layoutX="590.0" text="2024 Adekunle Ajasin University, Akungba-Akoko.">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
-                  </HBox>
+                  </Label>
                </children>
             </AnchorPane>
-         </children>
-      </VBox>
-   </left>
-   <center>
-      <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <padding>
-            <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
-         </padding>
-         <children>
-            <Label prefHeight="27.0" prefWidth="211.0" styleClass="headerText" text="Dashboard" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Label>
-         </children>
-      </GridPane>
-   </center>
-   <right>
-      <StackPane prefHeight="350.0" prefWidth="88.0" BorderPane.alignment="CENTER" />
-   </right>
-</BorderPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>

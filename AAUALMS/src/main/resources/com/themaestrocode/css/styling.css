@@ -24,6 +24,21 @@
     -fx-text-fill: red;
 }
 
+#todayLabel {
+    -fx-background-color: #E0E0E0;
+}
+
+.rectangleTexts {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+.rectangleNum {
+    -fx-text-fill: white;
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+}
+
 .hbox {
     -fx-background-color: #14184D;
 }
@@ -34,18 +49,27 @@
     -fx-background-radius: 5;
 }
 
-#menuLabelID {
-    -fx-alignment: center;
-    -fx-font-size: 12;
-    -fx-font-weight: bold;
-}
-
-.vboxLeft {
+#menuvbox {
     -fx-background-color: #E0E0E0;
 }
 
 .headerText {
     -fx-text-color: black;
-    -fx-font-size: 30;
+    -fx-font-size: 28;
     -fx-font-weight: bold;
+}
+
+.subHeaderText {
+    -fx-font-color: black;
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+#footerAnchor {
+    -fx-background-color: #14184D;
+}
+
+#footerText {
+    -fx-text-fill: white;
+    -fx-alignment: center;
 }
