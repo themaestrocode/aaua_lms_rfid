@@ -28,7 +28,7 @@ public class DBConnector {
     }
 
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return DriverManager.getConnection(URL, getDBusername(), getDBpassword());
     }
 
 }
