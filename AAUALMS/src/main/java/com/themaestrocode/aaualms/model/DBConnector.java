@@ -9,7 +9,6 @@ import java.util.Properties;
 
 public class DBConnector {
     private static Properties properties = new Properties();
-    private static final String URL = "jdbc:mysql://localhost:3306/aaua_lms_db";
 
     static {
         try {
@@ -17,6 +16,10 @@ public class DBConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getDBurl() {
+        return properties.getProperty("db.url");
     }
 
     public static String getDBusername() {
@@ -28,7 +31,7 @@ public class DBConnector {
     }
 
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL, getDBusername(), getDBpassword());
+        return DriverManager.getConnection(getDBurl(), getDBusername(), getDBpassword());
     }
 
 }
