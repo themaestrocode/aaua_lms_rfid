@@ -1,5 +1,6 @@
 package com.themaestrocode.aaualms;
 
+import com.themaestrocode.aaualms.model.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +10,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MainPageController {
 
     @FXML
     private Button logoutButton;
+    @FXML
+    Label numberOfBooksIssuedLabel, numberOfBooksReturnedLabel, numberOfBooksDueLabel;
 
     private Parent root;
     private Stage stage;
@@ -44,6 +50,14 @@ public class MainPageController {
     public void loadMainPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("mainPageScene.fxml"));
         ((Node) event.getSource()).getScene().setRoot(root);
+    }
+
+    public void updateTodaysRecord() throws SQLException {
+        Connection connection = DBConnection.connect();
+
+        String query = "SELECT COUNT(*) FROM issued_books WHERE DATE(date_issued) = CURDATE()";
+
+
     }
 
     public void changeButtonColor() {

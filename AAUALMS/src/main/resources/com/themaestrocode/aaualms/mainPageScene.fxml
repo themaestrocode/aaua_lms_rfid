@@ -18,7 +18,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.MainPageController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0" StackPane.alignment="CENTER">
@@ -172,7 +171,7 @@
                                                 <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
                                           </Label>
-                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <Label fx:id="numberOfBooksIssuedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
                                              <StackPane.margin>
                                                 <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
@@ -190,7 +189,7 @@
                                                 <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
                                           </Label>
-                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <Label fx:id="numberOfBooksReturnedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
                                              <StackPane.margin>
                                                 <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
@@ -208,7 +207,7 @@
                                                 <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
                                           </Label>
-                                          <Label styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
                                              <StackPane.margin>
                                                 <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
