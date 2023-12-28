@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.model.DBConnection;
+import com.themaestrocode.aaualms.model.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +53,7 @@ public class MainPageController {
     }
 
     public void updateTodaysRecord() throws SQLException {
-        Connection connection = DBConnection.connect();
+        Connection connection = DBConnector.connect();
 
         String query = "SELECT COUNT(*) FROM issued_books WHERE DATE(date_issued) = CURDATE()";
 

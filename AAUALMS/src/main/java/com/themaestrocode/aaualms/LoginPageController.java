@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.model.DBConnection;
+import com.themaestrocode.aaualms.model.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -87,7 +86,7 @@ public class LoginPageController {
 
     public void fetchDataFromDatabase() {
         try {
-            Connection connection = DBConnection.connect();
+            Connection connection = DBConnector.connect();
             // Perform database operations like executing queries, updates, etc.
 
             // Example: Select data
