@@ -2,22 +2,40 @@ package com.themaestrocode.aaualms;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ManageUsersMenuController {
+public class ManageUsersMenuController implements Initializable {
 
     @FXML
     private Button saveUserButton;
+    @FXML
+    private Label matricNoLabel;
+    @FXML
+    private TextField levelTextField;
+    @FXML
+    private ComboBox levelComboBox;
+    @FXML
+    private RadioButton studentRadioButton, staffRadioButton;
+    private ToggleGroup toggleGroup;
 
-    public void addUser() throws IOException {
-        loadAddUserPage();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        toggleGroup = new ToggleGroup();
+
+        studentRadioButton.setToggleGroup(toggleGroup);
+        staffRadioButton.setToggleGroup(toggleGroup);
+
+        studentRadioButton.setSelected(true);
     }
 
     public void loadAddUserPage() throws IOException {
@@ -38,6 +56,34 @@ public class ManageUsersMenuController {
         addUserStage.getIcons().add(userImage);
         addUserStage.setResizable(false);
         addUserStage.show();
+    }
+
+    public void switchAddUserDetailsToStudent() {
+        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+
+        if(selectedRadioButton != null) {
+            String selectedOption = selectedRadioButton.getText();
+
+            if(selectedOption.equals("Student")) {
+                matricNoLabel.setText("Matric No:");
+                levelComboBox.setDisable(false);
+                levelTextField.setDisable(false);
+            }
+        }
+    }
+
+    public void switchAddUserDetailsToStaff() {
+        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+
+        if(selectedRadioButton != null) {
+            String selectedOption = selectedRadioButton.getText();
+
+            if(selectedOption.equals("Staff")) {
+                matricNoLabel.setText("Staff ID:");
+                levelComboBox.setDisable(true);
+                levelTextField.setDisable(true);
+            }
+        }
     }
 
     public void changeButtonColor() {

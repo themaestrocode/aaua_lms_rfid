@@ -86,7 +86,7 @@ public class MainPageController implements Initializable {
             ManageUsersMenuController manageUsersMenuController = new ManageUsersMenuController();
 
             try {
-                manageUsersMenuController.addUser();
+                manageUsersMenuController.loadAddUserPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

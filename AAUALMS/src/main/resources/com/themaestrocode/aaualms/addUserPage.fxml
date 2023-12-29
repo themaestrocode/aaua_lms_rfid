@@ -36,17 +36,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="studentRadioButton" contentDisplay="CENTER" mnemonicParsing="false" styleClass="subHeaderText" text="Student" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <RadioButton fx:id="studentRadioButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchAddUserDetailsToStudent" styleClass="subHeaderText" text="Student" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets left="200.0" />
+                  <Insets left="220.0" />
                </GridPane.margin>
             </RadioButton>
-            <RadioButton fx:id="staffRadioButton" mnemonicParsing="false" styleClass="subHeaderText" text="Staff" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <RadioButton fx:id="staffRadioButton" mnemonicParsing="false" onAction="#switchAddUserDetailsToStaff" styleClass="subHeaderText" text="Staff" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets right="200.0" />
+                  <Insets right="220.0" />
                </GridPane.margin>
             </RadioButton>
-            <Label alignment="CENTER" text="Matric number:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label fx:id="matricNoLabel" alignment="CENTER" text="Matric number:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
@@ -71,47 +71,47 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="userIdTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="firstNameTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <TextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <TextField fx:id="facultyTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+            <TextField fx:id="departmentTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+            <TextField fx:id="levelTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
+            <TextField fx:id="phoneNoTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
+            <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox prefHeight="25.0" prefWidth="110.0" promptText="Level" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <ComboBox fx:id="levelComboBox" prefHeight="25.0" prefWidth="110.0" promptText="Level" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
