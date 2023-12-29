@@ -1,6 +1,7 @@
 .myButtons {
     -fx-text-fill: white;
     -fx-background-radius: 5;
+    -fx-font-size: 14;
 }
 
 .pane {
@@ -17,6 +18,11 @@
 
 #logoutButton {
     -fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107);
+    -fx-font-weight: bold;
+}
+
+#saveUserButton {
+    -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
     -fx-font-weight: bold;
 }
 
@@ -45,8 +51,6 @@
 
 .menuButtons {
     -fx-background-color: #8097AA;
-    -fx-text-fill: white;
-    -fx-background-radius: 5;
 }
 
 #menuvbox {
@@ -61,7 +65,7 @@
 
 .subHeaderText {
     -fx-font-color: black;
-    -fx-font-size: 12;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
 }
 

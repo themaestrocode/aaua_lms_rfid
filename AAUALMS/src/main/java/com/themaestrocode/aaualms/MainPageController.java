@@ -77,19 +77,20 @@ public class MainPageController implements Initializable {
     public void manageUsersOptions(ActionEvent event) {
         ContextMenu contextMenu = new ContextMenu();
 
-        MenuItem addStudentItem = new MenuItem("Add Student");
-        MenuItem addStaffItem = new MenuItem("Add Staff");
+        MenuItem addUserItem = new MenuItem("Add Student/Staff");
         MenuItem seeAllStudentsItem = new MenuItem("See all Students");
         MenuItem seeAllStaffItem = new MenuItem("See all Staff");
 
-        addStudentItem.setOnAction(e -> {
+        addUserItem.setOnAction(e -> {
             // Handle "Add Student" action
-            System.out.println("Adding a student...");
-        });
+            ManageUsersMenuController manageUsersMenuController = new ManageUsersMenuController();
 
-        addStaffItem.setOnAction(e -> {
-            // Handle "Add Staff" action
-            System.out.println("Adding a staff member...");
+            try {
+                manageUsersMenuController.addUser();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("Adding a student/staff...");
         });
 
         seeAllStudentsItem.setOnAction(e -> {
@@ -100,7 +101,7 @@ public class MainPageController implements Initializable {
             System.out.println("showing all staff...");
         });
 
-        contextMenu.getItems().addAll(addStudentItem, addStaffItem,seeAllStudentsItem, seeAllStaffItem);
+        contextMenu.getItems().addAll(addUserItem, seeAllStudentsItem, seeAllStaffItem);
 
         // Get the scene coordinates of the Hyperlink
         double x = manageUsersLink.localToScreen(manageUsersLink.getBoundsInLocal()).getMinX();
