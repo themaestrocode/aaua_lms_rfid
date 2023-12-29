@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +22,8 @@ public class MainPageController implements Initializable {
     private Button logoutButton;
     @FXML
     private Label numberOfBooksIssuedLabel, numberOfBooksDueLabel, numberOfBooksAvailable;
+    @FXML
+    private Hyperlink manageUsersLink;
 
     private Parent root;
     private Stage stage;
@@ -73,5 +72,41 @@ public class MainPageController implements Initializable {
 
     public void reverseButtonColor() {
         logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
+    }
+
+    public void manageUsersOptions(ActionEvent event) {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem addStudentItem = new MenuItem("Add Student");
+        MenuItem addStaffItem = new MenuItem("Add Staff");
+        MenuItem seeAllStudentsItem = new MenuItem("See all Students");
+        MenuItem seeAllStaffItem = new MenuItem("See all Staff");
+
+        addStudentItem.setOnAction(e -> {
+            // Handle "Add Student" action
+            System.out.println("Adding a student...");
+        });
+
+        addStaffItem.setOnAction(e -> {
+            // Handle "Add Staff" action
+            System.out.println("Adding a staff member...");
+        });
+
+        seeAllStudentsItem.setOnAction(e -> {
+            System.out.println("showing all students...");
+        });
+
+        seeAllStaffItem.setOnAction(e -> {
+            System.out.println("showing all staff...");
+        });
+
+        contextMenu.getItems().addAll(addStudentItem, addStaffItem,seeAllStudentsItem, seeAllStaffItem);
+
+        // Get the scene coordinates of the Hyperlink
+        double x = manageUsersLink.localToScreen(manageUsersLink.getBoundsInLocal()).getMinX();
+        double y = manageUsersLink.localToScreen(manageUsersLink.getBoundsInLocal()).getMaxY();
+
+        // Show the context menu near the Hyperlink
+        contextMenu.show(manageUsersLink, x, y);
     }
 }

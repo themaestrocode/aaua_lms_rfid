@@ -24,7 +24,7 @@
          <top>
             <HBox prefHeight="50.0" prefWidth="800.0" styleClass="hbox" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Home">
+                  <Button mnemonicParsing="false" onAction="#loadMainPage" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Home">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
@@ -44,6 +44,11 @@
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
+                  <Button layoutX="260.0" layoutY="20.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="70.0" styleClass="menuButtons" text="Help">
+                     <HBox.margin>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </top>
@@ -55,7 +60,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Hyperlink text="Manage Users">
+                  <Hyperlink fx:id="manageUsersLink" onAction="#showManageUsersOptions" text="Manage Users">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -101,7 +106,7 @@
             </VBox>
          </left>
          <center>
-            <GridPane alignment="CENTER" hgap="10.0" vgap="5.0" BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" hgap="10.0" prefHeight="605.0" vgap="5.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="221.0" />
@@ -156,77 +161,70 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </GridPane.margin>
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="717.0">
+                        <HBox alignment="TOP_CENTER" layoutX="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="TOP_CENTER">
-                                 <children>
-                                    <StackPane>
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                          <Label styleClass="rectangleTexts" text="Books Issued" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                             <StackPane.margin>
-                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                          <Label fx:id="numberOfBooksIssuedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                             <StackPane.margin>
-                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                          <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                             <StackPane.margin>
-                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                          <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                             <StackPane.margin>
-                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                          <Label styleClass="rectangleTexts" text="Available Books" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                             <StackPane.margin>
-                                                <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                          <Label fx:id="numberOfBooksAvailable" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                             <StackPane.margin>
-                                                <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                             </StackPane.margin>
-                                          </Label>
-                                       </children>
-                                    </StackPane>
-                                    <StackPane>
-                                       <HBox.margin>
-                                          <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4341" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                       </children>
-                                    </StackPane>
-                                 </children>
+                              <StackPane>
                                  <HBox.margin>
-                                    <Insets left="70.0" right="70.0" />
+                                    <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
                                  </HBox.margin>
-                              </HBox>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                    <Label styleClass="rectangleTexts" text="Books Issued" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                       <StackPane.margin>
+                                          <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Label fx:id="numberOfBooksIssuedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                    <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                       <StackPane.margin>
+                                          <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                    <Label styleClass="rectangleTexts" text="Available Books" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                       <StackPane.margin>
+                                          <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Label fx:id="numberOfBooksAvailable" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4341" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                 </children>
+                              </StackPane>
                            </children>
                         </HBox>
                      </children>
@@ -261,7 +259,7 @@
          <bottom>
             <AnchorPane fx:id="footerAnchor" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="footerText" alignment="CENTER" layoutX="590.0" text="2024 Adekunle Ajasin University, Akungba-Akoko.">
+                  <Label fx:id="footerText" alignment="CENTER" text="2024 Adekunle Ajasin University, Akungba-Akoko." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
