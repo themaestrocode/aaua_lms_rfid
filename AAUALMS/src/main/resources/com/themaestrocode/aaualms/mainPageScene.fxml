@@ -184,12 +184,12 @@
                                        </HBox.margin>
                                        <children>
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                          <Label styleClass="rectangleTexts" text="Books Returned" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                          <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
                                              <StackPane.margin>
                                                 <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
                                           </Label>
-                                          <Label fx:id="numberOfBooksReturnedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
                                              <StackPane.margin>
                                                 <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
@@ -202,12 +202,12 @@
                                        </HBox.margin>
                                        <children>
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                          <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                          <Label styleClass="rectangleTexts" text="Available Books" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
                                              <StackPane.margin>
                                                 <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>
                                           </Label>
-                                          <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <Label fx:id="numberOfBooksAvailable" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
                                              <StackPane.margin>
                                                 <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
                                              </StackPane.margin>

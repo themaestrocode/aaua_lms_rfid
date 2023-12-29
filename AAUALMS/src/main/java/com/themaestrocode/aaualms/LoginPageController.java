@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.model.DBConnector;
+import com.themaestrocode.aaualms.entity.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +66,6 @@ public class LoginPageController {
 
     public void changeButtonColor() {
         loginButton.setStyle("-fx-background-color: #113C14");
-        fetchDataFromDatabase();
     }
 
     public void reverseButtonColor() {

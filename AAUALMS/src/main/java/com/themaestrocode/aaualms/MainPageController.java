@@ -1,9 +1,10 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.model.DBConnector;
+import com.themaestrocode.aaualms.service.BookService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,21 +15,27 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class MainPageController {
+public class MainPageController implements Initializable {
 
     @FXML
     private Button logoutButton;
     @FXML
-    Label numberOfBooksIssuedLabel, numberOfBooksReturnedLabel, numberOfBooksDueLabel;
+    private Label numberOfBooksIssuedLabel, numberOfBooksDueLabel, numberOfBooksAvailable;
 
     private Parent root;
     private Stage stage;
     private Scene scene;
 
     private LoginPageController loginPageController;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateTodaysRecord();
+    }
 
     public void logout(ActionEvent event) throws IOException {
         Alert logoutAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -47,17 +54,17 @@ public class MainPageController {
         }
     }
 
-    public void loadMainPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("mainPageScene.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(root);
+    public void updateTodaysRecord() {
+        BookService bookService = new BookService();
+
+        numberOfBooksIssuedLabel.setText(bookService.booksIssuedToday());
+        numberOfBooksDueLabel.setText(bookService.booksDueToday());
+        numberOfBooksAvailable.setText(bookService.availableBooks());
     }
 
-    public void updateTodaysRecord() throws SQLException {
-        Connection connection = DBConnector.connect();
-
-        String query = "SELECT COUNT(*) FROM issued_books WHERE DATE(date_issued) = CURDATE()";
-
-
+    public void loadMainPage(ActionEvent event) throws IOException, SQLException {
+        Parent root = FXMLLoader.load(getClass().getResource("mainPageScene.fxml"));
+        ((Node) event.getSource()).getScene().setRoot(root);
     }
 
     public void changeButtonColor() {
