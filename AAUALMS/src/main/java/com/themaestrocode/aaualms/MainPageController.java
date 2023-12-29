@@ -36,6 +36,11 @@ public class MainPageController implements Initializable {
         updateTodaysRecord();
     }
 
+    /**
+     * closes the current scene and opens the login page on the stage. The LoginPageController object can be used to access the method from anywhere.
+     * @param event
+     * @throws IOException
+     */
     public void logout(ActionEvent event) throws IOException {
         Alert logoutAlert = new Alert(Alert.AlertType.CONFIRMATION);
         logoutAlert.setTitle("Notification");
@@ -53,6 +58,10 @@ public class MainPageController implements Initializable {
         }
     }
 
+    /**
+     * sets the appropriate values for the bars on the dashboard to give a numerical report on the day's transactions.
+     * It uses the BookService object to fetch the data from the database.
+     */
     public void updateTodaysRecord() {
         BookService bookService = new BookService();
 
@@ -61,7 +70,13 @@ public class MainPageController implements Initializable {
         numberOfBooksAvailable.setText(bookService.availableBooks());
     }
 
-    public void loadMainPage(ActionEvent event) throws IOException, SQLException {
+    /**
+     * loads the main page scene unto the primary stage.
+     * Can be called by any class from where access to the main page is needed.
+     * @param event
+     * @throws IOException
+     */
+    public void loadMainPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("mainPageScene.fxml"));
         ((Node) event.getSource()).getScene().setRoot(root);
     }
@@ -74,9 +89,14 @@ public class MainPageController implements Initializable {
         logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
     }
 
+    /**
+     * opens ContextMenu items to select an action option
+     * @param event
+     */
     public void manageUsersOptions(ActionEvent event) {
         ContextMenu contextMenu = new ContextMenu();
 
+        //populating the ContextMenu node with the menu items
         MenuItem addUserItem = new MenuItem("Add Student/Staff");
         MenuItem seeAllStudentsItem = new MenuItem("See all Students");
         MenuItem seeAllStaffItem = new MenuItem("See all Staff");

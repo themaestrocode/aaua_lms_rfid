@@ -38,6 +38,10 @@ public class ManageUsersMenuController implements Initializable {
         studentRadioButton.setSelected(true);
     }
 
+    /**
+     * loads an unresizable stage: "the add user stage and scene" upon the main page and primary stage.
+     * @throws IOException
+     */
     public void loadAddUserPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserPage.fxml"));
         Parent root = fxmlLoader.load();
@@ -58,7 +62,11 @@ public class ManageUsersMenuController implements Initializable {
         addUserStage.show();
     }
 
+    /**
+     * sets the first label to matric no, enables the level combobox, and enables the level text field when the "Student" RadioButton is selected.
+     */
     public void switchAddUserDetailsToStudent() {
+        //getting the selected RadioButton from the toggleGroup
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
 
         if(selectedRadioButton != null) {
