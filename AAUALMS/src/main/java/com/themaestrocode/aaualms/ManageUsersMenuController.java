@@ -19,23 +19,19 @@ public class ManageUsersMenuController implements Initializable {
     @FXML
     private Button saveUserButton;
     @FXML
-    private Label matricNoLabel;
+    private Label userIdLabel;
     @FXML
     private TextField levelTextField;
     @FXML
     private ComboBox levelComboBox;
     @FXML
     private RadioButton studentRadioButton, staffRadioButton;
-    private ToggleGroup toggleGroup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        toggleGroup = new ToggleGroup();
-
-        studentRadioButton.setToggleGroup(toggleGroup);
-        staffRadioButton.setToggleGroup(toggleGroup);
 
         studentRadioButton.setSelected(true);
+        userIdLabel.setText("Matric No:");
     }
 
     /**
@@ -63,34 +59,19 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     /**
-     * sets the first label to matric no, enables the level combobox, and enables the level text field when the "Student" RadioButton is selected.
+     * switches between the studentRadioButton and staffRadioButton, enabling the necessary fields for getting student and staff details
      */
-    public void switchAddUserDetailsToStudent() {
+    public void switchAddUserDetails() {
         //getting the selected RadioButton from the toggleGroup
-        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-
-        if(selectedRadioButton != null) {
-            String selectedOption = selectedRadioButton.getText();
-
-            if(selectedOption.equals("Student")) {
-                matricNoLabel.setText("Matric No:");
-                levelComboBox.setDisable(false);
-                levelTextField.setDisable(false);
-            }
+        if(studentRadioButton.isSelected()) {
+            userIdLabel.setText("Matric No:");
+            levelComboBox.setDisable(false);
+            levelTextField.setDisable(false);
         }
-    }
-
-    public void switchAddUserDetailsToStaff() {
-        RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-
-        if(selectedRadioButton != null) {
-            String selectedOption = selectedRadioButton.getText();
-
-            if(selectedOption.equals("Staff")) {
-                matricNoLabel.setText("Staff ID:");
-                levelComboBox.setDisable(true);
-                levelTextField.setDisable(true);
-            }
+        else if(staffRadioButton.isSelected()) {
+            userIdLabel.setText("Staff ID:");
+            levelComboBox.setDisable(true);
+            levelTextField.setDisable(true);
         }
     }
 

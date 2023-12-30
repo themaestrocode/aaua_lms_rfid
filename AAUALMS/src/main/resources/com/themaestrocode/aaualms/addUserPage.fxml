@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -36,17 +37,20 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <RadioButton fx:id="studentRadioButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchAddUserDetailsToStudent" styleClass="subHeaderText" text="Student" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <RadioButton fx:id="studentRadioButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchAddUserDetails" styleClass="subHeaderText" text="Student" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets left="220.0" />
                </GridPane.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="staffRadioButton" mnemonicParsing="false" onAction="#switchAddUserDetailsToStaff" styleClass="subHeaderText" text="Staff" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <RadioButton fx:id="staffRadioButton" mnemonicParsing="false" onAction="#switchAddUserDetails" styleClass="subHeaderText" text="Staff" toggleGroup="$toggleGroup" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets right="220.0" />
                </GridPane.margin>
             </RadioButton>
-            <Label fx:id="matricNoLabel" alignment="CENTER" text="Matric number:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label fx:id="userIdLabel" alignment="CENTER" text="user ID:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
