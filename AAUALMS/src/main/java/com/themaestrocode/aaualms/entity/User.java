@@ -12,6 +12,7 @@ public class User {
     private String phoneNumber;
     private String email;
 
+    //constructor for student user
     public User(String userLibraryId, String userId, String firstName, String lastName, String imagePath, Department department, String level, String phoneNumber, String email) {
         this.userLibraryId = userLibraryId;
         this.userId = userId;
@@ -20,6 +21,18 @@ public class User {
         this.imagePath = imagePath;
         this.department = department;
         this.level = level;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    //constructor for staff user
+    public User(String userLibraryId, String userId, String firstName, String lastName, String imagePath, Department department, String phoneNumber, String email) {
+        this.userLibraryId = userLibraryId;
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.imagePath = imagePath;
+        this.department = department;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }

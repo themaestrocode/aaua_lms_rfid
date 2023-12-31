@@ -9,6 +9,33 @@ import java.sql.SQLException;
 
 public class BookRepository {
 
+    public boolean findBook(String bookId) {
+        boolean bookFound = false;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT book_id FROM books WHERE book_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, bookId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                bookFound = true;
+                String result = resultSet.getString("book_id");
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookFound;
+    }
+
     public int booksIssuedToday() {
         int result = 0;
 
@@ -104,4 +131,5 @@ public class BookRepository {
         }
         return result;
     }
+
 }

@@ -1,9 +1,11 @@
 package com.themaestrocode.aaualms;
 
+import com.themaestrocode.aaualms.service.BookService;
 import com.themaestrocode.aaualms.service.UserService;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -24,19 +26,10 @@ import java.util.ResourceBundle;
 
 public class ScannerWindowController implements Initializable {
 
-    private Stage stage;
+    private Stage scannerStage;
 
     @FXML
     private ImageView scanImage;
-
-    public TextField getCardOrTagValueTextField() {
-        return cardOrTagValueTextField;
-    }
-
-    public void setCardOrTagValueTextField(TextField cardOrTagValueTextField) {
-        this.cardOrTagValueTextField = cardOrTagValueTextField;
-    }
-
     @FXML
     private TextField cardOrTagValueTextField;
 
@@ -67,7 +60,7 @@ public class ScannerWindowController implements Initializable {
 
         Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
 
-        Stage scannerStage = new Stage();
+        scannerStage = new Stage();
         scannerStage.initModality(Modality.APPLICATION_MODAL);
         scannerStage.setTitle("Scanner Window");
         scannerStage.setScene(scene);
@@ -76,43 +69,73 @@ public class ScannerWindowController implements Initializable {
         scannerStage.show();
     }
 
-    public boolean validateCardOrTag(String userOrBook) {
-        final boolean[] result = {false};
-        final String[] getUserFound = new String[1];
+    public void validateCardOrTag(String userOrBook) {
+        // Add a listener to perform checks when the text length reaches 10 characters
+        cardOrTagValueTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.length() == 10) {
+                // Simulate database check (Replace this with your database query)
 
+                boolean found = false;
+
+                if(userOrBook.equals("user")) {
+                    UserService userService = new UserService();
+                    found = userService.findUser(newValue);
+                }
+                else if(userOrBook.equals("book")) {
+                    BookService bookService = new BookService();
+                    found = bookService.findBook(newValue);
+                }
+
+                if (!found) {
+                    Platform.runLater(() -> {
+                        cardOrTagValueTextField.clear();
+                        System.out.println("id not found!");
+                    });
+                } else {
+                    // Optional: Inform the user or perform actions for a valid entry
+                    System.out.println("id found: " + newValue);
+                }
+            }
+        });
+    }
+
+    public void displayCardOrTagMessage() {
+
+    }
+
+    private void setupChangeListener(Stage scannerStage) {
         ChangeListener<String> readerListener = new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                String cardOrTagId = cardOrTagValueTextField.getText();
-                System.out.println(cardOrTagId);
+                String cardOrTagValue = cardOrTagValueTextField.getText();
 
-                if(userOrBook.equals("user")) {
+                if (!cardOrTagValue.isEmpty()) {
+                    UserService userService = new UserService();
+                    ManageUsersMenuController manageUsersMenuController = new ManageUsersMenuController();
 
-                    boolean userFound = false;
-
-                    if(!cardOrTagId.isEmpty()) {
-                        UserService userService = new UserService();
-
-                        userFound = userService.findUser(cardOrTagId);
+                    if (userService.findUser(cardOrTagValue)) {
+                        //manageUsersMenuController.getScanCardConfirmationLabel().setText("card already registered to a user!");
+                        scannerStage.close();
+                        //manageUsersMenuController.setScanCardConfirmationLabelAttribute("-fx-text-fill: #AA0000", "card already registered to a user!");
+                    } else {
+                        //manageUsersMenuController.getScanCardConfirmationLabel().setText("card successfully scanned!");
+                        //manageUsersMenuController.setScanCardConfirmationLabelAttribute("-fx-text-fill: #006400", "card successfully scanned!");
+                        scannerStage.close();
                     }
-
-                    if(!userFound) {
-                        result[0] = true;
-                    }
-                }
-                else if(userOrBook.equals("book")) {
-
                 }
             }
         };
-        return result[0];
+        if(cardOrTagValueTextField != null) {
+            cardOrTagValueTextField.textProperty().addListener(readerListener);
+        }
+
     }
 
-    public Stage getStage() {
-        return stage;
+    public Stage getScannerStage() {
+        return scannerStage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setScannerStage(Stage scannerStage) {
+        this.scannerStage = scannerStage;
     }
 }

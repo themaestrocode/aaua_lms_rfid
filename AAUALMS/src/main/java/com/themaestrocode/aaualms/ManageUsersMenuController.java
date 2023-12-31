@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,9 +21,11 @@ import java.util.ResourceBundle;
 public class ManageUsersMenuController implements Initializable {
 
     @FXML
-    private Button saveUserButton, photoUploadButton;
+    private Button saveUserButton;
     @FXML
-    private Label userIdLabel, scanCardConfirmationLabel, photoUploadConfirmationLabel;
+    private Label userIdLabel, photoUploadConfirmationLabel;
+    @FXML
+    private Label scanCardConfirmationLabel;
     @FXML
     private TextField facultyTextField, departmentTextField, levelTextField;
     @FXML
@@ -136,15 +137,7 @@ public class ManageUsersMenuController implements Initializable {
         ScannerWindowController scannerWindowController = new ScannerWindowController();
 
         scannerWindowController.loadScannerWindow();
-
-        boolean valid = scannerWindowController.validateCardOrTag("user");
-
-        if(valid) {
-            scanCardConfirmationLabel.setText("card successfully scanned!");
-        }
-        else {
-                scanCardConfirmationLabel.setText("card already registered!");
-        }
+        scannerWindowController.validateCardOrTag("user");
     }
 
     public void changeButtonColor() {
@@ -155,6 +148,14 @@ public class ManageUsersMenuController implements Initializable {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
+    public String getSaveUserButtonText() {
+        return saveUserButton.getText();
+    }
+
+    public void setScanCardConfirmationLabelAttribute(String color, String text) {
+        scanCardConfirmationLabel.setText(text);
+        scanCardConfirmationLabel.setStyle(color);
+    }
     public Stage getStage() {
         return stage;
     }

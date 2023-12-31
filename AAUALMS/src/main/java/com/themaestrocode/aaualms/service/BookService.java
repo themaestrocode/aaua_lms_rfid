@@ -5,6 +5,10 @@ import com.themaestrocode.aaualms.repository.BookRepository;
 public class BookService {
     BookRepository bookRepository = new BookRepository();
 
+    public boolean findBook(String bookId) {
+        return bookRepository.findBook(bookId);
+    }
+
     public String booksIssuedToday() {
         if(bookRepository.booksIssuedToday() == 0) {
             return "0";

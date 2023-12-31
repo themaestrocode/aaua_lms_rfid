@@ -10,37 +10,24 @@ import java.sql.SQLException;
 public class UserRepository {
     public boolean findUser(String userId) {
         boolean userFound = false;
-        String user = "";
 
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT student_lib_id FROM student WHERE student_lib_id = '" + userId + "'";
+            String query = "SELECT student_lib_id AS user_lib_id FROM student WHERE student_lib_id = ? " +
+                    "UNION " +
+                    "SELECT staff_lib_id AS user_lib_id FROM staff WHERE staff_lib_id = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, userId);
+            statement.setString(2, userId);
+
             ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next()) {
-                user = resultSet.getString("student_lib_id");
-            }
-
-            if(userId.equals(user)) {
+            // Check if any rows are returned
+            if (resultSet.next()) {
                 userFound = true;
-            }
-
-            if(!userFound) {
-                query = "SELECT staff_lib_id FROM staff WHERE staff_lib_id = '" + userId + "'";
-
-                statement = connection.prepareStatement(query);
-                resultSet = statement.executeQuery();
-
-                while(resultSet.next()) {
-                    user = resultSet.getString("staff_lib_id");
-                }
-
-                if(userId.equals(user)) {
-                    userFound = true;
-                }
+                String userLibId = resultSet.getString("user_lib_id");
             }
 
             // Close resources
@@ -53,4 +40,5 @@ public class UserRepository {
 
         return userFound;
     }
+
 }
