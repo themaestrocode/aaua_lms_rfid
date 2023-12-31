@@ -35,6 +35,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <RadioButton fx:id="studentRadioButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchAddUserDetails" styleClass="subHeaderText" text="Student" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
@@ -120,17 +121,29 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox prefHeight="25.0" prefWidth="110.0" promptText="Department" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <ComboBox fx:id="departmentComboBox" onAction="#chooseDepartment" prefHeight="25.0" prefWidth="110.0" promptText="Department" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox prefHeight="25.0" prefWidth="110.0" promptText="Faculty" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <ComboBox fx:id="facultyComboBox" onAction="#chooseFaculty" prefHeight="25.0" prefWidth="110.0" promptText="Faculty" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button fx:id="saveUserButton" mnemonicParsing="false" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Save User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
+            <Button fx:id="saveUserButton" mnemonicParsing="false" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Save User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
+            <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets right="100.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="scanCardButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" styleClass="myButtons" text="scan card" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="photoUploadConfirmationLabel" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+            <Label fx:id="scanCardConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
          </children>
       </GridPane>
    </children>

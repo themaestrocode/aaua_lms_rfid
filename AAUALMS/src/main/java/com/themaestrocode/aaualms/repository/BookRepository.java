@@ -40,6 +40,7 @@ public class BookRepository {
             Connection connection = DBConnector.connect();
 
             String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE_ADD(date_issued, INTERVAL 7 DAY) = CURDATE()";
+
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 

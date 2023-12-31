@@ -26,6 +26,16 @@
     -fx-font-weight: bold;
 }
 
+#photoUploadButton {
+    -fx-background-color: #14184D;
+    -fx-font-weight: bold;
+}
+
+#scanCardButton {
+    -fx-background-color: #14184D;
+    -fx-font-weight: bold;
+}
+
 .errorMessageLabel {
     -fx-text-fill: red;
 }
@@ -76,4 +86,12 @@
 #footerText {
     -fx-text-fill: white;
     -fx-alignment: center;
+}
+
+#photoUploadConfirmationLabel {
+    -fx-text-fill: #006400;
+}
+
+#scanCardConfirmationLabel {
+    -fx-text-fill: #006400;
 }

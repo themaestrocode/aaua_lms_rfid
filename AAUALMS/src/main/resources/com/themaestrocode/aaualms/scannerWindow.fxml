@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.ScannerWindowController">
+   <children>
+      <ImageView fx:id="scanImage" fitHeight="288.0" fitWidth="303.0" layoutX="56.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/scan%20icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="134.0" layoutY="354.0" text="waiting for user to scan..." />
+      <TextField fx:id="cardOrTagValueTextField" layoutX="126.0" layoutY="374.0" />
+   </children>
+</AnchorPane>
