@@ -1,13 +1,10 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.service.BookService;
 import com.themaestrocode.aaualms.service.UserService;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ScannerWindowController implements Initializable {
+public class AddUserScannerWindowController implements Initializable {
 
     private Stage scannerStage;
 
@@ -46,7 +43,7 @@ public class ScannerWindowController implements Initializable {
         rotateTransition.setByAngle(360);
         rotateTransition.play();
 
-        //validateCardOrTag("user");
+        validateCard("user");
     }
 
     public void loadScannerWindow() throws IOException {
@@ -54,9 +51,6 @@ public class ScannerWindowController implements Initializable {
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
-
-        String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
-        scene.getStylesheets().add(css);
 
         Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
 
@@ -69,7 +63,8 @@ public class ScannerWindowController implements Initializable {
         scannerStage.show();
     }
 
-    public void validateCardOrTag(String userOrBook) {
+    public void validateCard(String userOrBook) {
+        String result = null;
         // Add a listener to perform checks when the text length reaches 10 characters
         cardOrTagValueTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.length() == 10) {
@@ -81,53 +76,26 @@ public class ScannerWindowController implements Initializable {
                     UserService userService = new UserService();
                     found = userService.findUser(newValue);
                 }
-                else if(userOrBook.equals("book")) {
-                    BookService bookService = new BookService();
-                    found = bookService.findBook(newValue);
-                }
 
-                if (!found) {
+                if (found) {
                     Platform.runLater(() -> {
                         cardOrTagValueTextField.clear();
-                        System.out.println("id not found!");
+                        System.out.println("id already registered!");
                     });
                 } else {
                     // Optional: Inform the user or perform actions for a valid entry
-                    System.out.println("id found: " + newValue);
+                    cardOrTagValueTextField.setText(newValue);
+                    System.out.println("id not yet registered: " + newValue);
+
+                    if(scannerStage != null) {
+                        this..close();
+                    }
                 }
             }
         });
     }
 
     public void displayCardOrTagMessage() {
-
-    }
-
-    private void setupChangeListener(Stage scannerStage) {
-        ChangeListener<String> readerListener = new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                String cardOrTagValue = cardOrTagValueTextField.getText();
-
-                if (!cardOrTagValue.isEmpty()) {
-                    UserService userService = new UserService();
-                    ManageUsersMenuController manageUsersMenuController = new ManageUsersMenuController();
-
-                    if (userService.findUser(cardOrTagValue)) {
-                        //manageUsersMenuController.getScanCardConfirmationLabel().setText("card already registered to a user!");
-                        scannerStage.close();
-                        //manageUsersMenuController.setScanCardConfirmationLabelAttribute("-fx-text-fill: #AA0000", "card already registered to a user!");
-                    } else {
-                        //manageUsersMenuController.getScanCardConfirmationLabel().setText("card successfully scanned!");
-                        //manageUsersMenuController.setScanCardConfirmationLabelAttribute("-fx-text-fill: #006400", "card successfully scanned!");
-                        scannerStage.close();
-                    }
-                }
-            }
-        };
-        if(cardOrTagValueTextField != null) {
-            cardOrTagValueTextField.textProperty().addListener(readerListener);
-        }
 
     }
 

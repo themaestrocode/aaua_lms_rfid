@@ -134,10 +134,8 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     public void scanCard() throws IOException {
-        ScannerWindowController scannerWindowController = new ScannerWindowController();
-
-        scannerWindowController.loadScannerWindow();
-        scannerWindowController.validateCardOrTag("user");
+        AddUserScannerWindowController addUserScannerWindowController = new AddUserScannerWindowController();
+        addUserScannerWindowController.loadScannerWindow();
     }
 
     public void changeButtonColor() {
@@ -146,6 +144,10 @@ public class ManageUsersMenuController implements Initializable {
 
     public void reverseButtonColor() {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
+    }
+
+    public String getButtonText() {
+        return saveUserButton.getText();
     }
 
     public String getSaveUserButtonText() {

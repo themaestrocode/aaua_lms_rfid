@@ -116,7 +116,7 @@
                   <Insets left="20.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox fx:id="levelComboBox" prefHeight="25.0" prefWidth="110.0" promptText="Level" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <ComboBox fx:id="levelComboBox" onAction="#chooseLevel" prefHeight="25.0" prefWidth="110.0" promptText="Level" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
