@@ -27,7 +27,7 @@ public class ManageUsersMenuController implements Initializable {
     @FXML
     private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel;
     @FXML
-    private TextField userIdTextField, firstNameTextField, lastNameTextField, facultyTextField, departmentTextField, levelTextField, phoneNoTextField, emailTextField, scanCardTextField;
+    private TextField userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, facultyTextField, departmentTextField, levelTextField, phoneNoTextField, emailTextField;
     @FXML
     private ComboBox facultyComboBox, departmentComboBox, levelComboBox;
     @FXML
@@ -35,14 +35,17 @@ public class ManageUsersMenuController implements Initializable {
 
     private Stage addUserStage = new Stage();
     private String cardNo;
+    private String imagePath;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FacultyService facultyService = new FacultyService();
 
+        //sets the studentRadioButton as the default option when the addUser scene appears
         studentRadioButton.setSelected(true);
         userIdLabel.setText("Matric No:");
 
+        //fetch all faculties from the DB and populate the faculty combo box
         facultyComboBox.setItems(facultyService.getAllFaculty());
         facultyComboBox.setEditable(false);
         levelComboBox.getItems().addAll("100L", "200L", "300L", "400L", "500L", "PGD");
@@ -90,6 +93,10 @@ public class ManageUsersMenuController implements Initializable {
         }
     }
 
+    /**
+     * called when a faculty gets selected from the faculty Combobox item list.
+     * It also populates the department combo box based on the selectd faculty
+     */
     public void chooseFaculty() {
         DepartmentService departmentService = new DepartmentService();
 
@@ -99,27 +106,35 @@ public class ManageUsersMenuController implements Initializable {
         departmentComboBox.setItems(departmentService.getFacultiesUnderSelectedDepartment(selectedFaculty));
     }
 
+    /**
+     * called when a department gets selected from the department Combobox item list.
+     */
     public void chooseDepartment() {
         String selectedDepartment = (String) departmentComboBox.getValue();
         departmentTextField.setText(selectedDepartment);
     }
 
+    /**
+     * called when a level gets selected from the level Combobox item list.
+     */
     public void chooseLevel() {
         String selectedLevel = (String) levelComboBox.getValue();
         levelTextField.setText(selectedLevel);
     }
 
+    /**
+     * called by the uploadPhotoButton: to choose the photo of the user from the system
+     * @return
+     */
     public File uploadPhoto() {
         FileChooser fileChooser = new FileChooser();
 
-        //title for the fileChooser dialog
         fileChooser.setTitle("Upload User Photo");
 
-        //choosing the initial directory where the file chooser opens by default
+        //setting the initial directory where the file chooser opens by default
         File initialDirectory = new File("C:\\Users\\user\\Documents\\My Files\\AAUA LMS users photo album");
         fileChooser.setInitialDirectory(initialDirectory);
 
-        //showing the file chooser dialog
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG files", "*.jpg")
         );
@@ -127,7 +142,8 @@ public class ManageUsersMenuController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(this.getAddUserStage());
 
         if(selectedFile != null) {
-            System.out.println(selectedFile.getAbsoluteFile());
+            imagePath = selectedFile.getAbsolutePath();
+            System.out.println(imagePath);
             photoUploadConfirmationLabel.setText("File uploaded!");
             setScanCardConfirmationLabelAttribute("-fx-text-fill: black", "waiting for user to scan card...");
             return selectedFile;
@@ -136,8 +152,8 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     public void scanCard() {
-        scanCardTextField.requestFocus();
-        scanCardTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+        userLibraryIdTextField.requestFocus();
+        userLibraryIdTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.length() == 10) {
                 // Simulate database check (Replace this with your database query)
 
@@ -148,20 +164,43 @@ public class ManageUsersMenuController implements Initializable {
 
                 if (userFound) {
                     Platform.runLater(() -> {
-                        scanCardTextField.clear();
+                        userLibraryIdTextField.clear();
                         System.out.println("id already registered!");
                         scanCardConfirmationLabel.setText("");
                         showAlert("Notification: Card", "This card has already been registered with another user!");
                     });
                 } else {
                     // Optional: Inform the user or perform actions for a valid entry
-                    scanCardTextField.setText(newValue);
+                    userLibraryIdTextField.setText(newValue);
                     scanCardConfirmationLabel.requestFocus();
                     System.out.println("id not yet registered: " + newValue);
                     setScanCardConfirmationLabelAttribute("-fx-text-fill: #006400", "card successfully scanned!");
                 }
             }
         });
+    }
+
+    public void saveUser() {
+        UserService userService = new UserService();
+
+        boolean userSaved = false;
+
+        if(studentRadioButton.isSelected()) {
+            userSaved = userService.saveStudent(userLibraryIdTextField.getText(), userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(),
+                    imagePath, departmentTextField.getText(), levelTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
+        }
+        else if(staffRadioButton.isSelected()) {
+            userSaved = userService.saveStaff(userLibraryIdTextField.getText(), userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(),
+                    imagePath, departmentTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
+        }
+
+        if(userSaved) {
+            showAlert("Notification: User", "User successfully added as a patron!");
+        }
+        else {
+
+        }
+
     }
 
     private void showAlert(String title, String message) {
@@ -173,24 +212,24 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     public String getId() {
-        System.out.println(scanCardTextField.getText());
-        return scanCardTextField.getText();
+        System.out.println(userLibraryIdTextField.getText());
+        return userLibraryIdTextField.getText();
     }
 
-    private void loadScannerWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scannerWindow.fxml"));
-        Parent scannerWindowRoot = fxmlLoader.load();
-        Scene scannerWindowScene = new Scene(scannerWindowRoot);
-
-        Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
-
-        getAddUserStage().initModality(Modality.APPLICATION_MODAL);
-        getAddUserStage().setScene(scannerWindowScene);
-        getAddUserStage().setTitle("Scanner Window");
-        getAddUserStage().getIcons().add(scanIcon);
-        getAddUserStage().setResizable(false);
-        getAddUserStage().show();
-    }
+//    private void loadScannerWindow() throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scannerWindow.fxml"));
+//        Parent scannerWindowRoot = fxmlLoader.load();
+//        Scene scannerWindowScene = new Scene(scannerWindowRoot);
+//
+//        Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
+//
+//        getAddUserStage().initModality(Modality.APPLICATION_MODAL);
+//        getAddUserStage().setScene(scannerWindowScene);
+//        getAddUserStage().setTitle("Scanner Window");
+//        getAddUserStage().getIcons().add(scanIcon);
+//        getAddUserStage().setResizable(false);
+//        getAddUserStage().show();
+//    }
 
     public void changeButtonColor() {
         saveUserButton.setStyle("-fx-background-color: #113C14");

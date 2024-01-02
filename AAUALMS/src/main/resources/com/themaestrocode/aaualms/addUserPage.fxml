@@ -144,7 +144,7 @@
             </Button>
             <Label fx:id="photoUploadConfirmationLabel" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
             <Label fx:id="scanCardConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-            <TextField fx:id="scanCardTextField" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+            <TextField fx:id="userLibraryIdTextField" GridPane.columnIndex="2" GridPane.rowIndex="14" />
          </children>
       </GridPane>
    </children>
