@@ -14,6 +14,6 @@
          </image>
       </ImageView>
       <Label layoutX="110.0" layoutY="284.0" text="waiting for user to scan..." />
-      <TextField fx:id="cardOrTagValueTextField" layoutX="102.0" layoutY="304.0" />
+      <TextField fx:id="cardOrTagValueTextField" layoutX="102.0" layoutY="304.0" onMouseEntered="#validateCard" />
    </children>
 </AnchorPane>

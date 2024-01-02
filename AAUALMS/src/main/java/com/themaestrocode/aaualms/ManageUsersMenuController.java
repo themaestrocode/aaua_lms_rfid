@@ -2,6 +2,8 @@ package com.themaestrocode.aaualms;
 
 import com.themaestrocode.aaualms.service.DepartmentService;
 import com.themaestrocode.aaualms.service.FacultyService;
+import com.themaestrocode.aaualms.service.UserService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,17 +25,16 @@ public class ManageUsersMenuController implements Initializable {
     @FXML
     private Button saveUserButton;
     @FXML
-    private Label userIdLabel, photoUploadConfirmationLabel;
+    private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel;
     @FXML
-    private Label scanCardConfirmationLabel;
-    @FXML
-    private TextField facultyTextField, departmentTextField, levelTextField;
+    private TextField userIdTextField, firstNameTextField, lastNameTextField, facultyTextField, departmentTextField, levelTextField, phoneNoTextField, emailTextField, scanCardTextField;
     @FXML
     private ComboBox facultyComboBox, departmentComboBox, levelComboBox;
     @FXML
     private RadioButton studentRadioButton, staffRadioButton;
 
-    private Stage stage;
+    private Stage addUserStage = new Stage();
+    private String cardNo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +64,7 @@ public class ManageUsersMenuController implements Initializable {
 
         Image userImage = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
 
-        Stage addUserStage = new Stage();
+        //addUserStage = new Stage();
         addUserStage.initModality(Modality.APPLICATION_MODAL);
         addUserStage.setTitle("Add User");
         addUserStage.setScene(scene);
@@ -123,19 +124,72 @@ public class ManageUsersMenuController implements Initializable {
                 new FileChooser.ExtensionFilter("JPG files", "*.jpg")
         );
 
-        File selectedFile = fileChooser.showOpenDialog(this.getStage());
+        File selectedFile = fileChooser.showOpenDialog(this.getAddUserStage());
 
         if(selectedFile != null) {
             System.out.println(selectedFile.getAbsoluteFile());
             photoUploadConfirmationLabel.setText("File uploaded!");
+            setScanCardConfirmationLabelAttribute("-fx-text-fill: black", "waiting for user to scan card...");
             return selectedFile;
         }
         return null;
     }
 
-    public void scanCard() throws IOException {
-        AddUserScannerWindowController addUserScannerWindowController = new AddUserScannerWindowController();
-        addUserScannerWindowController.loadScannerWindow();
+    public void scanCard() {
+        scanCardTextField.requestFocus();
+        scanCardTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.length() == 10) {
+                // Simulate database check (Replace this with your database query)
+
+                boolean userFound = false;
+
+                UserService userService = new UserService();
+                userFound = userService.findUser(newValue);
+
+                if (userFound) {
+                    Platform.runLater(() -> {
+                        scanCardTextField.clear();
+                        System.out.println("id already registered!");
+                        scanCardConfirmationLabel.setText("");
+                        showAlert("Notification: Card", "This card has already been registered with another user!");
+                    });
+                } else {
+                    // Optional: Inform the user or perform actions for a valid entry
+                    scanCardTextField.setText(newValue);
+                    scanCardConfirmationLabel.requestFocus();
+                    System.out.println("id not yet registered: " + newValue);
+                    setScanCardConfirmationLabelAttribute("-fx-text-fill: #006400", "card successfully scanned!");
+                }
+            }
+        });
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public String getId() {
+        System.out.println(scanCardTextField.getText());
+        return scanCardTextField.getText();
+    }
+
+    private void loadScannerWindow() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scannerWindow.fxml"));
+        Parent scannerWindowRoot = fxmlLoader.load();
+        Scene scannerWindowScene = new Scene(scannerWindowRoot);
+
+        Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
+
+        getAddUserStage().initModality(Modality.APPLICATION_MODAL);
+        getAddUserStage().setScene(scannerWindowScene);
+        getAddUserStage().setTitle("Scanner Window");
+        getAddUserStage().getIcons().add(scanIcon);
+        getAddUserStage().setResizable(false);
+        getAddUserStage().show();
     }
 
     public void changeButtonColor() {
@@ -146,23 +200,16 @@ public class ManageUsersMenuController implements Initializable {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
-    public String getButtonText() {
-        return saveUserButton.getText();
-    }
-
-    public String getSaveUserButtonText() {
-        return saveUserButton.getText();
-    }
-
     public void setScanCardConfirmationLabelAttribute(String color, String text) {
-        scanCardConfirmationLabel.setText(text);
         scanCardConfirmationLabel.setStyle(color);
+        scanCardConfirmationLabel.setText(text);
     }
-    public Stage getStage() {
-        return stage;
+    public Stage getAddUserStage() {
+        return addUserStage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setAddUserStage(Stage addUserStage) {
+        this.addUserStage = addUserStage;
     }
+
 }

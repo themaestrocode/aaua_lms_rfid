@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.ManageUsersMenuController">
+<StackPane fx:id="addUserStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.ManageUsersMenuController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -144,6 +144,7 @@
             </Button>
             <Label fx:id="photoUploadConfirmationLabel" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
             <Label fx:id="scanCardConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+            <TextField fx:id="scanCardTextField" GridPane.columnIndex="2" GridPane.rowIndex="14" />
          </children>
       </GridPane>
    </children>
