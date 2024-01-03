@@ -19,9 +19,11 @@ public class DepartmentRepository {
             Connection connection = DBConnector.connect();
 
             String query = "SELECT department_name FROM department WHERE faculty_id IN " +
-                    "(SELECT faculty_id FROM faculty WHERE faculty_name = '" + facultyName + "')";
+                    "(SELECT faculty_id FROM faculty WHERE faculty_name = ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, facultyName);
+
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
@@ -37,5 +39,26 @@ public class DepartmentRepository {
             throw new RuntimeException(e);
         }
         return departmentList;
+    }
+    
+    public int findDepartmentByName(String departmentName) {
+        int departmentId = 0;
+        try {
+            Connection connection = DBConnector.connect();
+            
+            String query = "SELECT department_id FROM department WHERE department_name = ?";
+            
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, departmentName);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            if(resultSet.next()) {
+                departmentId = resultSet.getInt("department_id");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return departmentId;
     }
 }

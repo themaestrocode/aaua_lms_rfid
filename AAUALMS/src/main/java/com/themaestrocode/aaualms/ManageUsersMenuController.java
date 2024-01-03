@@ -1,8 +1,12 @@
 package com.themaestrocode.aaualms;
 
+import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.DepartmentService;
 import com.themaestrocode.aaualms.service.FacultyService;
 import com.themaestrocode.aaualms.service.UserService;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,13 +31,15 @@ public class ManageUsersMenuController implements Initializable {
     @FXML
     private Button saveUserButton;
     @FXML
-    private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel;
+    private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel, saveUserOutcomeLabel;
     @FXML
     private TextField userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, facultyTextField, departmentTextField, levelTextField, phoneNoTextField, emailTextField;
     @FXML
     private ComboBox facultyComboBox, departmentComboBox, levelComboBox;
     @FXML
     private RadioButton studentRadioButton, staffRadioButton;
+    @FXML
+    private ImageView scanIcon;
 
     private Stage addUserStage = new Stage();
     private String cardNo;
@@ -50,6 +58,8 @@ public class ManageUsersMenuController implements Initializable {
         facultyComboBox.setEditable(false);
         levelComboBox.getItems().addAll("100L", "200L", "300L", "400L", "500L", "PGD");
         departmentComboBox.setEditable(false);
+        userLibraryIdTextField.setVisible(false);
+        scanIcon.setVisible(false);
     }
 
     /**
@@ -144,14 +154,20 @@ public class ManageUsersMenuController implements Initializable {
         if(selectedFile != null) {
             imagePath = selectedFile.getAbsolutePath();
             System.out.println(imagePath);
-            photoUploadConfirmationLabel.setText("File uploaded!");
-            setScanCardConfirmationLabelAttribute("-fx-text-fill: black", "waiting for user to scan card...");
+            photoUploadConfirmationLabel.setText("Photo uploaded!");
+            setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: black", "waiting for user to scan card...");
             return selectedFile;
         }
         return null;
     }
 
     public void scanCard() {
+        if(!validateImageUpload(imagePath)) {
+            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not uploaded!");
+        }
+
+        setScanIconAnimation(true);
+
         userLibraryIdTextField.requestFocus();
         userLibraryIdTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.length() == 10) {
@@ -171,10 +187,11 @@ public class ManageUsersMenuController implements Initializable {
                     });
                 } else {
                     // Optional: Inform the user or perform actions for a valid entry
+                    setScanIconAnimation(false);
                     userLibraryIdTextField.setText(newValue);
                     scanCardConfirmationLabel.requestFocus();
                     System.out.println("id not yet registered: " + newValue);
-                    setScanCardConfirmationLabelAttribute("-fx-text-fill: #006400", "card successfully scanned!");
+                    setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: #006400", "card successfully scanned!");
                 }
             }
         });
@@ -186,19 +203,25 @@ public class ManageUsersMenuController implements Initializable {
         boolean userSaved = false;
 
         if(studentRadioButton.isSelected()) {
-            userSaved = userService.saveStudent(userLibraryIdTextField.getText(), userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(),
-                    imagePath, departmentTextField.getText(), levelTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
+            User student = new User(userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
+                    levelTextField, phoneNoTextField, emailTextField);
+            userSaved = userService.saveStudent(student);
         }
         else if(staffRadioButton.isSelected()) {
-            userSaved = userService.saveStaff(userLibraryIdTextField.getText(), userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(),
-                    imagePath, departmentTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
+            User staff = new User(userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
+                    phoneNoTextField, emailTextField);
+            userSaved = userService.saveStaff(staff);
         }
 
         if(userSaved) {
+            if(!saveUserOutcomeLabel.getText().isEmpty()) {
+                saveUserOutcomeLabel.setText("");
+            }
             showAlert("Notification: User", "User successfully added as a patron!");
+            getAddUserStage().close();
         }
         else {
-
+            setLabelAttribute(saveUserOutcomeLabel, "-fx-text-fill: #AA0000", "error: user could not be saved!");
         }
 
     }
@@ -209,11 +232,6 @@ public class ManageUsersMenuController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public String getId() {
-        System.out.println(userLibraryIdTextField.getText());
-        return userLibraryIdTextField.getText();
     }
 
 //    private void loadScannerWindow() throws IOException {
@@ -231,6 +249,25 @@ public class ManageUsersMenuController implements Initializable {
 //        getAddUserStage().show();
 //    }
 
+    private void setScanIconAnimation(boolean show) {
+        RotateTransition rotate = new RotateTransition();
+
+        if(show == true) {
+            scanIcon.setVisible(true);
+
+            rotate.setNode(scanIcon);
+            rotate.setDuration(Duration.millis(3000));
+            rotate.setCycleCount(TranslateTransition.INDEFINITE);
+            rotate.setInterpolator(Interpolator.LINEAR);
+            rotate.setByAngle(360);
+            rotate.play();
+        }
+        else {
+            rotate.stop();
+            scanIcon.setVisible(false);
+        }
+    }
+
     public void changeButtonColor() {
         saveUserButton.setStyle("-fx-background-color: #113C14");
     }
@@ -239,9 +276,17 @@ public class ManageUsersMenuController implements Initializable {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
-    public void setScanCardConfirmationLabelAttribute(String color, String text) {
-        scanCardConfirmationLabel.setStyle(color);
-        scanCardConfirmationLabel.setText(text);
+    private boolean validateImageUpload(String image) {
+        if(image == null) {
+            System.out.println("image not validated");
+            return false;
+        }
+        return true;
+    }
+
+    public void setLabelAttribute(Label name, String color, String text) {
+        name.setStyle(color);
+        name.setText(text);
     }
     public Stage getAddUserStage() {
         return addUserStage;
