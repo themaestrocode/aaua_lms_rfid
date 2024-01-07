@@ -58,7 +58,7 @@ public class ManageUsersMenuController implements Initializable {
         facultyComboBox.setEditable(false);
         levelComboBox.getItems().addAll("100L", "200L", "300L", "400L", "500L", "PGD");
         departmentComboBox.setEditable(false);
-        userLibraryIdTextField.setVisible(false);
+        userLibraryIdTextField.setVisible(true);
         scanIcon.setVisible(false);
     }
 
