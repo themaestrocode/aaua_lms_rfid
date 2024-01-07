@@ -278,7 +278,7 @@ public class ManageUsersMenuController implements Initializable {
 
     private boolean validateImageUpload(String image) {
         if(image == null) {
-            System.out.println("image not validated");
+            System.out.println("image not valid!");
             return false;
         }
         return true;

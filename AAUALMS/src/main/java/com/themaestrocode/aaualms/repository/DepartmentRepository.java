@@ -40,19 +40,19 @@ public class DepartmentRepository {
         }
         return departmentList;
     }
-    
+
     public int findDepartmentByName(String departmentName) {
         int departmentId = 0;
         try {
             Connection connection = DBConnector.connect();
-            
+
             String query = "SELECT department_id FROM department WHERE department_name = ?";
-            
+
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, departmentName);
-            
+
             ResultSet resultSet = statement.executeQuery();
-            
+
             if(resultSet.next()) {
                 departmentId = resultSet.getInt("department_id");
             }

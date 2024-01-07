@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class DBConnector {
 
-    private static String url, username, password, filePath = "C:\\Users\\user\\Documents\\My Files\\sql details.txt";
+    private static String url, username, password, filePath = "C:\\Users\\VICTOR A. SODERU\\Documents\\My Files\\mysql details.txt";
 
     public static Connection connect() throws SQLException {
         try {

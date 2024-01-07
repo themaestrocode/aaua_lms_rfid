@@ -1,7 +1,6 @@
 module com.themaestrocode.aaualms {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.desktop;
     requires java.sql;
 
 
