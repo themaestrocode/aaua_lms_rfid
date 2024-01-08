@@ -42,7 +42,7 @@ public class ManageUsersMenuController implements Initializable {
     private ImageView scanIcon;
 
     private Stage addUserStage = new Stage();
-    private String cardNo;
+    private String userLibraryId;
     private String imagePath;
 
     @Override
@@ -142,7 +142,7 @@ public class ManageUsersMenuController implements Initializable {
         fileChooser.setTitle("Upload User Photo");
 
         //setting the initial directory where the file chooser opens by default
-        File initialDirectory = new File("C:\\Users\\user\\Documents\\My Files\\AAUA LMS users photo album");
+        File initialDirectory = new File("C:\\Users\\VICTOR A. SODERU\\Documents\\USERS PHOTO ALBUM");
         fileChooser.setInitialDirectory(initialDirectory);
 
         fileChooser.getExtensionFilters().addAll(
@@ -162,7 +162,9 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     public void scanCard() {
-        if(!validateImageUpload(imagePath)) {
+        UserService userService = new UserService();
+
+        if(!userService.validateImageUpload(imagePath)) {
             setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not uploaded!");
         }
 
@@ -175,7 +177,6 @@ public class ManageUsersMenuController implements Initializable {
 
                 boolean userFound = false;
 
-                UserService userService = new UserService();
                 userFound = userService.findUser(newValue);
 
                 if (userFound) {
@@ -188,7 +189,8 @@ public class ManageUsersMenuController implements Initializable {
                 } else {
                     // Optional: Inform the user or perform actions for a valid entry
                     setScanIconAnimation(false);
-                    userLibraryIdTextField.setText(newValue);
+                    userLibraryId = newValue;
+                    userLibraryIdTextField.clear();
                     scanCardConfirmationLabel.requestFocus();
                     System.out.println("id not yet registered: " + newValue);
                     setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: #006400", "card successfully scanned!");
@@ -203,12 +205,12 @@ public class ManageUsersMenuController implements Initializable {
         boolean userSaved = false;
 
         if(studentRadioButton.isSelected()) {
-            User student = new User(userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
+            User student = new User(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
                     levelTextField, phoneNoTextField, emailTextField);
             userSaved = userService.saveStudent(student);
         }
         else if(staffRadioButton.isSelected()) {
-            User staff = new User(userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
+            User staff = new User(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
                     phoneNoTextField, emailTextField);
             userSaved = userService.saveStaff(staff);
         }
@@ -218,7 +220,7 @@ public class ManageUsersMenuController implements Initializable {
                 saveUserOutcomeLabel.setText("");
             }
             showAlert("Notification: User", "User successfully added as a patron!");
-            getAddUserStage().close();
+            addUserStage.close();
         }
         else {
             setLabelAttribute(saveUserOutcomeLabel, "-fx-text-fill: #AA0000", "error: user could not be saved!");
@@ -274,14 +276,6 @@ public class ManageUsersMenuController implements Initializable {
 
     public void reverseButtonColor() {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
-    }
-
-    private boolean validateImageUpload(String image) {
-        if(image == null) {
-            System.out.println("image not valid!");
-            return false;
-        }
-        return true;
     }
 
     public void setLabelAttribute(Label name, String color, String text) {

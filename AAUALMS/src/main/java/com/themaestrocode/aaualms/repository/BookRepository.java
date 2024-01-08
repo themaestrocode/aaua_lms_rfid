@@ -42,7 +42,7 @@ public class BookRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE(date_issued) = CURDATE()";
+            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE(issue_date) = CURDATE()";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -66,7 +66,7 @@ public class BookRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE_ADD(date_issued, INTERVAL 7 DAY) = CURDATE()";
+            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE_ADD(issue_date, INTERVAL 7 DAY) = CURDATE()";
 
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -91,7 +91,7 @@ public class BookRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE_ADD(date_issued, INTERVAL 14 DAY) = CURDATE()";
+            String query = "SELECT COUNT(*) AS count_today FROM issued_books WHERE DATE_ADD(issue_date, INTERVAL 14 DAY) = CURDATE()";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 
@@ -115,7 +115,7 @@ public class BookRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT COUNT(*) AS count_books FROM book WHERE book_status = \"AVAILABLE\"";
+            String query = "SELECT COUNT(*) AS count_books FROM books WHERE book_status = \"AVAILABLE\"";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
 

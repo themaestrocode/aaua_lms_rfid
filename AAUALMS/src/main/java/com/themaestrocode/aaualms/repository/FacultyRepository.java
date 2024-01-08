@@ -18,7 +18,7 @@ public class FacultyRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT faculty_name FROM faculty";
+            String query = "SELECT faculty_name FROM faculties";
 
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();

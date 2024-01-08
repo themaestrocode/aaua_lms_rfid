@@ -19,10 +19,10 @@ public class UserRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "INSERT INTO student VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO students VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, student.getUserLibraryId().getText());
+            statement.setString(1, student.getUserLibraryId());
             statement.setString(2, student.getUserId().getText());
             statement.setString(3, student.getFirstName().getText());
             statement.setString(4, student.getLastName().getText());
@@ -57,7 +57,7 @@ public class UserRepository {
             String query = "INSERT INTO staff VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, staff.getUserLibraryId().getText());
+            statement.setString(1, staff.getUserLibraryId());
             statement.setString(2, staff.getUserId().getText());
             statement.setString(3, staff.getFirstName().getText());
             statement.setString(4, staff.getLastName().getText());
@@ -85,7 +85,7 @@ public class UserRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT student_lib_id AS user_lib_id FROM student WHERE student_lib_id = ? " +
+            String query = "SELECT student_lib_id AS user_lib_id FROM students WHERE student_lib_id = ? " +
                     "UNION " +
                     "SELECT staff_lib_id AS user_lib_id FROM staff WHERE staff_lib_id = ?";
 

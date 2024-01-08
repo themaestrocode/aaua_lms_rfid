@@ -18,8 +18,8 @@ public class DepartmentRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT department_name FROM department WHERE faculty_id IN " +
-                    "(SELECT faculty_id FROM faculty WHERE faculty_name = ?)";
+            String query = "SELECT department_name FROM departments WHERE faculty_id IN " +
+                    "(SELECT faculty_id FROM faculties WHERE faculty_name = ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, facultyName);
@@ -46,7 +46,7 @@ public class DepartmentRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT department_id FROM department WHERE department_name = ?";
+            String query = "SELECT department_id FROM departments WHERE department_name = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, departmentName);

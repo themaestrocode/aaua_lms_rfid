@@ -1,5 +1,6 @@
 package com.themaestrocode.aaualms.service;
 
+import com.themaestrocode.aaualms.ManageUsersMenuController;
 import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.repository.UserRepository;
 import javafx.scene.control.TextField;
@@ -13,8 +14,9 @@ public class UserService {
         UserRepository userRepository = new UserRepository();
 
         if(validateUserLibraryId(student.getUserLibraryId()) && validateUserId(student.getUserId()) && validateFirstName(student.getFirstName()) &&
-                validateLastName(student.getLastName()) && validateFaculty(student.getFaculty()) && validateDepartment(student.getDepartment()) &&
-                validateLevel(student.getLevel()) && validatePhoneNumber(student.getPhoneNumber()) && validateEmail(student.getEmail())) {
+                validateLastName(student.getLastName()) && validateImageUpload(student.getImagePath()) && validateFaculty(student.getFaculty()) &&
+                validateDepartment(student.getDepartment()) && validateLevel(student.getLevel()) && validatePhoneNumber(student.getPhoneNumber()) &&
+                validateEmail(student.getEmail())) {
             return userRepository.saveStudent(student);
         }
 
@@ -22,56 +24,72 @@ public class UserService {
             setTextFieldAttribute(student.getUserId());
         }
         else {
-            reverseTextColor(student.getUserId());
+            if(!student.getUserId().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getUserId());
+            }
         }
 
         if(!validateFirstName(student.getFirstName())) {
             setTextFieldAttribute(student.getFirstName());
         }
         else {
-            reverseTextColor(student.getFirstName());
+            if(!student.getFirstName().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getFirstName());
+            }
         }
 
         if(!validateLastName(student.getLastName())) {
             setTextFieldAttribute(student.getLastName());
         }
         else {
-            reverseTextColor(student.getLastName());
+            if(!student.getLastName().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getLastName());
+            }
         }
 
         if(!validateFaculty(student.getFaculty())) {
             setTextFieldAttribute(student.getFaculty());
         }
         else {
-            reverseTextColor(student.getFaculty());
+            if(!student.getFaculty().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getFaculty());
+            }
         }
 
         if(!validateDepartment(student.getDepartment())) {
             setTextFieldAttribute(student.getDepartment());
         }
         else {
-            reverseTextColor(student.getDepartment());
+            if(!student.getDepartment().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getDepartment());
+            }
         }
 
         if(!validateLevel(student.getLevel())) {
             setTextFieldAttribute(student.getLevel());
         }
         else {
-            reverseTextColor(student.getLevel());
+            if(!student.getLevel().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getLevel());
+            }
         }
 
         if(!validatePhoneNumber(student.getPhoneNumber())) {
             setTextFieldAttribute(student.getPhoneNumber());
         }
         else {
-            reverseTextColor(student.getPhoneNumber());
+            if(!student.getPhoneNumber().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getPhoneNumber());
+            }
         }
 
         if(!validateEmail(student.getEmail())) {
             setTextFieldAttribute(student.getEmail());
         }
         else {
-            reverseTextColor(student.getEmail());
+            if(!student.getEmail().getText().equals("invalid or empty!")) {
+                reverseTextColor(student.getEmail());
+            }
         }
         return false;
     }
@@ -80,8 +98,8 @@ public class UserService {
         UserRepository userRepository = new UserRepository();
 
         if(validateUserLibraryId(staff.getUserLibraryId()) && validateUserId(staff.getUserId()) && validateFirstName(staff.getFirstName()) &&
-                validateLastName(staff.getLastName()) && validateFaculty(staff.getFaculty()) && validateDepartment(staff.getDepartment()) &&
-                validatePhoneNumber(staff.getPhoneNumber()) && validateEmail(staff.getEmail())) {
+                validateLastName(staff.getLastName()) && validateImageUpload(staff.getImagePath()) && validateFaculty(staff.getFaculty()) &&
+                validateDepartment(staff.getDepartment()) && validatePhoneNumber(staff.getPhoneNumber()) && validateEmail(staff.getEmail())) {
             return userRepository.saveStaff(staff);
         }
 
@@ -89,62 +107,74 @@ public class UserService {
             setTextFieldAttribute(staff.getUserId());
         }
         else {
-            reverseTextColor(staff.getUserId());
+            if(!staff.getUserId().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getUserId());
+            }
         }
 
         if(!validateFirstName(staff.getFirstName())) {
             setTextFieldAttribute(staff.getFirstName());
         }
         else {
-            reverseTextColor(staff.getFirstName());
+            if(!staff.getFirstName().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getFirstName());
+            }
         }
 
         if(!validateLastName(staff.getLastName())) {
             setTextFieldAttribute(staff.getLastName());
         }
         else {
-            reverseTextColor(staff.getLastName());
+            if(!staff.getLastName().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getLastName());
+            }
         }
 
         if(!validateFaculty(staff.getFaculty())) {
             setTextFieldAttribute(staff.getFaculty());
         }
         else {
-            reverseTextColor(staff.getFaculty());
+            if(!staff.getFaculty().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getFaculty());
+            }
         }
 
         if(!validateDepartment(staff.getDepartment())) {
             setTextFieldAttribute(staff.getDepartment());
         }
         else {
-            reverseTextColor(staff.getDepartment());
+            if(!staff.getDepartment().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getDepartment());
+            }
         }
 
         if(!validatePhoneNumber(staff.getPhoneNumber())) {
             setTextFieldAttribute(staff.getPhoneNumber());
         }
         else {
-            reverseTextColor(staff.getPhoneNumber());
+            if(!staff.getPhoneNumber().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getPhoneNumber());
+            }
         }
 
         if(!validateEmail(staff.getEmail())) {
             setTextFieldAttribute(staff.getEmail());
         }
         else {
-            reverseTextColor(staff.getEmail());
+            if(!staff.getEmail().getText().equals("invalid or empty!")) {
+                reverseTextColor(staff.getEmail());
+            }
         }
         return false;
     }
 
-
-
-    private boolean validateUserLibraryId(TextField userLibraryId) {
-        if(userLibraryId.getText().isEmpty()) {
-            System.out.println("user library id not validated");
-            return false;
-        }
-        return true;
-    }
+//    private boolean validateUserLibraryId(TextField userLibraryId) {
+//        if(userLibraryId.getText().isEmpty()) {
+//            System.out.println("user library id not validated");
+//            return false;
+//        }
+//        return true;
+//    }
 
     private boolean validateUserId(TextField userId) {
         if(userId.getText().isEmpty()) {
@@ -225,7 +255,23 @@ public class UserService {
 
     private void setTextFieldAttribute(TextField name) {
         name.setStyle("-fx-text-fill: #AA0000");
-        name.setText("invalid or empty");
+        name.setText("invalid or empty!");
+    }
+
+    public boolean validateImageUpload(String imagePath) {
+        if(imagePath == null) {
+            System.out.println("image not yet uploaded!");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateUserLibraryId(String userLibraryId) {
+        if(userLibraryId == null) {
+            System.out.println("user library id is null");
+            return false;
+        }
+        return true;
     }
 
     private void reverseTextColor(TextField name) {

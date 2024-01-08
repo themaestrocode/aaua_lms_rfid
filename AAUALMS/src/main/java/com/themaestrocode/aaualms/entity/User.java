@@ -4,7 +4,7 @@ import javafx.scene.control.TextField;
 
 public class User {
 
-    private TextField userLibraryId;
+    private String userLibraryId;
     private TextField userId;
     private TextField firstName;
     private TextField lastName;
@@ -16,7 +16,7 @@ public class User {
     private TextField email;
 
     //constructor for student user
-    public User(TextField userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField level, TextField phoneNumber, TextField email) {
+    public User(String userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField level, TextField phoneNumber, TextField email) {
         this.userLibraryId = userLibraryId;
         this.userId = userId;
         this.firstName = firstName;
@@ -30,7 +30,7 @@ public class User {
     }
 
     //Constructor for staff user
-    public User(TextField userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField phoneNumber, TextField email) {
+    public User(String userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField phoneNumber, TextField email) {
         this.userLibraryId = userLibraryId;
         this.userId = userId;
         this.firstName = firstName;
@@ -42,11 +42,11 @@ public class User {
         this.email = email;
     }
 
-    public TextField getUserLibraryId() {
+    public String getUserLibraryId() {
         return userLibraryId;
     }
 
-    public void setUserLibraryId(TextField userLibraryId) {
+    public void setUserLibraryId(String userLibraryId) {
         this.userLibraryId = userLibraryId;
     }
 
