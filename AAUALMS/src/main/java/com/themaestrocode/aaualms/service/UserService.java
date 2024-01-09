@@ -248,16 +248,6 @@ public class UserService {
         return false;
     }
 
-    public boolean findUser(String userId) {
-        UserRepository userRepository = new UserRepository();
-        return userRepository.findUser(userId);
-    }
-
-    private void setTextFieldAttribute(TextField name) {
-        name.setStyle("-fx-text-fill: #AA0000");
-        name.setText("invalid or empty!");
-    }
-
     public boolean validateImageUpload(String imagePath) {
         if(imagePath == null) {
             System.out.println("image not yet uploaded!");
@@ -272,6 +262,16 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    public boolean findUser(String userId) {
+        UserRepository userRepository = new UserRepository();
+        return userRepository.findUser(userId);
+    }
+
+    private void setTextFieldAttribute(TextField name) {
+        name.setStyle("-fx-text-fill: #AA0000");
+        name.setText("invalid or empty!");
     }
 
     private void reverseTextColor(TextField name) {

@@ -154,7 +154,7 @@ public class ManageUsersMenuController implements Initializable {
         if(selectedFile != null) {
             imagePath = selectedFile.getAbsolutePath();
             System.out.println(imagePath);
-            photoUploadConfirmationLabel.setText("Photo uploaded!");
+            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #006400", "Photo uploaded!");
             setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: black", "waiting for user to scan card...");
             return selectedFile;
         }
@@ -165,16 +165,16 @@ public class ManageUsersMenuController implements Initializable {
         UserService userService = new UserService();
 
         if(!userService.validateImageUpload(imagePath)) {
-            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not uploaded!");
+            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not yet uploaded!");
         }
+
+        userLibraryIdTextField.setDisable(false);
 
         setScanIconAnimation(true);
 
         userLibraryIdTextField.requestFocus();
         userLibraryIdTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.length() == 10) {
-                // Simulate database check (Replace this with your database query)
-
                 boolean userFound = false;
 
                 userFound = userService.findUser(newValue);
@@ -186,11 +186,12 @@ public class ManageUsersMenuController implements Initializable {
                         scanCardConfirmationLabel.setText("");
                         showAlert("Notification: Card", "This card has already been registered with another user!");
                     });
-                } else {
-                    // Optional: Inform the user or perform actions for a valid entry
+                }
+                else {
                     setScanIconAnimation(false);
                     userLibraryId = newValue;
-                    userLibraryIdTextField.clear();
+                    userLibraryIdTextField.setDisable(true);
+                    //userLibraryIdTextField.clear();
                     scanCardConfirmationLabel.requestFocus();
                     System.out.println("id not yet registered: " + newValue);
                     setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: #006400", "card successfully scanned!");
@@ -216,11 +217,12 @@ public class ManageUsersMenuController implements Initializable {
         }
 
         if(userSaved) {
-            if(!saveUserOutcomeLabel.getText().isEmpty()) {
-                saveUserOutcomeLabel.setText("");
-            }
-            showAlert("Notification: User", "User successfully added as a patron!");
-            addUserStage.close();
+//            if(!saveUserOutcomeLabel.getText().isEmpty()) {
+//                saveUserOutcomeLabel.setText("");
+//            }
+            setLabelAttribute(saveUserOutcomeLabel, "fx-text-fill: #006400", "User saved!");
+            showAlert("Notification: New User Added", "User successfully added as a patron!");
+            //addUserStage.close();
         }
         else {
             setLabelAttribute(saveUserOutcomeLabel, "-fx-text-fill: #AA0000", "error: user could not be saved!");
