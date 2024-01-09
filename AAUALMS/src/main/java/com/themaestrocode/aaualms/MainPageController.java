@@ -1,15 +1,9 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.service.BookService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,19 +14,24 @@ public class MainPageController implements Initializable {
     @FXML
     private Button logoutButton;
     @FXML
-    private Label numberOfBooksIssuedLabel, numberOfBooksDueLabel, numberOfBooksAvailable;
-    @FXML
     private Hyperlink manageUsersLink;
-
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
 
     private LoginPageController loginPageController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        updateTodaysRecord();
+
+    }
+
+    /**
+     * called by the home button of the MainPageController and opens the dashboard scene
+     * @param event
+     * @throws IOException
+     */
+    public void goToDashboard(ActionEvent event) throws IOException {
+        DashboardController dashboardController = new DashboardController();
+
+        dashboardController.loadDashboard(event);
     }
 
     /**
@@ -57,29 +56,6 @@ public class MainPageController implements Initializable {
         }
     }
 
-    /**
-     * sets the appropriate values for the bars on the dashboard to give a numerical report on the day's transactions.
-     * It uses the BookService object to fetch the data from the database.
-     */
-    public void updateTodaysRecord() {
-        BookService bookService = new BookService();
-
-        numberOfBooksIssuedLabel.setText(bookService.booksIssuedToday());
-        numberOfBooksDueLabel.setText(bookService.booksDueToday());
-        numberOfBooksAvailable.setText(bookService.availableBooks());
-    }
-
-    /**
-     * loads the main page scene unto the primary stage.
-     * Can be called by any class from where access to the main page is needed.
-     * @param event
-     * @throws IOException
-     */
-    public void loadMainPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("mainPageScene.fxml"));
-        ((Node) event.getSource()).getScene().setRoot(root);
-    }
-
     public void changeButtonColor() {
         logoutButton.setStyle("-fx-background-color: #6F1515");
     }
@@ -101,11 +77,10 @@ public class MainPageController implements Initializable {
         MenuItem seeAllStaffItem = new MenuItem("See all Staff");
 
         addUserItem.setOnAction(e -> {
-            // Handle "Add Student" action
-            ManageUsersMenuController manageUsersMenuController = new ManageUsersMenuController();
+            AddUserPageController addUserPageController = new AddUserPageController();
 
             try {
-                manageUsersMenuController.loadAddUserPage();
+                addUserPageController.loadAddUserPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -113,6 +88,13 @@ public class MainPageController implements Initializable {
         });
 
         seeAllStudentsItem.setOnAction(e -> {
+            AllStudentsPageController allStudentsPageController = new AllStudentsPageController();
+
+            try {
+                allStudentsPageController.loadAllStudentsPage(event);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             System.out.println("showing all students...");
         });
 

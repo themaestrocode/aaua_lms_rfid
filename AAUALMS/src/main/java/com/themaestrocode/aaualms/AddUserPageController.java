@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ManageUsersMenuController implements Initializable {
+public class AddUserPageController implements Initializable {
 
     @FXML
     private Button saveUserButton;
@@ -56,9 +56,12 @@ public class ManageUsersMenuController implements Initializable {
         //fetch all faculties from the DB and populate the faculty combo box
         facultyComboBox.setItems(facultyService.getAllFaculty());
         facultyComboBox.setEditable(false);
+        //populate the level combo box
         levelComboBox.getItems().addAll("100L", "200L", "300L", "400L", "500L", "PGD");
         departmentComboBox.setEditable(false);
-        userLibraryIdTextField.setVisible(true);
+        //hides the userLibraryTextField to achieve the RFID card scanning seamless functionality
+        userLibraryIdTextField.setVisible(false);
+        //sets the scanIcon visibility to false until the scanCard method is called
         scanIcon.setVisible(false);
     }
 
@@ -104,8 +107,8 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     /**
-     * called when a faculty gets selected from the faculty Combobox item list.
-     * It also populates the department combo box based on the selectd faculty
+     * called when a faculty gets selected from the faculty Combo box items list.
+     * It also populates the department combo box based on the selected faculty
      */
     public void chooseFaculty() {
         DepartmentService departmentService = new DepartmentService();
@@ -117,7 +120,7 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     /**
-     * called when a department gets selected from the department Combobox item list.
+     * called when a department gets selected from the department Combo box items list.
      */
     public void chooseDepartment() {
         String selectedDepartment = (String) departmentComboBox.getValue();
@@ -125,7 +128,7 @@ public class ManageUsersMenuController implements Initializable {
     }
 
     /**
-     * called when a level gets selected from the level Combobox item list.
+     * called when a level gets selected from the level Combo box items list.
      */
     public void chooseLevel() {
         String selectedLevel = (String) levelComboBox.getValue();
@@ -134,7 +137,7 @@ public class ManageUsersMenuController implements Initializable {
 
     /**
      * called by the uploadPhotoButton: to choose the photo of the user from the system
-     * @return
+     * @return selectedFile or null
      */
     public File uploadPhoto() {
         FileChooser fileChooser = new FileChooser();

@@ -1,10 +1,10 @@
 package com.themaestrocode.aaualms.service;
 
-import com.themaestrocode.aaualms.ManageUsersMenuController;
 import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.repository.UserRepository;
 import javafx.scene.control.TextField;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -168,13 +168,15 @@ public class UserService {
         return false;
     }
 
-//    private boolean validateUserLibraryId(TextField userLibraryId) {
-//        if(userLibraryId.getText().isEmpty()) {
-//            System.out.println("user library id not validated");
-//            return false;
-//        }
-//        return true;
-//    }
+    public boolean findUser(String userId) {
+        UserRepository userRepository = new UserRepository();
+        return userRepository.findUser(userId);
+    }
+
+    public List<User> getAllStudents() {
+        UserRepository userRepository = new UserRepository();
+        return userRepository.getAllStudents();
+    }
 
     private boolean validateUserId(TextField userId) {
         if(userId.getText().isEmpty()) {
@@ -262,11 +264,6 @@ public class UserService {
             return false;
         }
         return true;
-    }
-
-    public boolean findUser(String userId) {
-        UserRepository userRepository = new UserRepository();
-        return userRepository.findUser(userId);
     }
 
     private void setTextFieldAttribute(TextField name) {

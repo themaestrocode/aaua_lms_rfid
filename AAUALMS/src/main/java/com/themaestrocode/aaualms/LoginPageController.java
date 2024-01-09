@@ -31,10 +31,10 @@ public class LoginPageController {
     private final int MAX_ATTEMPTS = 5;
     private int attempts = 0;
 
-    private MainPageController mainPageController;
+    private DashboardController dashboardController;
 
     /**
-     * gets an object of the MainPageController Class and opens the main page or dashboard scene.
+     * gets an object of the DashboardController Class and opens the dashboard scene.
      * the login button is disabled for 30 secs after a 5 time incorrect login attempt is made.
      * @param event
      * @throws IOException
@@ -42,11 +42,11 @@ public class LoginPageController {
     public void login(ActionEvent event) throws IOException {
         String accessCode = accessCodeField.getText();
 
-        mainPageController = new MainPageController();
+        dashboardController = new DashboardController();
 
         if(accessCode.equals(CODE)) {
             try {
-                mainPageController.loadMainPage(event);
+                dashboardController.loadDashboard(event);
             }
             catch (Exception e) {
                 e.printStackTrace();

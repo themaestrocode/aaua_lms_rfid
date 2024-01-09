@@ -1,6 +1,7 @@
 package com.themaestrocode.aaualms.repository;
 
 import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.entity.Faculty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,5 +37,32 @@ public class FacultyRepository {
             throw new RuntimeException(e);
         }
         return facultyList;
+    }
+
+    public Faculty getFacultyByDepartmentId(int deprtmentId) {
+        Faculty faculty = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM faculties WHERE faculty_id IN (SELECT faculty_id FROM departments WHERE department_id = ?)";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, deprtmentId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                faculty = new Faculty(resultSet.getInt("faculty_id"), resultSet.getString("faculty_name"));
+            }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return faculty;
     }
 }

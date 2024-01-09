@@ -1,14 +1,23 @@
 package com.themaestrocode.aaualms.repository;
 
 import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.entity.Department;
+import com.themaestrocode.aaualms.entity.Faculty;
 import com.themaestrocode.aaualms.entity.User;
+import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
+
+    List<User> studentLibraryUsers;
+    String userLibraryId, imagePath;
+    TextField userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
     public boolean saveStudent(User student) {
         boolean result = false;
@@ -110,5 +119,52 @@ public class UserRepository {
         }
 
         return userFound;
+    }
+
+    public List<User> getAllStudents() {
+        studentLibraryUsers = new ArrayList<>();
+        User student = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM students";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                userLibraryId = resultSet.getString("student_lib_id");
+                userId.setText(resultSet.getString("matric_no"));
+                firstName.setText(resultSet.getString("first_name"));
+                lastName.setText(resultSet.getString("last_name"));
+                imagePath = resultSet.getString("image_path");
+
+                FacultyRepository facultyRepository = new FacultyRepository();
+                Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
+
+                userFaculty.setText(faculty.getFacultyName());
+
+                DepartmentRepository departmentRepository = new DepartmentRepository();
+                Department department = departmentRepository.findDepartmentById(resultSet.getInt("department_id"));
+
+                userDepartment.setText(department.getDepartmentName());
+                level.setText(resultSet.getString("current_level"));
+                phoneNo.setText(resultSet.getString("phone_no"));
+                email.setText(resultSet.getString("email"));
+
+
+                student = new User(userLibraryId, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
+                studentLibraryUsers.add(student);
+            }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return studentLibraryUsers;
     }
 }

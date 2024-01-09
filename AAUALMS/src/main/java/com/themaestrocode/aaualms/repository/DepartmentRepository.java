@@ -1,6 +1,7 @@
 package com.themaestrocode.aaualms.repository;
 
 import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.entity.Department;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -56,9 +57,44 @@ public class DepartmentRepository {
             if(resultSet.next()) {
                 departmentId = resultSet.getInt("department_id");
             }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return departmentId;
+    }
+
+    public Department findDepartmentById(int departmentId) {
+        Department department = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM departments WHERE department_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, departmentId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                department = new Department(resultSet.getInt("department_id"),
+                                            resultSet.getString("department_name"),
+                                            resultSet.getInt("faculty_id"));
+            }
+
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return department;
     }
 }

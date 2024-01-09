@@ -1,7 +1,5 @@
 package com.themaestrocode.aaualms.entity;
 
-import java.util.List;
-
 public class Faculty {
 
     private int facultyId;

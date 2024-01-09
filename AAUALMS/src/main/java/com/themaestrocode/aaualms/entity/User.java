@@ -54,7 +54,7 @@ public class User {
         return userId;
     }
 
-    public void setUserId(TextField userId) {
+    public void setUserId() {
         this.userId = userId;
     }
 
