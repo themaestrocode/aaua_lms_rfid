@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms.repository;
 
-import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.utility.DBConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

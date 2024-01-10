@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AllStudentsPageController implements Initializable {
+public class AllStaffPageController implements Initializable {
 
     @FXML
     private TableColumn<Integer, Integer> indexTableColumn;

@@ -1,22 +1,20 @@
 package com.themaestrocode.aaualms.entity;
 
-import javafx.scene.control.TextField;
-
 public class User {
 
     private String userLibraryId;
-    private TextField userId;
-    private TextField firstName;
-    private TextField lastName;
+    private String userId;
+    private String firstName;
+    private String lastName;
     private String imagePath;
-    private TextField faculty;
-    private TextField department;
-    private TextField level;
-    private TextField phoneNumber;
-    private TextField email;
+    private String faculty;
+    private String department;
+    private String level;
+    private String phoneNumber;
+    private String email;
 
     //constructor for student user
-    public User(String userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField level, TextField phoneNumber, TextField email) {
+    public User(String userLibraryId, String userId, String firstName, String lastName, String imagePath, String faculty, String department, String level, String phoneNumber, String email) {
         this.userLibraryId = userLibraryId;
         this.userId = userId;
         this.firstName = firstName;
@@ -29,8 +27,8 @@ public class User {
         this.email = email;
     }
 
-    //Constructor for staff user
-    public User(String userLibraryId, TextField userId, TextField firstName, TextField lastName, String imagePath, TextField faculty, TextField department, TextField phoneNumber, TextField email) {
+    //constructor for staff user
+    public User(String userLibraryId, String userId, String firstName, String lastName, String imagePath, String faculty, String department, String phoneNumber, String email) {
         this.userLibraryId = userLibraryId;
         this.userId = userId;
         this.firstName = firstName;
@@ -50,27 +48,27 @@ public class User {
         this.userLibraryId = userLibraryId;
     }
 
-    public TextField getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId() {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public TextField getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(TextField firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public TextField getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(TextField lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -82,43 +80,43 @@ public class User {
         this.imagePath = imagePath;
     }
 
-    public TextField getFaculty() {
+    public String getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(TextField faculty) {
+    public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
 
-    public TextField getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(TextField department) {
+    public void setDepartment(String department) {
         this.department = department;
     }
 
-    public TextField getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(TextField level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
-    public TextField getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(TextField phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public TextField getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(TextField email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 }

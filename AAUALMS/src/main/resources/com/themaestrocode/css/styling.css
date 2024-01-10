@@ -95,3 +95,11 @@
 #scanCardConfirmationLabel {
     -fx-text-fill: #006400;
 }
+
+.table-cell {
+    -fx-alignment: CENTER; /* Center alignment for all cells */
+}
+
+.normalSize {
+    -fx-font-weight: bold;
+}

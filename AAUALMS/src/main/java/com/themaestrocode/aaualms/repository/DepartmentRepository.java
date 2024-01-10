@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms.repository;
 
-import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.utility.DBConnector;
 import com.themaestrocode.aaualms.entity.Department;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,7 +68,7 @@ public class DepartmentRepository {
         return departmentId;
     }
 
-    public Department findDepartmentById(int departmentId) {
+    public Department getDepartmentById(int departmentId) {
         Department department = null;
 
         try {

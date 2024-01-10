@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms.repository;
 
-import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.utility.DBConnector;
 import com.themaestrocode.aaualms.entity.Faculty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

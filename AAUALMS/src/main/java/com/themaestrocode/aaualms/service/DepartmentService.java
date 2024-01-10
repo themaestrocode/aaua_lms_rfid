@@ -11,8 +11,8 @@ public class DepartmentService {
         return departmentRepository.getFacultiesUnderSelectedDepartment(facultyName);
     }
 
-    public Department findDepartmentById(int departmentId) {
+    public Department getDepartmentById(int departmentId) {
         DepartmentRepository departmentRepository = new DepartmentRepository();
-        return departmentRepository.findDepartmentById(departmentId);
+        return departmentRepository.getDepartmentById(departmentId);
     }
 }

@@ -1,4 +1,4 @@
-package com.themaestrocode.aaualms.entity;
+package com.themaestrocode.aaualms.utility;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

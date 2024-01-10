@@ -1,6 +1,6 @@
 package com.themaestrocode.aaualms;
 
-import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.utility.DBConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

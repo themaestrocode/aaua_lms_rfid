@@ -60,7 +60,7 @@ public class AddUserPageController implements Initializable {
         levelComboBox.getItems().addAll("100L", "200L", "300L", "400L", "500L", "PGD");
         departmentComboBox.setEditable(false);
         //hides the userLibraryTextField to achieve the RFID card scanning seamless functionality
-        userLibraryIdTextField.setVisible(false);
+        userLibraryIdTextField.setOpacity(0);
         //sets the scanIcon visibility to false until the scanCard method is called
         scanIcon.setVisible(false);
     }
@@ -209,13 +209,13 @@ public class AddUserPageController implements Initializable {
         boolean userSaved = false;
 
         if(studentRadioButton.isSelected()) {
-            User student = new User(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
-                    levelTextField, phoneNoTextField, emailTextField);
+            User student = new User(userLibraryId, userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(), imagePath, facultyTextField.getText(),
+                    departmentTextField.getText(), levelTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
             userSaved = userService.saveStudent(student);
         }
         else if(staffRadioButton.isSelected()) {
-            User staff = new User(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
-                    phoneNoTextField, emailTextField);
+            User staff = new User(userLibraryId, userIdTextField.getText(), firstNameTextField.getText(), lastNameTextField.getText(), imagePath, facultyTextField.getText(),
+                    departmentTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
             userSaved = userService.saveStaff(staff);
         }
 
@@ -228,9 +228,80 @@ public class AddUserPageController implements Initializable {
             //addUserStage.close();
         }
         else {
+            if(!userService.validateUserId(userIdTextField.getText())) {
+                setTextFieldInvalidAttribute(userIdTextField);
+            }
+            else {
+                if(userIdTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(userIdTextField);
+                }
+            }
+
+            if(!userService.validateFirstName(firstNameTextField.getText())) {
+                setTextFieldInvalidAttribute(firstNameTextField);
+            }
+            else {
+                if(firstNameTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(firstNameTextField);
+                }
+            }
+
+            if(!userService.validateLastName(lastNameTextField.getText())) {
+                setTextFieldInvalidAttribute(lastNameTextField);
+            }
+            else {
+                if(lastNameTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(lastNameTextField);
+                }
+            }
+
+            if(!userService.validateFaculty(facultyTextField.getText())) {
+                setTextFieldInvalidAttribute(facultyTextField);
+            }
+            else {
+                if(facultyTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(facultyTextField);
+                }
+            }
+
+            if(!userService.validateDepartment(departmentTextField.getText())) {
+                setTextFieldInvalidAttribute(departmentTextField);
+            }
+            else {
+                if(departmentTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(departmentTextField);
+                }
+            }
+
+            if(!userService.validateLevel(levelTextField.getText())) {
+                setTextFieldInvalidAttribute(levelTextField);
+            }
+            else {
+                if(levelTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(levelTextField);
+                }
+            }
+
+            if(!userService.validatePhoneNumber(phoneNoTextField.getText())) {
+                setTextFieldInvalidAttribute(phoneNoTextField);
+            }
+            else {
+                if(phoneNoTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(phoneNoTextField);
+                }
+            }
+
+            if(!userService.validateEmail(emailTextField.getText())) {
+                setTextFieldInvalidAttribute(emailTextField);
+            }
+            else {
+                if(emailTextField.getText().equals("invalid or empty!")) {
+                    reverseTextFieldColor(emailTextField);
+                }
+            }
+
             setLabelAttribute(saveUserOutcomeLabel, "-fx-text-fill: #AA0000", "error: user could not be saved!");
         }
-
     }
 
     private void showAlert(String title, String message) {
@@ -240,21 +311,6 @@ public class AddUserPageController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-//    private void loadScannerWindow() throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("scannerWindow.fxml"));
-//        Parent scannerWindowRoot = fxmlLoader.load();
-//        Scene scannerWindowScene = new Scene(scannerWindowRoot);
-//
-//        Image scanIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/scan icon.png"));
-//
-//        getAddUserStage().initModality(Modality.APPLICATION_MODAL);
-//        getAddUserStage().setScene(scannerWindowScene);
-//        getAddUserStage().setTitle("Scanner Window");
-//        getAddUserStage().getIcons().add(scanIcon);
-//        getAddUserStage().setResizable(false);
-//        getAddUserStage().show();
-//    }
 
     private void setScanIconAnimation(boolean show) {
         RotateTransition rotate = new RotateTransition();
@@ -275,11 +331,20 @@ public class AddUserPageController implements Initializable {
         }
     }
 
-    public void changeButtonColor() {
+    public void setTextFieldInvalidAttribute(TextField name) {
+        name.setStyle("-fx-text-fill: #AA0000");
+        name.setText("invalid or empty!");
+    }
+
+    public void reverseTextFieldColor(TextField name) {
+        name.setStyle("-fx-text-fill: black");
+    }
+
+    public void changeLoginButtonColor() {
         saveUserButton.setStyle("-fx-background-color: #113C14");
     }
 
-    public void reverseButtonColor() {
+    public void reverseLoginButtonColor() {
         saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 

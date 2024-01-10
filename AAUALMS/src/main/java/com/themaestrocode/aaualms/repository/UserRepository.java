@@ -1,10 +1,9 @@
 package com.themaestrocode.aaualms.repository;
 
-import com.themaestrocode.aaualms.entity.DBConnector;
+import com.themaestrocode.aaualms.utility.DBConnector;
 import com.themaestrocode.aaualms.entity.Department;
 import com.themaestrocode.aaualms.entity.Faculty;
 import com.themaestrocode.aaualms.entity.User;
-import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,14 +15,13 @@ import java.util.List;
 public class UserRepository {
 
     List<User> studentLibraryUsers;
-    String userLibraryId, imagePath;
-    TextField userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
+    String userLibraryId, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
     public boolean saveStudent(User student) {
         boolean result = false;
 
         DepartmentRepository departmentRepository = new DepartmentRepository();
-        int departmentId = departmentRepository.findDepartmentByName(student.getDepartment().getText());
+        int departmentId = departmentRepository.findDepartmentByName(student.getDepartment());
 
         try {
             Connection connection = DBConnector.connect();
@@ -32,14 +30,14 @@ public class UserRepository {
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, student.getUserLibraryId());
-            statement.setString(2, student.getUserId().getText());
-            statement.setString(3, student.getFirstName().getText());
-            statement.setString(4, student.getLastName().getText());
+            statement.setString(2, student.getUserId());
+            statement.setString(3, student.getFirstName());
+            statement.setString(4, student.getLastName());
             statement.setString(5, student.getImagePath());
             statement.setInt(6, departmentId);
-            statement.setString(7, student.getLevel().getText());
-            statement.setString(8, student.getPhoneNumber().getText());
-            statement.setString(9, student.getEmail().getText());
+            statement.setString(7, student.getLevel());
+            statement.setString(8, student.getPhoneNumber());
+            statement.setString(9, student.getEmail());
 
             int rowInserted = statement.executeUpdate();
 
@@ -58,7 +56,7 @@ public class UserRepository {
         boolean result = false;
 
         DepartmentRepository departmentRepository = new DepartmentRepository();
-        int departmentId = departmentRepository.findDepartmentByName(staff.getDepartment().getText());
+        int departmentId = departmentRepository.findDepartmentByName(staff.getDepartment());
 
         try {
             Connection connection = DBConnector.connect();
@@ -67,13 +65,13 @@ public class UserRepository {
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, staff.getUserLibraryId());
-            statement.setString(2, staff.getUserId().getText());
-            statement.setString(3, staff.getFirstName().getText());
-            statement.setString(4, staff.getLastName().getText());
+            statement.setString(2, staff.getUserId());
+            statement.setString(3, staff.getFirstName());
+            statement.setString(4, staff.getLastName());
             statement.setString(5, staff.getImagePath());
             statement.setInt(6, departmentId);
-            statement.setString(7, staff.getPhoneNumber().getText());
-            statement.setString(8, staff.getEmail().getText());
+            statement.setString(7, staff.getPhoneNumber());
+            statement.setString(8, staff.getEmail());
 
             int rowInserted = statement.executeUpdate();
 
@@ -88,7 +86,7 @@ public class UserRepository {
         return result;
     }
 
-    public boolean findUser(String userId) {
+    public boolean findUser(String userLibraryId) {
         boolean userFound = false;
 
         try {
@@ -99,8 +97,8 @@ public class UserRepository {
                     "SELECT staff_lib_id AS user_lib_id FROM staff WHERE staff_lib_id = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, userId);
-            statement.setString(2, userId);
+            statement.setString(1, userLibraryId);
+            statement.setString(2, userLibraryId);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -135,24 +133,24 @@ public class UserRepository {
 
             while(resultSet.next()) {
                 userLibraryId = resultSet.getString("student_lib_id");
-                userId.setText(resultSet.getString("matric_no"));
-                firstName.setText(resultSet.getString("first_name"));
-                lastName.setText(resultSet.getString("last_name"));
+                userId = resultSet.getString("matric_no");
+                firstName = resultSet.getString("first_name");
+                lastName = resultSet.getString("last_name");
                 imagePath = resultSet.getString("image_path");
 
                 FacultyRepository facultyRepository = new FacultyRepository();
                 Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
 
-                userFaculty.setText(faculty.getFacultyName());
+                userFaculty = faculty.getFacultyName();
 
                 DepartmentRepository departmentRepository = new DepartmentRepository();
-                Department department = departmentRepository.findDepartmentById(resultSet.getInt("department_id"));
+                Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
 
-                userDepartment.setText(department.getDepartmentName());
-                level.setText(resultSet.getString("current_level"));
-                phoneNo.setText(resultSet.getString("phone_no"));
-                email.setText(resultSet.getString("email"));
+                userDepartment = department.getDepartmentName();
 
+                level = resultSet.getString("current_level");
+                phoneNo = resultSet.getString("phone_no");
+                email = resultSet.getString("email");
 
                 student = new User(userLibraryId, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
                 studentLibraryUsers.add(student);
