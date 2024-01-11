@@ -78,17 +78,17 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Hyperlink>
-                  <Hyperlink text="Manage Books">
+                  <Hyperlink fx:id="manageBooksLink" onAction="#manageBooksOptions" text="Manage Books">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Hyperlink>
-                  <Hyperlink text="Issue Book">
+                  <Hyperlink fx:id="issueBookLink" text="Issue Book">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Hyperlink>
-                  <Hyperlink text="Return Book">
+                  <Hyperlink fx:id="returnBookLink" text="Return Book">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>

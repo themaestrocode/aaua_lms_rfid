@@ -9,9 +9,10 @@ import java.util.regex.Pattern;
 
 public class UserService {
 
-    public boolean saveStudent(User student) {
-        UserRepository userRepository = new UserRepository();
+    String addUserPageTextFieldsErrorMessage = "invalid or empty!";
+    UserRepository userRepository = new UserRepository();
 
+    public boolean saveStudent(User student) {
         if(validateUserLibraryId(student.getUserLibraryId()) && validateUserId(student.getUserId()) && validateFirstName(student.getFirstName()) &&
                 validateLastName(student.getLastName()) && validateImageUpload(student.getImagePath()) && validateFaculty(student.getFaculty()) &&
                 validateDepartment(student.getDepartment()) && validateLevel(student.getLevel()) && validatePhoneNumber(student.getPhoneNumber()) &&
@@ -22,8 +23,6 @@ public class UserService {
     }
 
     public boolean saveStaff(User staff) {
-        UserRepository userRepository = new UserRepository();
-
         if(validateUserLibraryId(staff.getUserLibraryId()) && validateUserId(staff.getUserId()) && validateFirstName(staff.getFirstName()) &&
                 validateLastName(staff.getLastName()) && validateImageUpload(staff.getImagePath()) && validateFaculty(staff.getFaculty()) &&
                 validateDepartment(staff.getDepartment()) && validatePhoneNumber(staff.getPhoneNumber()) && validateEmail(staff.getEmail())) {
@@ -32,23 +31,20 @@ public class UserService {
         return false;
     }
 
-    public boolean findUser(String userId) {
-        UserRepository userRepository = new UserRepository();
-        return userRepository.findUser(userId);
+    public User findUserByLibraryId(String userId) {
+        return userRepository.findUserByLibraryID(userId);
     }
 
     public List<User> getAllStudents() {
-        UserRepository userRepository = new UserRepository();
         return userRepository.getAllStudents();
     }
 
     public List<User> getAllStaff() {
-        UserRepository userRepository = new UserRepository();
         return userRepository.getAllStaff();
     }
 
     public boolean validateUserId(String userId) {
-        if(userId == null) {
+        if(userId == null || userId.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("user id not validated");
             return false;
         }
@@ -56,7 +52,7 @@ public class UserService {
     }
 
     public boolean validateFirstName(String firstName) {
-        if(firstName == null) {
+        if(firstName == null || firstName.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("first name not validated");
             return false;
         }
@@ -64,7 +60,7 @@ public class UserService {
     }
 
     public boolean validateLastName(String lastName) {
-        if(lastName == null) {
+        if(lastName == null || lastName.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("last name not validated");
             return false;
         }
@@ -72,7 +68,7 @@ public class UserService {
     }
 
     public boolean validateFaculty(String faculty) {
-        if(faculty == null) {
+        if(faculty == null || faculty.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("faculty not validated");
             return false;
         }
@@ -80,7 +76,7 @@ public class UserService {
     }
 
     public boolean validateDepartment(String department) {
-        if(department == null) {
+        if(department == null || department.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("department not validated");
             return false;
         }
@@ -88,7 +84,7 @@ public class UserService {
     }
 
     public boolean validateLevel(String level) {
-        if(level == null) {
+        if(level == null || level.equals(addUserPageTextFieldsErrorMessage)) {
             System.out.println("level not validated");
             return false;
         }
@@ -96,7 +92,7 @@ public class UserService {
     }
 
     public boolean validatePhoneNumber(String phoneNumber) {
-        if(phoneNumber.length() == 11) {
+        if(phoneNumber.length() == 11 || phoneNumber.equals(addUserPageTextFieldsErrorMessage)) {
             return true;
         }
         System.out.println("phone number not validated");
@@ -111,12 +107,11 @@ public class UserService {
 
         boolean matchSuccess = matcher.matches();
 
-        if(matchSuccess) {
-            return true;
+        if(!matchSuccess || email.equals(addUserPageTextFieldsErrorMessage)) {
+            System.out.println("email not validated");
+            return false;
         }
-        System.out.println("email not validated");
-        //setTextFieldAttribute(email);
-        return false;
+        return true;
     }
 
     public boolean validateImageUpload(String imagePath) {

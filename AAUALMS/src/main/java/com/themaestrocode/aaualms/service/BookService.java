@@ -1,12 +1,13 @@
 package com.themaestrocode.aaualms.service;
 
+import com.themaestrocode.aaualms.entity.Book;
 import com.themaestrocode.aaualms.repository.BookRepository;
 
 public class BookService {
     BookRepository bookRepository = new BookRepository();
 
-    public boolean findBook(String bookId) {
-        return bookRepository.findBook(bookId);
+    public Book findBookById(String bookId) {
+        return bookRepository.findBookById(bookId);
     }
 
     public String booksIssuedToday() {

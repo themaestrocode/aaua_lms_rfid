@@ -15,7 +15,7 @@ import java.util.List;
 public class UserRepository {
 
     List<User> studentLibraryUsers, staffLibraryUsers;
-    String userLibraryId, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
+    String userLibraryID, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
     public boolean saveStudent(User student) {
         boolean result = false;
@@ -86,53 +86,30 @@ public class UserRepository {
         return result;
     }
 
-    public boolean findUser(String userLibraryId) {
-        boolean userFound = false;
+    public User findUserByLibraryID(String userLibraryId) {
+        User user = findStudentByLibraryId(userLibraryId);
 
-        try {
-            Connection connection = DBConnector.connect();
-
-            String query = "SELECT student_lib_id AS user_lib_id FROM students WHERE student_lib_id = ? " +
-                    "UNION " +
-                    "SELECT staff_lib_id AS user_lib_id FROM staff WHERE staff_lib_id = ?";
-
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, userLibraryId);
-            statement.setString(2, userLibraryId);
-
-            ResultSet resultSet = statement.executeQuery();
-
-            // Check if any rows are returned
-            if(resultSet.next()) {
-                userFound = true;
-                String userLibId = resultSet.getString("user_lib_id");
-            }
-
-            // Close resources
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(user == null) {
+            user = findStaffByLibraryId(userLibraryId);
         }
-
-        return userFound;
+        return user;
     }
 
-    public List<User> getAllStudents() {
-        studentLibraryUsers = new ArrayList<>();
+    public User findStudentByLibraryId(String studentLibraryId) {
         User student = null;
 
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "SELECT * FROM students";
+            String query = "SELECT * FROM students WHERE student_lib_id = ?";
 
             PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, studentLibraryId);
+
             ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next()) {
-                userLibraryId = resultSet.getString("student_lib_id");
+            if(resultSet.next()) {
+                userLibraryID = resultSet.getString("student_lib_id");
                 userId = resultSet.getString("matric_no");
                 firstName = resultSet.getString("first_name");
                 lastName = resultSet.getString("last_name");
@@ -152,7 +129,97 @@ public class UserRepository {
                 phoneNo = resultSet.getString("phone_no");
                 email = resultSet.getString("email");
 
-                student = new User(userLibraryId, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
+                student = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return student;
+    }
+
+    public User findStaffByLibraryId(String staffLibraryId) {
+        User staff = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM staff WHERE staff_lib_id = ?";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, staffLibraryId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                userLibraryID = resultSet.getString("staff_lib_id");
+                userId = resultSet.getString("staff_id");
+                firstName = resultSet.getString("first_name");
+                lastName = resultSet.getString("last_name");
+                imagePath = resultSet.getString("image_path");
+
+                FacultyRepository facultyRepository = new FacultyRepository();
+                Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
+
+                userFaculty = faculty.getFacultyName();
+
+                DepartmentRepository departmentRepository = new DepartmentRepository();
+                Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
+
+                userDepartment = department.getDepartmentName();
+
+                phoneNo = resultSet.getString("phone_no");
+                email = resultSet.getString("email");
+
+                staff = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return staff;
+    }
+
+    public List<User> getAllStudents() {
+        studentLibraryUsers = new ArrayList<>();
+        User student = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM students";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                userLibraryID = resultSet.getString("student_lib_id");
+                userId = resultSet.getString("matric_no");
+                firstName = resultSet.getString("first_name");
+                lastName = resultSet.getString("last_name");
+                imagePath = resultSet.getString("image_path");
+
+                FacultyRepository facultyRepository = new FacultyRepository();
+                Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
+
+                userFaculty = faculty.getFacultyName();
+
+                DepartmentRepository departmentRepository = new DepartmentRepository();
+                Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
+
+                userDepartment = department.getDepartmentName();
+
+                level = resultSet.getString("current_level");
+                phoneNo = resultSet.getString("phone_no");
+                email = resultSet.getString("email");
+
+                student = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
                 studentLibraryUsers.add(student);
             }
 
@@ -179,7 +246,7 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
-                userLibraryId = resultSet.getString("staff_lib_id");
+                userLibraryID = resultSet.getString("staff_lib_id");
                 userId = resultSet.getString("staff_id");
                 firstName = resultSet.getString("first_name");
                 lastName = resultSet.getString("last_name");
@@ -198,7 +265,7 @@ public class UserRepository {
                 phoneNo = resultSet.getString("phone_no");
                 email = resultSet.getString("email");
 
-                staff = new User(userLibraryId, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
+                staff = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
                 staffLibraryUsers.add(staff);
             }
             // Close resources

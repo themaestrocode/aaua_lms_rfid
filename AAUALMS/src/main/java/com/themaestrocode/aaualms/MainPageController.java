@@ -20,7 +20,7 @@ public class MainPageController implements Initializable {
     @FXML
     private Button logoutButton;
     @FXML
-    private Hyperlink manageUsersLink;
+    private Hyperlink manageUsersLink, manageBooksLink;
 
     private LoginPageController loginPageController;
 
@@ -41,11 +41,10 @@ public class MainPageController implements Initializable {
     }
 
     /**
-     * closes the current scene and opens the login page on the stage. The LoginPageController object can be used to access the method from anywhere.
+     * closes the current page and opens the login page on the stage.
      * @param event
-     * @throws IOException
      */
-    public void logout(ActionEvent event) throws IOException {
+    public void logout(ActionEvent event) {
         Alert logoutAlert = new Alert(Alert.AlertType.CONFIRMATION);
         logoutAlert.setTitle("Notification");
         logoutAlert.setHeaderText("Logout");
@@ -62,14 +61,6 @@ public class MainPageController implements Initializable {
         }
     }
 
-    public void changeButtonColor() {
-        logoutButton.setStyle("-fx-background-color: #6F1515");
-    }
-
-    public void reverseButtonColor() {
-        logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
-    }
-
     /**
      * opens ContextMenu items to select an action option
      * @param event
@@ -78,15 +69,13 @@ public class MainPageController implements Initializable {
         ContextMenu contextMenu = new ContextMenu();
 
         //populating the ContextMenu node with the menu items
-        MenuItem addUserItem = new MenuItem("Add Student/Staff");
+        MenuItem addUserItem = new MenuItem("Add a new Student/Staff");
         MenuItem seeAllStudentsItem = new MenuItem("See all Students");
         MenuItem seeAllStaffItem = new MenuItem("See all Staff");
 
         addUserItem.setOnAction(e -> {
-            AddUserPageController addUserPageController = new AddUserPageController();
-
             try {
-                addUserPageController.loadAddUserPage();
+                loadAddUserPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -123,5 +112,97 @@ public class MainPageController implements Initializable {
 
         // Show the context menu near the Hyperlink
         contextMenu.show(manageUsersLink, x, y);
+    }
+
+    public void manageBooksOptions() {
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem addBookItem = new MenuItem("Add a new Book");
+        MenuItem seeAllBooksItem = new MenuItem("See all Books");
+        MenuItem seeAllBorrowedBooksItems = new MenuItem("See all borrowed Books");
+
+        addBookItem.setOnAction(e -> {
+            try {
+                loadAddBookPage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("adding a new book...");
+        });
+
+        seeAllBooksItem.setOnAction(e -> {
+            System.out.println("showing all books...");
+        });
+
+        seeAllBorrowedBooksItems.setOnAction(e -> {
+            System.out.println("showing all borrowed books...");
+        });
+
+        contextMenu.getItems().addAll(addBookItem, seeAllBooksItem, seeAllBorrowedBooksItems);
+
+        double x = manageBooksLink.localToScreen(manageUsersLink.getBoundsInLocal()).getMinX();
+        double y = manageBooksLink.localToScreen(manageUsersLink.getBoundsInLocal()).getMaxY();
+
+        contextMenu.show(manageBooksLink, x, y);
+    }
+
+    /**
+     * loads/opens a non-resizable stage: "the add user page" upon the main page for entering student/staff details to be added.
+     * @throws IOException
+     */
+    public void loadAddUserPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserPage.fxml"));
+        Parent root = fxmlLoader.load();
+
+        AddUserPageController addUserPageController = fxmlLoader.getController();
+        Stage addUserStage = new Stage();
+        addUserPageController.setAddUserStage(addUserStage);
+
+        Scene scene = new Scene(root);
+
+        String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        Image userIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
+
+        //Stage addUserStage = new Stage();
+        addUserStage.initModality(Modality.APPLICATION_MODAL);
+        addUserStage.setTitle("Add User");
+        addUserStage.setScene(scene);
+        addUserStage.getIcons().add(userIcon);
+        addUserStage.setResizable(false);
+        addUserStage.show();
+    }
+
+    public void loadAddBookPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBookPage.fxml"));
+        Parent root = fxmlLoader.load();
+
+        AddBookPageController addBookPageController = fxmlLoader.getController();
+        Stage addBookStage = new Stage();
+        addBookPageController.setAddBookStage(addBookStage);
+
+        Scene scene = new Scene(root);
+
+        String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        Image bookIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/book icon.png"));
+
+        //Stage addUserStage = new Stage();
+        addBookStage.initModality(Modality.APPLICATION_MODAL);
+        addBookStage.setTitle("Add Book");
+        addBookStage.setScene(scene);
+        addBookStage.getIcons().add(bookIcon);
+        addBookStage.setResizable(false);
+        addBookStage.show();
+    }
+
+    public void changeButtonColor() {
+        logoutButton.setStyle("-fx-background-color: #6F1515");
+    }
+
+    public void reverseButtonColor() {
+        logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
     }
 }
