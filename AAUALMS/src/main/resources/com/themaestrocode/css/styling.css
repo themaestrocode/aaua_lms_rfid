@@ -69,13 +69,13 @@
 
 .headerText {
     -fx-text-color: black;
-    -fx-font-size: 28;
+    -fx-font-size: 25;
     -fx-font-weight: bold;
 }
 
 .subHeaderText {
     -fx-font-color: black;
-    -fx-font-size: 15;
+    -fx-font-size: 13;
     -fx-font-weight: bold;
 }
 

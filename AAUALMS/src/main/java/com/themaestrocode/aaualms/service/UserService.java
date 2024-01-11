@@ -2,7 +2,6 @@ package com.themaestrocode.aaualms.service;
 
 import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.repository.UserRepository;
-import javafx.scene.control.TextField;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -41,6 +40,11 @@ public class UserService {
     public List<User> getAllStudents() {
         UserRepository userRepository = new UserRepository();
         return userRepository.getAllStudents();
+    }
+
+    public List<User> getAllStaff() {
+        UserRepository userRepository = new UserRepository();
+        return userRepository.getAllStaff();
     }
 
     public boolean validateUserId(String userId) {
@@ -130,5 +134,4 @@ public class UserService {
         }
         return true;
     }
-
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UserRepository {
 
-    List<User> studentLibraryUsers;
+    List<User> studentLibraryUsers, staffLibraryUsers;
     String userLibraryId, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
     public boolean saveStudent(User student) {
@@ -164,5 +164,50 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
         return studentLibraryUsers;
+    }
+
+    public List<User> getAllStaff() {
+        staffLibraryUsers = new ArrayList<>();
+        User staff = null;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT * FROM staff";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                userLibraryId = resultSet.getString("staff_lib_id");
+                userId = resultSet.getString("staff_id");
+                firstName = resultSet.getString("first_name");
+                lastName = resultSet.getString("last_name");
+                imagePath = resultSet.getString("image_path");
+
+                FacultyRepository facultyRepository = new FacultyRepository();
+                Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
+
+                userFaculty = faculty.getFacultyName();
+
+                DepartmentRepository departmentRepository = new DepartmentRepository();
+                Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
+
+                userDepartment = department.getDepartmentName();
+
+                phoneNo = resultSet.getString("phone_no");
+                email = resultSet.getString("email");
+
+                staff = new User(userLibraryId, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
+                staffLibraryUsers.add(staff);
+            }
+            // Close resources
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return staffLibraryUsers;
     }
 }

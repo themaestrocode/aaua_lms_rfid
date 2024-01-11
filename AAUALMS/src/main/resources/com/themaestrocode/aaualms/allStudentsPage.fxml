@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.AllStudentsPageController">
 
@@ -29,6 +30,9 @@
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
          </TableView>
+         <Rectangle arcHeight="50.0" arcWidth="35.0" fill="#14184d" height="38.0" layoutX="730.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="119.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="23.0" />
+         <Label layoutX="757.0" layoutY="33.0" styleClass="subHeaderText" text="Total:" textFill="WHITE" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="33.0" />
+         <Label fx:id="totalStudentLabel" styleClass="subHeaderText" text="Label" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="33.0" />
       </children>
    </AnchorPane>
 

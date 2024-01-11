@@ -6,9 +6,9 @@ import javafx.collections.ObservableList;
 
 public class DepartmentService {
 
-    public ObservableList<String> getFacultiesUnderSelectedDepartment(String facultyName) {
+    public ObservableList<String> getDepartmentsUnderSelectedFaculty(String facultyName) {
         DepartmentRepository departmentRepository = new DepartmentRepository();
-        return departmentRepository.getFacultiesUnderSelectedDepartment(facultyName);
+        return departmentRepository.getDepartmentsUnderSelectedFaculty(facultyName);
     }
 
     public Department getDepartmentById(int departmentId) {

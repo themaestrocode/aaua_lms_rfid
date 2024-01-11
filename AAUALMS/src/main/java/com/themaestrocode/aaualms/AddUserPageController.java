@@ -41,7 +41,7 @@ public class AddUserPageController implements Initializable {
     @FXML
     private ImageView scanIcon;
 
-    private Stage addUserStage = new Stage();
+    private Stage addUserStage;
     private String userLibraryId;
     private String imagePath;
 
@@ -80,7 +80,7 @@ public class AddUserPageController implements Initializable {
 
         Image userImage = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
 
-        //addUserStage = new Stage();
+        addUserStage = new Stage();
         addUserStage.initModality(Modality.APPLICATION_MODAL);
         addUserStage.setTitle("Add User");
         addUserStage.setScene(scene);
@@ -116,7 +116,7 @@ public class AddUserPageController implements Initializable {
         String selectedFaculty = (String) facultyComboBox.getValue();
         facultyTextField.setText(selectedFaculty);
 
-        departmentComboBox.setItems(departmentService.getFacultiesUnderSelectedDepartment(selectedFaculty));
+        departmentComboBox.setItems(departmentService.getDepartmentsUnderSelectedFaculty(selectedFaculty));
     }
 
     /**
@@ -152,7 +152,7 @@ public class AddUserPageController implements Initializable {
                 new FileChooser.ExtensionFilter("JPG files", "*.jpg")
         );
 
-        File selectedFile = fileChooser.showOpenDialog(this.getAddUserStage());
+        File selectedFile = fileChooser.showOpenDialog(addUserStage);
 
         if(selectedFile != null) {
             imagePath = selectedFile.getAbsolutePath();
@@ -225,7 +225,7 @@ public class AddUserPageController implements Initializable {
 //            }
             setLabelAttribute(saveUserOutcomeLabel, "fx-text-fill: #006400", "User saved!");
             showAlert("Notification: New User Added", "User successfully added as a patron!");
-            //addUserStage.close();
+            addUserStage.close();
         }
         else {
             if(!userService.validateUserId(userIdTextField.getText())) {

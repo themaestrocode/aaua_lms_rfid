@@ -5,10 +5,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.AllStaffPageController">
 
-    <fx:include source="mainPageScene.fxml" />
+    <fx:include source="mainPageScene.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
       <children>
          <Label styleClass="headerText" text="All Staff Library Users" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -16,19 +17,21 @@
                <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
             </padding>
          </Label>
-         <TableView fx:id="studentsTableView" layoutX="200.0" layoutY="154.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+         <TableView fx:id="staffTableView" layoutX="200.0" layoutY="154.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
             <columns>
                <TableColumn fx:id="indexTableColumn" prefWidth="54.0" sortable="false" text="index" />
-               <TableColumn fx:id="libraryIdTableColumn" prefWidth="128.0" sortable="false" text="Library ID" />
-               <TableColumn fx:id="firstNameTableColumn" prefWidth="225.0" sortable="false" text="First name" />
-               <TableColumn fx:id="lastNameTableColumn" prefWidth="222.0" sortable="false" text="Last name" />
-               <TableColumn fx:id="matricNoTableColumn" prefWidth="140.0" sortable="false" text="Staff ID" />
-               <TableColumn fx:id="levelTableColumn" maxWidth="1.7976931348623157E308" prefWidth="95.0" sortable="false" text="Level" />
+               <TableColumn fx:id="libraryIdTableColumn" prefWidth="147.0" sortable="false" text="Library ID" />
+               <TableColumn fx:id="firstNameTableColumn" prefWidth="248.0" sortable="false" text="First name" />
+               <TableColumn fx:id="lastNameTableColumn" prefWidth="256.0" sortable="false" text="Last name" />
+               <TableColumn fx:id="staffIdTableColumn" prefWidth="146.0" sortable="false" text="Staff ID" />
             </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
          </TableView>
+         <Rectangle arcHeight="50.0" arcWidth="35.0" fill="#14184d" height="38.0" layoutX="727.0" layoutY="29.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="119.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="23.0" />
+         <Label layoutX="742.0" layoutY="40.0" styleClass="subHeaderText" text="Total:" textFill="WHITE" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="33.0" />
+         <Label fx:id="totalStaffLabel" layoutX="773.0" layoutY="40.0" styleClass="subHeaderText" text="Label" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="33.0" />
       </children>
    </AnchorPane>
 

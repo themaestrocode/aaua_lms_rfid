@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DepartmentRepository {
 
     ObservableList<String> departmentList;
-    public ObservableList<String> getFacultiesUnderSelectedDepartment(String facultyName) {
+    public ObservableList<String> getDepartmentsUnderSelectedFaculty(String facultyName) {
         departmentList = FXCollections.observableArrayList();
 
         try {
