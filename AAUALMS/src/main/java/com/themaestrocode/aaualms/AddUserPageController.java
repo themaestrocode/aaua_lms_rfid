@@ -4,17 +4,14 @@ import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.DepartmentService;
 import com.themaestrocode.aaualms.service.FacultyService;
 import com.themaestrocode.aaualms.service.UserService;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import com.themaestrocode.aaualms.utility.UtilityMethods;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
@@ -23,9 +20,9 @@ import java.util.ResourceBundle;
 public class AddUserPageController implements Initializable {
 
     @FXML
-    private Button saveUserButton;
+    private Button addUserButton;
     @FXML
-    private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel, saveUserOutcomeLabel;
+    private Label userIdLabel, photoUploadConfirmationLabel, scanCardConfirmationLabel, addUserOutcomeLabel;
     @FXML
     private TextField userLibraryIdTextField, userIdTextField, firstNameTextField, lastNameTextField, facultyTextField, departmentTextField, levelTextField, phoneNoTextField, emailTextField;
     @FXML
@@ -36,8 +33,9 @@ public class AddUserPageController implements Initializable {
     private ImageView scanIcon;
 
     private Stage addUserStage;
-    private String userLibraryId;
-    private String imagePath;
+    private String userLibraryId, imagePath;
+
+    private UtilityMethods utilityMethods = new UtilityMethods();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -106,44 +104,33 @@ public class AddUserPageController implements Initializable {
     }
 
     /**
-     * called by the uploadPhotoButton: to choose the photo of the user from the system
-     * @return selectedFile or null
+     * called by the uploadPhotoButton: to choose the photo of the user from the system.
+     * Its file selection operation is performed by the uploadEntityImageFile method of the UtilityMethods class
      */
-    public File uploadPhoto() {
-        FileChooser fileChooser = new FileChooser();
+    public void uploadPhoto() {
+        File userImage = utilityMethods.uploadEntityImageFile("user", addUserStage);
 
-        fileChooser.setTitle("Upload User Photo");
-
-        //setting the initial directory where the file chooser opens by default
-        File initialDirectory = new File("C:\\Users\\VICTOR A. SODERU\\Documents\\USERS PHOTO ALBUM");
-        fileChooser.setInitialDirectory(initialDirectory);
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG files", "*.jpg")
-        );
-
-        File selectedFile = fileChooser.showOpenDialog(addUserStage);
-
-        if(selectedFile != null) {
-            imagePath = selectedFile.getAbsolutePath();
+        if(userImage != null) {
+            imagePath = userImage.getAbsolutePath();
             System.out.println(imagePath);
-            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #006400", "Photo uploaded!");
-            setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: black", "waiting for user to scan card...");
-            return selectedFile;
+            utilityMethods.setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #006400", "Photo uploaded!");
+            utilityMethods.setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: black", "waiting for user to scan card...");
         }
-        return null;
+        else {
+            utilityMethods.setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not uploaded!");
+        }
     }
 
     public void scanCard() {
         UserService userService = new UserService();
 
         if(!userService.validateImageUpload(imagePath)) {
-            setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not yet uploaded!");
+            utilityMethods.setLabelAttribute(photoUploadConfirmationLabel, "-fx-text-fill: #AA0000", "Photo not yet uploaded!");
         }
 
         userLibraryIdTextField.setDisable(false);
 
-        setScanIconAnimation(true);
+        utilityMethods.setScanIconAnimation(scanIcon, true);
 
         userLibraryIdTextField.requestFocus();
         userLibraryIdTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -155,45 +142,59 @@ public class AddUserPageController implements Initializable {
                         userLibraryIdTextField.clear();
                         System.out.println("id already registered!");
                         scanCardConfirmationLabel.setText("");
-                        showAlert("Notification: Card", "This card has already been registered with another user!");
+                        utilityMethods.showInformationAlert("Error", "User card registration failed", "This card has already been registered with another user!");
                     });
                 }
                 else {
-                    setScanIconAnimation(false);
+                    utilityMethods.setScanIconAnimation(scanIcon, false);
                     userLibraryId = newValue;
                     userLibraryIdTextField.setDisable(true);
                     //userLibraryIdTextField.clear();
                     scanCardConfirmationLabel.requestFocus();
                     System.out.println("id not yet registered: " + newValue);
-                    setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: #006400", "card successfully scanned!");
+                    utilityMethods.setLabelAttribute(scanCardConfirmationLabel, "-fx-text-fill: #006400", "card successfully scanned!");
                 }
             }
         });
     }
 
-    public void saveUser() {
+    public void addUser() {
         try {
             UserService userService = new UserService();
 
             boolean userSaved = false;
 
             if(studentRadioButton.isSelected()) {
-                User student = createStudentObject();
-                userSaved = userService.saveStudent(student);
+                boolean isValid = userService.validateStudentDetails(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField, departmentTextField,
+                        levelTextField, phoneNoTextField, emailTextField);
+
+                if(isValid) {
+                    User student = createStudentObject();
+                    userSaved = userService.addStudent(student);
+                }
             }
             else if(staffRadioButton.isSelected()) {
-                User staff = createStaffObject();
-                userSaved = userService.saveStaff(staff);
+                boolean isValid = userService.validateStaffDetails(userLibraryId, userIdTextField, firstNameTextField, lastNameTextField, imagePath, facultyTextField,
+                        departmentTextField, phoneNoTextField, emailTextField);
+
+                if(isValid) {
+                    User staff = createStaffObject();
+                    userSaved = userService.addStaff(staff);
+                }
+            }
+            else {
+                //an impossible scenario, but if no radio button is selected, this else statement executes. Just for error handling.
+                utilityMethods.showInformationAlert("Error", "User not saved", "Please specify user type!");
+                utilityMethods.setLabelAttribute(addUserOutcomeLabel, "-fx-text-fill: #AA0000", "User could not be saved!");
             }
 
             if(userSaved) {
-                showAlert("Notification: New User Added", "User successfully added as a patron!");
+                utilityMethods.showInformationAlert("Notification", "New User Added", "User successfully added as a patron!");
                 //attempt to close the stage after successfully saving the user
-                closeAddUserStage();
+                utilityMethods.closeStage(addUserStage);
             }
             else {
-                checkTextFieldsForError();
-                setLabelAttribute(saveUserOutcomeLabel, "-fx-text-fill: #AA0000", "error: user could not be saved!");
+                utilityMethods.setLabelAttribute(addUserOutcomeLabel, "-fx-text-fill: #AA0000", "User could not be saved!");
             }
         }
         catch (Exception e) {
@@ -201,54 +202,12 @@ public class AddUserPageController implements Initializable {
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public void changeAddUserButtonColor() {
+        addUserButton.setStyle("-fx-background-color: #113C14");
     }
 
-    private void setScanIconAnimation(boolean show) {
-        RotateTransition rotate = new RotateTransition();
-
-        if(show == true) {
-            scanIcon.setVisible(true);
-
-            rotate.setNode(scanIcon);
-            rotate.setDuration(Duration.millis(3000));
-            rotate.setCycleCount(TranslateTransition.INDEFINITE);
-            rotate.setInterpolator(Interpolator.LINEAR);
-            rotate.setByAngle(360);
-            rotate.play();
-        }
-        else {
-            rotate.stop();
-            scanIcon.setVisible(false);
-        }
-    }
-
-    public void reverseTextFieldColor(TextField name) {
-        name.setStyle("-fx-text-fill: black");
-    }
-
-    public void changeLoginButtonColor() {
-        saveUserButton.setStyle("-fx-background-color: #113C14");
-    }
-
-    public void reverseLoginButtonColor() {
-        saveUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
-    }
-
-    /**
-     * sets text on a label in a specified color
-     * @param name
-     * @param color
-     * @param text
-     */
-    public void setLabelAttribute(Label name, String color, String text) {
-        name.setStyle(color);
-        name.setText(text);
+    public void reverseAddUserButtonColor() {
+        addUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
     /**
@@ -270,82 +229,6 @@ public class AddUserPageController implements Initializable {
                         facultyTextField.getText(), departmentTextField.getText(), phoneNoTextField.getText(), emailTextField.getText());
     }
 
-    private void closeAddUserStage() {
-        if(addUserStage != null) {
-            addUserStage.close();
-        }
-    }
-
-    /**
-     * checks every text field in the add user page window for invalid or empty entry and prints the appropriate error message
-     * to the text field in red color. If the text field already has an error message in red color, on a new entry attempt,
-     * it reverses the color back to black
-     */
-    private void checkTextFieldsForError() {
-        UserService userService = new UserService();
-
-        if(!userService.validateUserId(userIdTextField.getText())) {
-            setTextFieldInvalidAttribute(userIdTextField);
-        }
-        else {
-            reverseTextFieldColor(userIdTextField);
-        }
-
-        if(!userService.validateFirstName(firstNameTextField.getText())) {
-            setTextFieldInvalidAttribute(firstNameTextField);
-        }
-        else {
-            reverseTextFieldColor(firstNameTextField);
-        }
-
-        if(!userService.validateLastName(lastNameTextField.getText())) {
-            setTextFieldInvalidAttribute(lastNameTextField);
-        }
-        else {
-            reverseTextFieldColor(lastNameTextField);
-        }
-
-        if(!userService.validateFaculty(facultyTextField.getText())) {
-            setTextFieldInvalidAttribute(facultyTextField);
-        }
-        else {
-            reverseTextFieldColor(facultyTextField);
-        }
-
-        if(!userService.validateDepartment(departmentTextField.getText())) {
-            setTextFieldInvalidAttribute(departmentTextField);
-        }
-        else {
-            reverseTextFieldColor(departmentTextField);
-        }
-
-        if(!userService.validateLevel(levelTextField.getText())) {
-            setTextFieldInvalidAttribute(levelTextField);
-        }
-        else {
-            reverseTextFieldColor(levelTextField);
-        }
-
-        if(!userService.validatePhoneNumber(phoneNoTextField.getText())) {
-            setTextFieldInvalidAttribute(phoneNoTextField);
-        }
-        else {
-            reverseTextFieldColor(phoneNoTextField);
-        }
-
-        if(!userService.validateEmail(emailTextField.getText())) {
-            setTextFieldInvalidAttribute(emailTextField);
-        }
-        else {
-            reverseTextFieldColor(emailTextField);
-        }
-    }
-
-    public void setTextFieldInvalidAttribute(TextField name) {
-        name.setStyle("-fx-text-fill: #AA0000");
-        name.setText("invalid or empty!");
-    }
-
     public Stage getAddUserStage() {
         return addUserStage;
     }
@@ -353,5 +236,4 @@ public class AddUserPageController implements Initializable {
     public void setAddUserStage(Stage addUserStage) {
         this.addUserStage = addUserStage;
     }
-
 }

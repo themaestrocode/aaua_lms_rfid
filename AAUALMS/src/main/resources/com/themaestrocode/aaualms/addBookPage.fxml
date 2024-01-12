@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="addUserStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.AddUserPageController">
+<StackPane fx:id="addUserStackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.AddBookPageController">
    <children>
       <GridPane>
          <columnConstraints>
@@ -32,118 +31,85 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="userIdLabel" alignment="CENTER" text="user ID:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label alignment="CENTER" text="Title :" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="70.0" />
                </GridPane.margin>
             </Label>
-            <Label text="First name:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label text="Author :" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="70.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Last name:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Label text="Shelve number :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="70.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Phone number:" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <Label text="ISBN :" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="70.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+            <Label text="Publisher :" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="70.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="userIdTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
+                  <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="firstNameTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="authorTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
+                  <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextField fx:id="shelveNoTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
+                  <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="facultyTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <TextField fx:id="isbnTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
+                  <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="departmentTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+            <TextField fx:id="publisherTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
+                  <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="levelTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="phoneNoTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
-               <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
-               <GridPane.margin>
-                  <Insets left="20.0" right="170.0" />
-               </GridPane.margin>
-            </TextField>
-            <ComboBox fx:id="levelComboBox" onAction="#chooseLevel" prefHeight="25.0" prefWidth="110.0" promptText="Level" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </ComboBox>
-            <ComboBox fx:id="departmentComboBox" onAction="#chooseDepartment" prefHeight="25.0" prefWidth="110.0" promptText="Department" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </ComboBox>
-            <ComboBox fx:id="facultyComboBox" onAction="#chooseFaculty" prefHeight="25.0" prefWidth="110.0" promptText="Faculty" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="50.0" />
-               </GridPane.margin>
-            </ComboBox>
-            <Button fx:id="saveUserButton" mnemonicParsing="false" onAction="#saveUser" onMouseEntered="#changeLoginButtonColor" onMouseExited="#reverseLoginButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Save User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" />
-            <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.rowSpan="2">
+            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#saveBook" onMouseEntered="#changeAddBookButtonColor" onMouseExited="#reverseAddBookButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Add Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="scanCardButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" styleClass="myButtons" text="scan card" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.rowSpan="2">
+            <Button fx:id="scanTagButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" styleClass="myButtons" text="scan tag" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets left="100.0" />
                </GridPane.margin>
             </Button>
-            <Label fx:id="photoUploadConfirmationLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-            <Label fx:id="scanCardConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-            <TextField fx:id="userLibraryIdTextField" GridPane.columnIndex="2" GridPane.rowIndex="13">
+            <Label fx:id="photoUploadConfirmationLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+            <Label fx:id="scanTagConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+            <TextField fx:id="bookIdTextField" GridPane.columnIndex="2" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="70.0" right="100.0" />
                </GridPane.margin>
             </TextField>
-            <ImageView fx:id="scanIcon" disable="true" fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.rowSpan="2">
+            <ImageView fx:id="scanIcon" disable="true" fitHeight="45.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
-                  <Insets bottom="10.0" left="120.0" />
+                  <Insets bottom="10.0" left="140.0" top="10.0" />
                </GridPane.margin>
                <image>
                   <Image url="@../images/scan%20icon.png" />
                </image>
             </ImageView>
-            <Label fx:id="saveUserOutcomeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="211.0" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
+            <Label fx:id="addBookOutcomeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="211.0" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
          </children>
       </GridPane>
    </children>

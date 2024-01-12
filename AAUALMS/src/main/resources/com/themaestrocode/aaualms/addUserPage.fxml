@@ -133,7 +133,7 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button fx:id="saveUserButton" mnemonicParsing="false" onAction="#saveUser" onMouseEntered="#changeLoginButtonColor" onMouseExited="#reverseLoginButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Save User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
+            <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" onMouseEntered="#changeAddUserButtonColor" onMouseExited="#reverseAddUserButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Add User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
             <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets right="100.0" />
@@ -158,7 +158,7 @@
                   <Image url="@../images/scan%20icon.png" />
                </image>
             </ImageView>
-            <Label fx:id="saveUserOutcomeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="211.0" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
+            <Label fx:id="addUserOutcomeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="211.0" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
          </children>
       </GridPane>
    </children>

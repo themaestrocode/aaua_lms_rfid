@@ -17,7 +17,7 @@ public class UserRepository {
     List<User> studentLibraryUsers, staffLibraryUsers;
     String userLibraryID, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
-    public boolean saveStudent(User student) {
+    public boolean addStudent(User student) {
         boolean result = false;
 
         DepartmentRepository departmentRepository = new DepartmentRepository();
@@ -52,7 +52,7 @@ public class UserRepository {
         return result;
     }
 
-    public boolean saveStaff(User staff) {
+    public boolean addStaff(User staff) {
         boolean result = false;
 
         DepartmentRepository departmentRepository = new DepartmentRepository();
