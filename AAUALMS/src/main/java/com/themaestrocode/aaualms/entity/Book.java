@@ -1,7 +1,7 @@
 package com.themaestrocode.aaualms.entity;
 
 public class Book {
-    private String book_id;
+    private String bookId;
     private String title;
     private String author;
     private String imagePath;
@@ -11,8 +11,9 @@ public class Book {
     private String publisher;
     private String dateAdded;
 
-    public Book(String book_id, String title, String author, String imagePath, String bookStatus, String shelveNo, String isbn, String publisher, String dateAdded) {
-        this.book_id = book_id;
+    //complete constructor for retrieving book
+    public Book(String bookId, String title, String author, String imagePath, String bookStatus, String shelveNo, String isbn, String publisher, String dateAdded) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.imagePath = imagePath;
@@ -23,23 +24,23 @@ public class Book {
         this.dateAdded = dateAdded;
     }
 
-    public Book(String book_id, String title, String author, String imagePath, String bookStatus, String shelveNo, String isbn, String publisher) {
-        this.book_id = book_id;
+    //constructor for adding a new book
+    public Book(String bookId, String title, String author, String imagePath, String shelveNo, String isbn, String publisher) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.imagePath = imagePath;
-        this.bookStatus = bookStatus;
         this.shelveNo = shelveNo;
         this.isbn = isbn;
         this.publisher = publisher;
     }
 
-    public String getBook_id() {
-        return book_id;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(String book_id) {
-        this.book_id = book_id;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -104,5 +105,107 @@ public class Book {
 
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+
+    //Inner class
+    public class IssuedBook {
+        private int issueId;
+        private String bookId;
+        private String borrowerLibraryId;
+        private String userType;
+        private String issueDate;
+        private String dueDate;
+
+        public IssuedBook(int issueId, String bookId, String borrowerLibraryId, String userType, String issueDate, String dueDate) {
+            this.issueId = issueId;
+            this.bookId = bookId;
+            this.borrowerLibraryId = borrowerLibraryId;
+            this.userType = userType;
+            this.issueDate = issueDate;
+            this.dueDate = dueDate;
+        }
+
+        private String borrowerName;
+        private String bookTitle;
+
+        public IssuedBook(int issueId, String bookId, String bookTitle, String borrowerLibraryId, String borrowerName, String userType, String issueDate, String dueDate) {
+            this.issueId = issueId;
+            this.bookTitle = bookTitle;
+            this.bookId = bookId;
+            this.borrowerName = borrowerName;
+            this.borrowerLibraryId = borrowerLibraryId;
+            this.userType = userType;
+            this.issueDate = issueDate;
+            this.dueDate = dueDate;
+        }
+
+        public int getIssueId() {
+            return issueId;
+        }
+
+        public void setIssueId(int issueId) {
+            this.issueId = issueId;
+        }
+
+        public String getBookId() {
+            return bookId;
+        }
+
+        public void setBookId(String bookId) {
+            this.bookId = bookId;
+        }
+
+        public String getImagePath() {
+            return imagePath;
+        }
+
+        public String getBorrowerLibraryId() {
+            return borrowerLibraryId;
+        }
+
+        public void setBorrowerLibraryId(String borrowerLibraryId) {
+            this.borrowerLibraryId = borrowerLibraryId;
+        }
+
+        public String getUserType() {
+            return userType;
+        }
+
+        public void setUserType(String userType) {
+            this.userType = userType;
+        }
+
+        public String getIssueDate() {
+            return issueDate;
+        }
+
+        public void setIssueDate(String issueDate) {
+            this.issueDate = issueDate;
+        }
+
+        public String getDueDate() {
+            return dueDate;
+        }
+
+        public void setDueDate(String dueDate) {
+            this.dueDate = dueDate;
+        }
+
+        public String getBorrowerName() {
+            return borrowerName;
+        }
+
+        public void setBorrowerName(String borrowerName) {
+            this.borrowerName = borrowerName;
+        }
+
+        public String getBookTitle() {
+            return bookTitle;
+        }
+
+        public void setBookTitle(String bookTitle) {
+            this.bookTitle = bookTitle;
+        }
     }
 }

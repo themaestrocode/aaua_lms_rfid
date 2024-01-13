@@ -94,7 +94,7 @@ public class AllStaffPageController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            stage.setTitle("User Details");
+            stage.setTitle("Staff Details");
             stage.getIcons().add(image);
             stage.setResizable(false);
             stage.show();

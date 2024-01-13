@@ -41,6 +41,11 @@
     -fx-font-weight: bold;
 }
 
+#scanTagButton {
+    -fx-background-color: #14184D;
+    -fx-font-weight: bold;
+}
+
 .errorMessageLabel {
     -fx-text-fill: red;
 }

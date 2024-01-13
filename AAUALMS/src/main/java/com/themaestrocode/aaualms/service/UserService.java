@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 public class UserService {
 
-    String addUserPageTextFieldsErrorMessage = "invalid or empty!";
-    UserRepository userRepository = new UserRepository();
+    private String addUserPageTextFieldsErrorMessage = "invalid or empty!";
+    private UserRepository userRepository = new UserRepository();
 
 
     public User findUserByLibraryId(String userId) {
@@ -39,12 +39,22 @@ public class UserService {
      * checks every text field in the add student page window for invalid or empty entry and prints the appropriate error message
      * to the text field in red color. If the text field already has an error message in red color, on a new entry attempt,
      * it reverses the color back to black
+     * @param libraryId
+     * @param matricNo
+     * @param firstName
+     * @param lastName
+     * @param imagePath
+     * @param faculty
+     * @param department
+     * @param level
+     * @param phoneNo
+     * @param email
      * @return true or false
      */
-    public boolean validateStudentDetails(String librayId, TextField matricNo, TextField firstName, TextField lastName, String imagePath, TextField faculty,
+    public boolean validateStudentDetails(String libraryId, TextField matricNo, TextField firstName, TextField lastName, String imagePath, TextField faculty,
                                            TextField department, TextField level, TextField phoneNo, TextField email) {
 
-        if(validateUserLibraryId(librayId) && validateUserId(matricNo.getText()) && validateFirstName(firstName.getText()) && validateLastName(lastName.getText()) &&
+        if(validateUserLibraryId(libraryId) && validateUserId(matricNo.getText()) && validateFirstName(firstName.getText()) && validateLastName(lastName.getText()) &&
                 validateImageUpload(imagePath) && validateFaculty(faculty.getText()) && validateDepartment(department.getText()) && validateLevel(level.getText()) &&
                 validatePhoneNumber(phoneNo.getText()) && validateEmail(email.getText())) {
             return true;
@@ -98,12 +108,21 @@ public class UserService {
      * checks every text field in the add staff page window for invalid or empty entry and prints the appropriate error message
      * to the text field in red color. If the text field already has an error message in red color, on a new entry attempt,
      * it reverses the color back to black
+     * @param libraryId
+     * @param staffId
+     * @param firstName
+     * @param lastName
+     * @param imagePath
+     * @param faculty
+     * @param department
+     * @param phoneNo
+     * @param email
      * @return true or false
      */
-    public boolean validateStaffDetails(String librayId, TextField staffId, TextField firstName, TextField lastName, String imagePath, TextField faculty,
+    public boolean validateStaffDetails(String libraryId, TextField staffId, TextField firstName, TextField lastName, String imagePath, TextField faculty,
                                           TextField department, TextField phoneNo, TextField email) {
 
-        if(validateUserLibraryId(librayId) && validateUserId(staffId.getText()) && validateFirstName(firstName.getText()) && validateLastName(lastName.getText()) &&
+        if(validateUserLibraryId(libraryId) && validateUserId(staffId.getText()) && validateFirstName(firstName.getText()) && validateLastName(lastName.getText()) &&
                 validateImageUpload(imagePath) && validateFaculty(faculty.getText()) && validateDepartment(department.getText()) && validatePhoneNumber(phoneNo.getText()) &&
                 validateEmail(email.getText())) {
             return true;

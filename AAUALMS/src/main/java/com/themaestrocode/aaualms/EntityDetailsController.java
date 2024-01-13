@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class EntityDetailsController implements Initializable {
 
     @FXML
-    private ImageView userImage;
+    private ImageView entityImage;
     @FXML
     private Label label1Value, label2Value, label3Value, label4Value, label5Value, label6Value, label7Value, label8Value;
     @FXML
@@ -35,21 +35,21 @@ public class EntityDetailsController implements Initializable {
         if(imageFile != null && imageFile.exists()) {
             try {
                 Image image = new Image(imageFile.toURI().toString());
-                userImage.setImage(image);
+                entityImage.setImage(image);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        label1.setText("Student Lib ID:");
-        label2.setText("Name:");
-        label3.setText("Matric no:");
-        label4.setText("Faculty:");
-        label5.setText("Department:");
-        label6.setText("Phone No:");
-        label7.setText("Email Address:");
-        label8.setText("Level:");
+        label1.setText("Student Lib ID :");
+        label2.setText("Name :");
+        label3.setText("Matric no :");
+        label4.setText("Faculty :");
+        label5.setText("Department :");
+        label6.setText("Phone No :");
+        label7.setText("Email Address :");
+        label8.setText("Level :");
 
         label1Value.setText(student.getUserLibraryId());
         label2Value.setText(student.getFirstName() + " " + student.getLastName());
@@ -61,71 +61,105 @@ public class EntityDetailsController implements Initializable {
         label8Value.setText(student.getLevel());
     }
 
-    public void staffData(User user) {
+    public void staffData(User staff) {
         UtilityMethods utilityMethods = new UtilityMethods();
 
-        File imageFile = utilityMethods.normalizeFile(user.getImagePath());
+        File imageFile = utilityMethods.normalizeFile(staff.getImagePath());
 
         if(imageFile != null && imageFile.exists()) {
             try {
                 Image image = new Image(imageFile.toURI().toString());
-                userImage.setImage(image);
+                entityImage.setImage(image);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        label1.setText("Staff Lib ID:");
-        label2.setText("Name:");
-        label3.setText("Staff ID:");
-        label4.setText("Faculty:");
-        label5.setText("Department:");
-        label6.setText("Phone No:");
-        label7.setText("Email Address:");
+        label1.setText("Staff Lib ID :");
+        label2.setText("Name :");
+        label3.setText("Staff ID :");
+        label4.setText("Faculty :");
+        label5.setText("Department :");
+        label6.setText("Phone No :");
+        label7.setText("Email Address :");
         label8.setVisible(false);
 
-        label1Value.setText(user.getUserLibraryId());
-        label2Value.setText(user.getFirstName() + " " + user.getLastName());
-        label3Value.setText(user.getUserId());
-        label4Value.setText(user.getFaculty());
-        label5Value.setText(user.getDepartment());
-        label6Value.setText(user.getPhoneNumber());
-        label7Value.setText(user.getEmail());
+        label1Value.setText(staff.getUserLibraryId());
+        label2Value.setText(staff.getFirstName() + " " + staff.getLastName());
+        label3Value.setText(staff.getUserId());
+        label4Value.setText(staff.getFaculty());
+        label5Value.setText(staff.getDepartment());
+        label6Value.setText(staff.getPhoneNumber());
+        label7Value.setText(staff.getEmail());
         label8Value.setVisible(false);
     }
 
-//    public void bookData(Book book) {
-//        UtilityMethods utilityMethods = new UtilityMethods();
-//
-//        File imageFile = utilityMethods.normalizeFile(book.getImagePath());
-//
-//        if(imageFile != null && imageFile.exists()) {
-//            try {
-//                Image image = new Image(imageFile.toURI().toString());
-//                userImage.setImage(image);
-//            }
-//            catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        label1.setText("Staff Lib ID:");
-//        label2.setText("Name:");
-//        label3.setText("Staff ID:");
-//        label4.setText("Faculty:");
-//        label5.setText("Department:");
-//        label6.setText("Phone Number:");
-//        label7.setText("Email Address:");
-//        label8.setVisible(false);
-//
-//        label1Value.setText(book.getUserLibraryId());
-//        label2Value.setText(book.getFirstName() + " " + book.getLastName());
-//        label3Value.setText(book.getUserId());
-//        label4Value.setText(book.getFaculty());
-//        label5Value.setText(book.getDepartment());
-//        label6Value.setText(book.getPhoneNumber());
-//        label7Value.setText(book.getEmail());
-//        label8Value.setVisible(false);
-//    }
+    public void bookData(Book book) {
+        UtilityMethods utilityMethods = new UtilityMethods();
+
+        File imageFile = utilityMethods.normalizeFile(book.getImagePath());
+
+        if(imageFile != null && imageFile.exists()) {
+            try {
+                Image image = new Image(imageFile.toURI().toString());
+                entityImage.setImage(image);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        label1.setText("Book Tag ID :");
+        label2.setText("Title :");
+        label3.setText("Author :");
+        label4.setText("Book Status :");
+        label5.setText("Shelve No :");
+        label6.setText("ISBN :");
+        label7.setText("Publisher :");
+        label8.setText("Date Added :");
+
+        label1Value.setText(book.getBookId());
+        label2Value.setText(book.getTitle());
+        label3Value.setText(book.getAuthor());
+        label4Value.setText(book.getBookStatus());
+        label5Value.setText(book.getShelveNo());
+        label6Value.setText(book.getIsbn());
+        label7Value.setText(book.getPublisher());
+        label8Value.setText(book.getDateAdded());
+    }
+
+    public void issuedBookData(Book.IssuedBook issuedBook) {
+        UtilityMethods utilityMethods = new UtilityMethods();
+
+        File imageFile = utilityMethods.normalizeFile(issuedBook.getImagePath());
+
+        if(imageFile != null && imageFile.exists()) {
+            try {
+                Image image = new Image(imageFile.toURI().toString());
+                entityImage.setImage(image);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        label1.setText("Issue ID :");
+        label2.setText("Book Title :");
+        label3.setText("Book Tag ID :");
+        label4.setText("Borrower Name :");
+        label5.setText("Borrower Lib ID :");
+        label6.setText("Borrower Type :");
+        label7.setText("Issued Date :");
+        label8.setText("Due Date :");
+
+        label1Value.setText(String.valueOf(issuedBook.getIssueId()));
+        label2Value.setText(issuedBook.getBookTitle());
+        label3Value.setText(issuedBook.getBookId());
+        label4Value.setText(issuedBook.getBorrowerName());
+        label5Value.setText(issuedBook.getBorrowerLibraryId());
+        label6Value.setText(issuedBook.getUserType());
+        label7Value.setText(issuedBook.getIssueDate());
+        label8Value.setText(issuedBook.getDueDate());
+    }
 }

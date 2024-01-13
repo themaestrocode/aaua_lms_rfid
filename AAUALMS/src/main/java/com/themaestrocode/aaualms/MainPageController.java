@@ -114,7 +114,7 @@ public class MainPageController implements Initializable {
         contextMenu.show(manageUsersLink, x, y);
     }
 
-    public void manageBooksOptions() {
+    public void manageBooksOptions(ActionEvent event) {
         ContextMenu contextMenu = new ContextMenu();
 
         MenuItem addBookItem = new MenuItem("Add a new Book");
@@ -131,10 +131,24 @@ public class MainPageController implements Initializable {
         });
 
         seeAllBooksItem.setOnAction(e -> {
+            AllBooksPageController allBooksPageController = new AllBooksPageController();
+
+            try {
+                allBooksPageController.loadAllBooksPage(event);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             System.out.println("showing all books...");
         });
 
         seeAllBorrowedBooksItems.setOnAction(e -> {
+            AllBorrowedBooksPageController allBorrowedBooksPageController = new AllBorrowedBooksPageController();
+
+            try {
+                allBorrowedBooksPageController.loadAllBorrowedBooksPage(event);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             System.out.println("showing all borrowed books...");
         });
 
@@ -174,6 +188,10 @@ public class MainPageController implements Initializable {
         addUserStage.show();
     }
 
+    /**
+     * loads/opens a non-resizable stage: "the add book page" upon the main page for entering book details to be added.
+     * @throws IOException
+     */
     public void loadAddBookPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBookPage.fxml"));
         Parent root = fxmlLoader.load();

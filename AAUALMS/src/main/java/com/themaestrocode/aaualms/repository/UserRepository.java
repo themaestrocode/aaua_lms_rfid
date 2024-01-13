@@ -41,9 +41,8 @@ public class UserRepository {
 
             int rowInserted = statement.executeUpdate();
 
-            if(rowInserted > 0) {
-                result = true;
-            }
+            if(rowInserted > 0) {result = true;}
+
             statement.close();
             connection.close();
         } catch (SQLException e) {
@@ -75,9 +74,8 @@ public class UserRepository {
 
             int rowInserted = statement.executeUpdate();
 
-            if(rowInserted > 0) {
-                result = true;
-            }
+            if(rowInserted > 0) {result = true;}
+
             statement.close();
             connection.close();
         } catch (SQLException e) {

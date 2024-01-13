@@ -83,13 +83,13 @@
                   <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#saveBook" onMouseEntered="#changeAddBookButtonColor" onMouseExited="#reverseAddBookButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Add Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#addBook" onMouseEntered="#changeAddBookButtonColor" onMouseExited="#reverseAddBookButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Add Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
             <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="scanTagButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" styleClass="myButtons" text="scan tag" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.rowSpan="2">
+            <Button fx:id="scanTagButton" mnemonicParsing="false" onAction="#scanBookTag" prefWidth="110.0" styleClass="myButtons" text="scan tag" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets left="100.0" />
                </GridPane.margin>

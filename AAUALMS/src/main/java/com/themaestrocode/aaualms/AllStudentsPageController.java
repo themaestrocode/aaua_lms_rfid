@@ -2,6 +2,7 @@ package com.themaestrocode.aaualms;
 
 import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.UserService;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +98,7 @@ public class AllStudentsPageController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            stage.setTitle("User Details");
+            stage.setTitle("Student Details");
             stage.getIcons().add(image);
             stage.setResizable(false);
             stage.show();

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.AllBooksPageController">
+
+    <fx:include source="mainPageScene.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <AnchorPane layoutX="409.0" layoutY="241.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
+      <children>
+         <Label styleClass="headerText" text="All Books in the Library Database" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+            </padding>
+         </Label>
+         <TableView fx:id="booksTableView" layoutX="200.0" layoutY="154.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <columns>
+               <TableColumn fx:id="indexTableColumn" prefWidth="54.0" sortable="false" text="index" />
+               <TableColumn fx:id="bookIdTableColumn" prefWidth="107.0" sortable="false" text="Book Tag ID" />
+               <TableColumn fx:id="titleTableColumn" prefWidth="294.0" sortable="false" text="Title" />
+               <TableColumn fx:id="authorTableColumn" prefWidth="208.0" sortable="false" text="Author" />
+               <TableColumn fx:id="shelveNoTableColumn" prefWidth="101.0" sortable="false" text="Shelve No." />
+               <TableColumn fx:id="bookStatusTableColumn" maxWidth="1.7976931348623157E308" prefWidth="95.0" sortable="false" text="Status" />
+            </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+         </TableView>
+         <Rectangle arcHeight="50.0" arcWidth="35.0" fill="#14184d" height="38.0" layoutX="730.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="119.0" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="23.0" />
+         <Label layoutX="757.0" layoutY="33.0" styleClass="subHeaderText" text="Total:" textFill="WHITE" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="33.0" />
+         <Label fx:id="totalBooksLabel" styleClass="subHeaderText" text="Label" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="33.0" />
+      </children>
+   </AnchorPane>
+
+</AnchorPane>
