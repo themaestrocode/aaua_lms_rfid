@@ -77,7 +77,7 @@ public class AllBooksPageController implements Initializable {
         ((Node) event.getSource()).getScene().setRoot(root);
     }
 
-    private void showDetailedView(Book selectedBook) {
+    public void showDetailedView(Book selectedBook) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("entityDetailsView.fxml"));
             Parent root = fxmlLoader.load();

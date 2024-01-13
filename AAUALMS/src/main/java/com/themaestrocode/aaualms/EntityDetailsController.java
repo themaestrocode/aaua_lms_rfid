@@ -2,6 +2,8 @@ package com.themaestrocode.aaualms;
 
 import com.themaestrocode.aaualms.entity.Book;
 import com.themaestrocode.aaualms.entity.User;
+import com.themaestrocode.aaualms.service.BookService;
+import com.themaestrocode.aaualms.service.UserService;
 import com.themaestrocode.aaualms.utility.UtilityMethods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +27,13 @@ public class EntityDetailsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        label3Value.setOnMouseClicked(mouseEvent -> {
+            showBookDetailedView();
+        });
+
+        label5Value.setOnMouseClicked(mouseEvent -> {
+            showBorrowerDetailedView();
+        });
     }
 
     public void studentData(User student) {
@@ -161,5 +170,39 @@ public class EntityDetailsController implements Initializable {
         label6Value.setText(issuedBook.getUserType());
         label7Value.setText(issuedBook.getIssueDate());
         label8Value.setText(issuedBook.getDueDate());
+    }
+
+    public void showBookDetailedView() {
+        BookService bookService = new BookService();
+
+        Book book = bookService.findBookById(label3Value.getText());
+
+        if(book != null) {
+            label3Value.setStyle("-fx-text-fill: #0040ff");
+            AllBooksPageController allBooksPageController = new AllBooksPageController();
+
+            allBooksPageController.showDetailedView(book);
+        }
+    }
+
+    public void showBorrowerDetailedView() {
+        UserService userService = new UserService();
+
+        User user = userService.findUserByLibraryId(label5Value.getText());
+
+        if(user != null) {
+            label5Value.setStyle("-fx-text-fill: #0040ff");
+            if(label6Value.getText().equals("STUDENT")) {
+                AllStudentsPageController allStudentsPageController = new AllStudentsPageController();
+
+                allStudentsPageController.showDetailedView(user);
+            }
+            else if(label6Value.getText().equals("STAFF")) {
+                AllStaffPageController allStaffPageController = new AllStaffPageController();
+
+                allStaffPageController.showDetailedView(user);
+            }
+        }
+
     }
 }

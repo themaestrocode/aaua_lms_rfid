@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -133,16 +134,28 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" onMouseEntered="#changeAddUserButtonColor" onMouseExited="#reverseAddUserButtonColor" prefHeight="34.0" prefWidth="112.0" styleClass="myButtons" text="Add User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" />
-            <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" styleClass="myButtons" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.rowSpan="2">
+            <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" onMouseEntered="#changeAddUserButtonColor" onMouseExited="#reverseAddUserButtonColor" prefHeight="34.0" prefWidth="112.0" text="Add User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13">
+               <styleClass>
+                  <String fx:value="myButtons" />
+                  <String fx:value="greenButtons" />
+               </styleClass></Button>
+            <Button fx:id="photoUploadButton" mnemonicParsing="false" onAction="#uploadPhoto" prefHeight="25.0" prefWidth="108.0" text="choose photo" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
+               <styleClass>
+                  <String fx:value="myButtons" />
+                  <String fx:value="blueButtons" />
+               </styleClass>
             </Button>
-            <Button fx:id="scanCardButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" styleClass="myButtons" text="scan card" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.rowSpan="2">
+            <Button fx:id="scanCardButton" mnemonicParsing="false" onAction="#scanCard" prefWidth="110.0" text="scan card" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets left="100.0" />
                </GridPane.margin>
+               <styleClass>
+                  <String fx:value="myButtons" />
+                  <String fx:value="blueButtons" />
+               </styleClass>
             </Button>
             <Label fx:id="photoUploadConfirmationLabel" alignment="CENTER_RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
             <Label fx:id="scanCardConfirmationLabel" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />

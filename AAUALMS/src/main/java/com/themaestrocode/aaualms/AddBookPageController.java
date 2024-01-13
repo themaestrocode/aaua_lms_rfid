@@ -1,9 +1,9 @@
 package com.themaestrocode.aaualms;
 
 import com.themaestrocode.aaualms.entity.Book;
-import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.BookService;
 import com.themaestrocode.aaualms.utility.UtilityMethods;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

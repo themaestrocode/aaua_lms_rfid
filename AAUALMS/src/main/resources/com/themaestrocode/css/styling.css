@@ -4,6 +4,21 @@
     -fx-font-size: 14;
 }
 
+.greenButtons {
+    -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
+    -fx-font-weight: bold;
+}
+
+.blueButtons {
+    -fx-background-color: #14184D;
+    -fx-font-weight: bold;
+}
+
+.redButtons {
+    -fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107);
+    -fx-font-weight: bold;
+}
+
 .pane {
     -fx-background-image: url("../images/aaua.png");
     -fx-background-size: cover;
@@ -13,36 +28,6 @@
 
 #loginButton {
     -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
-    -fx-font-weight: bold;
-}
-
-#logoutButton {
-    -fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107);
-    -fx-font-weight: bold;
-}
-
-#addUserButton {
-    -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
-    -fx-font-weight: bold;
-}
-
-#addBookButton {
-    -fx-background-color: linear-gradient(to bottom right, #006400, #32CD32);
-    -fx-font-weight: bold;
-}
-
-#photoUploadButton {
-    -fx-background-color: #14184D;
-    -fx-font-weight: bold;
-}
-
-#scanCardButton {
-    -fx-background-color: #14184D;
-    -fx-font-weight: bold;
-}
-
-#scanTagButton {
-    -fx-background-color: #14184D;
     -fx-font-weight: bold;
 }
 

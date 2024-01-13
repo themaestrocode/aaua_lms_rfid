@@ -160,6 +160,11 @@ public class MainPageController implements Initializable {
         contextMenu.show(manageBooksLink, x, y);
     }
 
+    public void issueBook() throws IOException {
+        loadIssueBookPage();
+        System.out.println("issueing book...");
+    }
+
     /**
      * loads/opens a non-resizable stage: "the add user page" upon the main page for entering student/staff details to be added.
      * @throws IOException
@@ -214,6 +219,30 @@ public class MainPageController implements Initializable {
         addBookStage.getIcons().add(bookIcon);
         addBookStage.setResizable(false);
         addBookStage.show();
+    }
+
+    public void loadIssueBookPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("issueBookPage.fxml"));
+        Parent root = fxmlLoader.load();
+
+        IssueBookPageController issueBookPageController = fxmlLoader.getController();
+        Stage issueBookStage = new Stage();
+        issueBookPageController.setIssueBookStage(issueBookStage);
+
+        Scene scene = new Scene(root);
+
+        String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        Image issueBookIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/book icon.png"));
+
+        //Stage addUserStage = new Stage();
+        issueBookStage.initModality(Modality.APPLICATION_MODAL);
+        issueBookStage.setTitle("Issue Book");
+        issueBookStage.setScene(scene);
+        issueBookStage.getIcons().add(issueBookIcon);
+        issueBookStage.setResizable(false);
+        issueBookStage.show();
     }
 
     public void changeButtonColor() {

@@ -83,7 +83,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Hyperlink>
-                  <Hyperlink fx:id="issueBookLink" text="Issue Book">
+                  <Hyperlink fx:id="issueBookLink" onAction="#issueBook" text="Issue Book">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -100,10 +100,14 @@
                      <children>
                         <HBox alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                            <children>
-                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="28.0" prefWidth="70.0" styleClass="myButtons" text="Logout">
+                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="28.0" prefWidth="70.0" text="Logout">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="myButtons" />
+                                    <String fx:value="redButtons" />
+                                 </styleClass>
                               </Button>
                            </children>
                            <padding>

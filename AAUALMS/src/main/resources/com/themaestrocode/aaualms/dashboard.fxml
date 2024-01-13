@@ -81,7 +81,7 @@
                               </HBox.margin>
                               <children>
                                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                 <Label styleClass="rectangleTexts" text="Books Issued" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                 <Label styleClass="rectangleTexts" text="Books Issued Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
                                     <StackPane.margin>
                                        <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
                                     </StackPane.margin>

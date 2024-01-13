@@ -77,7 +77,7 @@ public class AllStudentsPageController implements Initializable {
         ((Node) event.getSource()).getScene().setRoot(root);
     }
 
-    private void showDetailedView(User selectedUser) {
+    public void showDetailedView(User selectedUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("entityDetailsView.fxml"));
             Parent root = fxmlLoader.load();
