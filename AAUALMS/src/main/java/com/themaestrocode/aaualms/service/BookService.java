@@ -1,6 +1,7 @@
 package com.themaestrocode.aaualms.service;
 
 import com.themaestrocode.aaualms.entity.Book;
+import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.repository.BookRepository;
 import com.themaestrocode.aaualms.utility.UtilityMethods;
 import javafx.scene.control.TextField;
@@ -75,6 +76,10 @@ public class BookService {
             utilityMethods.reverseTextFieldColor(publisher);
 
         return false;
+    }
+
+    public boolean issueBook(User user, Book book) {
+        return bookRepository.issueBook(user, book);
     }
 
     public String booksIssuedToday() {

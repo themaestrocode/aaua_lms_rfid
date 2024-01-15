@@ -35,6 +35,14 @@ public class AddBookPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addBookButton.setOnMouseEntered(mouseEvent -> {
+            utilityMethods.changeGreenButtonColor(addBookButton);
+        });
+
+        addBookButton.setOnMouseExited(mouseEvent -> {
+            utilityMethods.reverseGreenButtonColor(addBookButton);
+        });
+
         scanIcon.setVisible(false);
         bookIdTextField.setOpacity(0);
     }
@@ -121,14 +129,6 @@ public class AddBookPageController implements Initializable {
 
     private Book createBookObject() {
         return new Book(bookId, titleTextField.getText(), authorTextField.getText(), imagePath, shelveNoTextField.getText(), isbnTextField.getText(), publisherTextField.getText());
-    }
-
-    public void changeAddBookButtonColor() {
-        addBookButton.setStyle("-fx-background-color: #113C14");
-    }
-
-    public void reverseAddBookButtonColor() {
-        addBookButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
     public Stage getAddBookStage() {

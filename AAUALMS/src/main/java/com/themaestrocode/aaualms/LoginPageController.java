@@ -1,8 +1,10 @@
 package com.themaestrocode.aaualms;
 
+import com.themaestrocode.aaualms.utility.UtilityMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -10,10 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LoginPageController {
+public class LoginPageController implements Initializable {
 
     @FXML
     TextField accessCodeField;
@@ -27,6 +31,20 @@ public class LoginPageController {
     private int attempts = 0;
 
     private DashboardController dashboardController;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        UtilityMethods utilityMethods = new UtilityMethods();
+
+        loginButton.setOnMouseEntered(mouseEvent -> {
+            utilityMethods.changeGreenButtonColor(loginButton);
+        });
+
+        loginButton.setOnMouseExited(mouseEvent -> {
+            utilityMethods.reverseGreenButtonColor(loginButton);
+        });
+    }
 
     /**
      * gets an object of the DashboardController Class and opens the dashboard scene.

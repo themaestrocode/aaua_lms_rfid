@@ -39,6 +39,14 @@ public class AddUserPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addUserButton.setOnMouseEntered(mouseEvent -> {
+            utilityMethods.changeGreenButtonColor(addUserButton);
+        });
+
+        addUserButton.setOnMouseExited(mouseEvent -> {
+            utilityMethods.reverseGreenButtonColor(addUserButton);
+        });
+
         FacultyService facultyService = new FacultyService();
 
         //sets the studentRadioButton as the default option when the addUser scene appears
@@ -200,14 +208,6 @@ public class AddUserPageController implements Initializable {
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void changeAddUserButtonColor() {
-        addUserButton.setStyle("-fx-background-color: #113C14");
-    }
-
-    public void reverseAddUserButtonColor() {
-        addUserButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
     }
 
     /**

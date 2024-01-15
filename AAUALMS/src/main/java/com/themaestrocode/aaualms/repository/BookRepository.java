@@ -171,6 +171,17 @@ public class BookRepository {
         return result;
     }
 
+    public boolean issueBook(User user, Book book) {
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "INSERT INTO issued_books(book_id, stud";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
     public int booksIssuedToday() {
         int result = 0;
 

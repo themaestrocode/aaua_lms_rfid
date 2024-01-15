@@ -1,12 +1,17 @@
 package com.themaestrocode.aaualms.utility;
 
+import com.themaestrocode.aaualms.entity.Book;
+import com.themaestrocode.aaualms.entity.User;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,6 +25,7 @@ public class UtilityMethods {
     private String booksInitialDirectory = "C:\\Users\\VICTOR A. SODERU\\Documents\\BOOKS PHOTO ALBUM";
     private String usersInitialDirectory = "C:\\Users\\VICTOR A. SODERU\\Documents\\USERS PHOTO ALBUM";
     private String userEntityType = "user", bookEntityType = "book";
+
 
     public File normalizeFile(String filePath) {
         if(filePath == null) {
@@ -56,6 +62,58 @@ public class UtilityMethods {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG files", "*.jpg"));
 
         return fileChooser.showOpenDialog(stage);
+    }
+
+    public void displayUserInFrame(User user, ImageView borrowerImage, Label libraryIdValueLabel, Label nameValueLabel, Label matricNoOrStaffIdValueLabel,
+                                    Label facultyValueLabel, Label departmentValueLabel, Label levelValueLabel, AnchorPane borrowerFrame) {
+        UtilityMethods utilityMethods = new UtilityMethods();
+
+        File imageFile = utilityMethods.normalizeFile(user.getImagePath());
+
+        if(imageFile != null && imageFile.exists()) {
+            try {
+                Image image = new Image(imageFile.toURI().toString());
+                borrowerImage.setImage(image);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        libraryIdValueLabel.setText(user.getUserLibraryId());
+        nameValueLabel.setText(user.getFirstName() + " " + user.getLastName());
+        matricNoOrStaffIdValueLabel.setText(user.getUserId());
+        facultyValueLabel.setText(user.getFaculty());
+        departmentValueLabel.setText(user.getDepartment());
+        levelValueLabel.setText(user.getLevel());
+
+        borrowerFrame.setVisible(true);
+    }
+
+    public void displayBookInFrame(Book book, ImageView bookImage, Label bookIdValueLabel, Label bookTitleValueLabel, Label authorValueLabel, Label bookStatusValueLabel,
+                                   Label shelveNoValueLabel, Label publisherValueLabel, AnchorPane bookFrame) {
+        UtilityMethods utilityMethods = new UtilityMethods();
+
+        File imageFile = utilityMethods.normalizeFile(book.getImagePath());
+
+        if(imageFile != null && imageFile.exists()) {
+            try {
+                Image image = new Image(imageFile.toURI().toString());
+                bookImage.setImage(image);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        bookIdValueLabel.setText(book.getBookId());
+        bookTitleValueLabel.setText(book.getTitle());
+        authorValueLabel.setText(book.getAuthor());
+        bookStatusValueLabel.setText(book.getBookStatus());
+        shelveNoValueLabel.setText(book.getShelveNo());
+        publisherValueLabel.setText(book.getPublisher());
+
+        bookFrame.setVisible(true);
     }
 
     /**
@@ -120,6 +178,22 @@ public class UtilityMethods {
     public void setLabelAttribute(Label name, String color, String text) {
         name.setStyle(color);
         name.setText(text);
+    }
+
+    public void changeGreenButtonColor(Button button) {
+        button.setStyle("-fx-background-color: #113C14");
+    }
+
+    public void reverseGreenButtonColor(Button button) {
+        button.setStyle("-fx-background-color: linear-gradient(to bottom right, #006400, #32CD32)");
+    }
+
+    public void changeRedButtonColor(Button button) {
+        button.setStyle("-fx-background-color: #6F1515");
+    }
+
+    public void reverseRedButtonColor(Button button) {
+        button.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
     }
 
     public void setTextFieldInvalidAttribute(TextField textField) {

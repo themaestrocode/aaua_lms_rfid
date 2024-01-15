@@ -1,5 +1,6 @@
 package com.themaestrocode.aaualms;
 
+import com.themaestrocode.aaualms.utility.UtilityMethods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,15 @@ public class MainPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        UtilityMethods utilityMethods = new UtilityMethods();
 
+        logoutButton.setOnMouseEntered(mouseEvent -> {
+            utilityMethods.changeRedButtonColor(logoutButton);
+        });
+
+        logoutButton.setOnMouseExited(mouseEvent -> {
+            utilityMethods.reverseRedButtonColor(logoutButton);
+        });
     }
 
     /**
@@ -161,8 +170,8 @@ public class MainPageController implements Initializable {
     }
 
     public void issueBook() throws IOException {
-        loadIssueBookPage();
         System.out.println("issueing book...");
+        loadIssueBookPage();
     }
 
     /**
@@ -184,7 +193,6 @@ public class MainPageController implements Initializable {
 
         Image userIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
 
-        //Stage addUserStage = new Stage();
         addUserStage.initModality(Modality.APPLICATION_MODAL);
         addUserStage.setTitle("Add User");
         addUserStage.setScene(scene);
@@ -212,7 +220,6 @@ public class MainPageController implements Initializable {
 
         Image bookIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/book icon.png"));
 
-        //Stage addUserStage = new Stage();
         addBookStage.initModality(Modality.APPLICATION_MODAL);
         addBookStage.setTitle("Add Book");
         addBookStage.setScene(scene);
@@ -236,20 +243,11 @@ public class MainPageController implements Initializable {
 
         Image issueBookIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/book icon.png"));
 
-        //Stage addUserStage = new Stage();
         issueBookStage.initModality(Modality.APPLICATION_MODAL);
         issueBookStage.setTitle("Issue Book");
         issueBookStage.setScene(scene);
         issueBookStage.getIcons().add(issueBookIcon);
         issueBookStage.setResizable(false);
         issueBookStage.show();
-    }
-
-    public void changeButtonColor() {
-        logoutButton.setStyle("-fx-background-color: #6F1515");
-    }
-
-    public void reverseButtonColor() {
-        logoutButton.setStyle("-fx-background-color: linear-gradient(to bottom right, #AA0000, #EF0107)");
     }
 }

@@ -84,7 +84,7 @@
                   <Insets left="10.0" right="170.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#addBook" onMouseEntered="#changeAddBookButtonColor" onMouseExited="#reverseAddBookButtonColor" prefHeight="34.0" prefWidth="112.0" text="Add Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+            <Button fx:id="addBookButton" mnemonicParsing="false" onAction="#addBook" prefHeight="34.0" prefWidth="112.0" text="Add Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
                <styleClass>
                   <String fx:value="myButtons" />
                   <String fx:value="greenButtons" />

@@ -134,7 +134,7 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" onMouseEntered="#changeAddUserButtonColor" onMouseExited="#reverseAddUserButtonColor" prefHeight="34.0" prefWidth="112.0" text="Add User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13">
+            <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUser" prefHeight="34.0" prefWidth="112.0" text="Add User" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13">
                <styleClass>
                   <String fx:value="myButtons" />
                   <String fx:value="greenButtons" />

@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.LoginPageController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.LoginPageController">
    <children>
       <Pane styleClass="pane" StackPane.alignment="CENTER" />
       <GridPane alignment="CENTER" vgap="20.0" StackPane.alignment="CENTER">
@@ -39,7 +38,7 @@
                   <Insets bottom="200.0" left="200.0" right="200.0" top="200.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" onMouseEntered="#changeButtonColor" onMouseExited="#reverseButtonColor" prefHeight="30.0" prefWidth="70.0" styleClass="myButtons" text="Login" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="70.0" styleClass="myButtons" text="Login" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <Label fx:id="errorMessageID" alignment="CENTER" prefHeight="20.0" prefWidth="500.0" styleClass="errorMessageLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
       </GridPane>
