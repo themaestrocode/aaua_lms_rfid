@@ -15,7 +15,6 @@ import java.util.List;
 public class UserRepository {
 
     List<User> studentLibraryUsers, staffLibraryUsers;
-    String userLibraryID, imagePath, userId, firstName, lastName, userFaculty, userDepartment, level, phoneNo, email;
 
     public boolean addStudent(User student) {
         boolean result = false;
@@ -41,7 +40,13 @@ public class UserRepository {
 
             int rowInserted = statement.executeUpdate();
 
-            if(rowInserted > 0) {result = true;}
+            if(rowInserted > 0) {
+                EventRepository eventRepository = new EventRepository();
+
+                if(eventRepository.logEventForUserRegistration(student)) {
+                    result = true;
+                }
+            }
 
             statement.close();
             connection.close();
@@ -74,7 +79,13 @@ public class UserRepository {
 
             int rowInserted = statement.executeUpdate();
 
-            if(rowInserted > 0) {result = true;}
+            if(rowInserted > 0) {
+                EventRepository eventRepository = new EventRepository();
+
+                if(eventRepository.logEventForUserRegistration(staff)) {
+                    result = true;
+                }
+            }
 
             statement.close();
             connection.close();
@@ -107,25 +118,25 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
-                userLibraryID = resultSet.getString("student_lib_id");
-                userId = resultSet.getString("matric_no");
-                firstName = resultSet.getString("first_name");
-                lastName = resultSet.getString("last_name");
-                imagePath = resultSet.getString("image_path");
+                String userLibraryID = resultSet.getString("student_lib_id");
+                String userId = resultSet.getString("matric_no");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String imagePath = resultSet.getString("image_path");
 
                 FacultyRepository facultyRepository = new FacultyRepository();
                 Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
 
-                userFaculty = faculty.getFacultyName();
+                String userFaculty = faculty.getFacultyName();
 
                 DepartmentRepository departmentRepository = new DepartmentRepository();
                 Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
 
-                userDepartment = department.getDepartmentName();
+                String userDepartment = department.getDepartmentName();
 
-                level = resultSet.getString("current_level");
-                phoneNo = resultSet.getString("phone_no");
-                email = resultSet.getString("email");
+                String level = resultSet.getString("current_level");
+                String phoneNo = resultSet.getString("phone_no");
+                String email = resultSet.getString("email");
 
                 student = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
             }
@@ -153,24 +164,24 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
-                userLibraryID = resultSet.getString("staff_lib_id");
-                userId = resultSet.getString("staff_id");
-                firstName = resultSet.getString("first_name");
-                lastName = resultSet.getString("last_name");
-                imagePath = resultSet.getString("image_path");
+                String userLibraryID = resultSet.getString("staff_lib_id");
+                String userId = resultSet.getString("staff_id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String imagePath = resultSet.getString("image_path");
 
                 FacultyRepository facultyRepository = new FacultyRepository();
                 Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
 
-                userFaculty = faculty.getFacultyName();
+                String userFaculty = faculty.getFacultyName();
 
                 DepartmentRepository departmentRepository = new DepartmentRepository();
                 Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
 
-                userDepartment = department.getDepartmentName();
+                String userDepartment = department.getDepartmentName();
 
-                phoneNo = resultSet.getString("phone_no");
-                email = resultSet.getString("email");
+                String phoneNo = resultSet.getString("phone_no");
+                String email = resultSet.getString("email");
 
                 staff = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
             }
@@ -197,25 +208,25 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
-                userLibraryID = resultSet.getString("student_lib_id");
-                userId = resultSet.getString("matric_no");
-                firstName = resultSet.getString("first_name");
-                lastName = resultSet.getString("last_name");
-                imagePath = resultSet.getString("image_path");
+                String userLibraryID = resultSet.getString("student_lib_id");
+                String userId = resultSet.getString("matric_no");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String imagePath = resultSet.getString("image_path");
 
                 FacultyRepository facultyRepository = new FacultyRepository();
                 Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
 
-                userFaculty = faculty.getFacultyName();
+                String userFaculty = faculty.getFacultyName();
 
                 DepartmentRepository departmentRepository = new DepartmentRepository();
                 Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
 
-                userDepartment = department.getDepartmentName();
+                String userDepartment = department.getDepartmentName();
 
-                level = resultSet.getString("current_level");
-                phoneNo = resultSet.getString("phone_no");
-                email = resultSet.getString("email");
+                String level = resultSet.getString("current_level");
+                String phoneNo = resultSet.getString("phone_no");
+                String email = resultSet.getString("email");
 
                 student = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, level, phoneNo, email);
                 studentLibraryUsers.add(student);
@@ -244,24 +255,24 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
-                userLibraryID = resultSet.getString("staff_lib_id");
-                userId = resultSet.getString("staff_id");
-                firstName = resultSet.getString("first_name");
-                lastName = resultSet.getString("last_name");
-                imagePath = resultSet.getString("image_path");
+                String userLibraryID = resultSet.getString("staff_lib_id");
+                String userId = resultSet.getString("staff_id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String imagePath = resultSet.getString("image_path");
 
                 FacultyRepository facultyRepository = new FacultyRepository();
                 Faculty faculty = facultyRepository.getFacultyByDepartmentId(resultSet.getInt("department_id"));
 
-                userFaculty = faculty.getFacultyName();
+                String userFaculty = faculty.getFacultyName();
 
                 DepartmentRepository departmentRepository = new DepartmentRepository();
                 Department department = departmentRepository.getDepartmentById(resultSet.getInt("department_id"));
 
-                userDepartment = department.getDepartmentName();
+                String userDepartment = department.getDepartmentName();
 
-                phoneNo = resultSet.getString("phone_no");
-                email = resultSet.getString("email");
+                String phoneNo = resultSet.getString("phone_no");
+                String email = resultSet.getString("email");
 
                 staff = new User(userLibraryID, userId, firstName, lastName, imagePath, userFaculty, userDepartment, phoneNo, email);
                 staffLibraryUsers.add(staff);

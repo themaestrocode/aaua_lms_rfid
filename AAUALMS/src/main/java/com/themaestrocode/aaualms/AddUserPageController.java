@@ -7,6 +7,7 @@ import com.themaestrocode.aaualms.service.UserService;
 import com.themaestrocode.aaualms.utility.UtilityMethods;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -165,6 +166,10 @@ public class AddUserPageController implements Initializable {
             }
         });
     }
+
+    private final ChangeListener<String> scanCardTextFieldChangeListener = (observable, oldValue, newValue) -> {
+
+    };
 
     public void addUser() {
         try {

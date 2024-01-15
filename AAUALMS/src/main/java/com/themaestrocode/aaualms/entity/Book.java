@@ -1,5 +1,8 @@
 package com.themaestrocode.aaualms.entity;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 public class Book {
     private String bookId;
     private String title;
@@ -9,10 +12,10 @@ public class Book {
     private String shelveNo;
     private String isbn;
     private String publisher;
-    private String dateAdded;
+    private Timestamp dateAdded;
 
     //complete constructor for retrieving book
-    public Book(String bookId, String title, String author, String imagePath, String bookStatus, String shelveNo, String isbn, String publisher, String dateAdded) {
+    public Book(String bookId, String title, String author, String imagePath, String bookStatus, String shelveNo, String isbn, String publisher, Timestamp dateAdded) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
@@ -99,14 +102,13 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getDateAdded() {
+    public Timestamp getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(String dateAdded) {
+    public void setDateAdded(Timestamp dateAdded) {
         this.dateAdded = dateAdded;
     }
-
 
     //Inner class
     public class IssuedBook {
@@ -114,10 +116,10 @@ public class Book {
         private String bookId;
         private String borrowerLibraryId;
         private String userType;
-        private String issueDate;
-        private String dueDate;
+        private Timestamp issueDate;
+        private Timestamp dueDate;
 
-        public IssuedBook(int issueId, String bookId, String borrowerLibraryId, String userType, String issueDate, String dueDate) {
+        public IssuedBook(int issueId, String bookId, String borrowerLibraryId, String userType, Timestamp issueDate, Timestamp dueDate) {
             this.issueId = issueId;
             this.bookId = bookId;
             this.borrowerLibraryId = borrowerLibraryId;
@@ -129,7 +131,7 @@ public class Book {
         private String borrowerName;
         private String bookTitle;
 
-        public IssuedBook(int issueId, String bookId, String bookTitle, String borrowerLibraryId, String borrowerName, String userType, String issueDate, String dueDate) {
+        public IssuedBook(int issueId, String bookId, String bookTitle, String borrowerLibraryId, String borrowerName, String userType, Timestamp issueDate, Timestamp dueDate) {
             this.issueId = issueId;
             this.bookTitle = bookTitle;
             this.bookId = bookId;
@@ -176,19 +178,19 @@ public class Book {
             this.userType = userType;
         }
 
-        public String getIssueDate() {
+        public Timestamp getIssueDate() {
             return issueDate;
         }
 
-        public void setIssueDate(String issueDate) {
+        public void setIssueDate(Timestamp issueDate) {
             this.issueDate = issueDate;
         }
 
-        public String getDueDate() {
+        public Timestamp getDueDate() {
             return dueDate;
         }
 
-        public void setDueDate(String dueDate) {
+        public void setDueDate(Timestamp dueDate) {
             this.dueDate = dueDate;
         }
 

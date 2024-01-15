@@ -44,7 +44,7 @@
                   <Insets left="120.0" top="50.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="confirmBookIssueButton" mnemonicParsing="false" prefWidth="110.0" text="confirm issue" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Button fx:id="confirmBookIssueButton" mnemonicParsing="false" onAction="#confirmBookIssue" prefWidth="110.0" text="confirm issue" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
@@ -53,11 +53,6 @@
                   <String fx:value="greenButtons" />
                </styleClass>
             </Button>
-            <Label fx:id="issueBookOutcomeLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="40.0" />
-               </GridPane.margin>
-            </Label>
             <AnchorPane fx:id="bookFrame" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="70.0" right="50.0" top="10.0" />
@@ -207,6 +202,7 @@
                   <Image url="@../images/scan%20icon.png" />
                </image>
             </ImageView>
+            <Label fx:id="issueBookOutcomeLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

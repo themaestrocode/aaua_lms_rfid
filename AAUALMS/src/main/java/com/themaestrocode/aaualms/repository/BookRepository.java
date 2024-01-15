@@ -4,18 +4,11 @@ import com.themaestrocode.aaualms.entity.Book;
 import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.utility.DBConnector;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepository {
-
-    private String bookID, bookTitle, bookAuthor, imagePath, bookStatus, shelveNo, isbn, publisher, dateAdded;
-    private int issueId;
-    private String borrowerLibraryId, borrowerName, userType, issueDate, dueDate;
 
     public Book findBookById(String bookId) {
         Book book = null;
@@ -31,15 +24,15 @@ public class BookRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
-                bookID = resultSet.getString("book_id");
-                bookTitle = resultSet.getString("title");
-                bookAuthor = resultSet.getString("author");
-                imagePath = resultSet.getString("image_path");
-                bookStatus = resultSet.getString("book_status");
-                shelveNo = resultSet.getString("shelve_no");
-                isbn = resultSet.getString("isbn");
-                publisher = resultSet.getString("publisher");
-                dateAdded = resultSet.getString("date_added");
+                String bookID = resultSet.getString("book_id");
+                String bookTitle = resultSet.getString("title");
+                String bookAuthor = resultSet.getString("author");
+                String imagePath = resultSet.getString("image_path");
+                String bookStatus = resultSet.getString("book_status");
+                String shelveNo = resultSet.getString("shelve_no");
+                String isbn = resultSet.getString("isbn");
+                String publisher = resultSet.getString("publisher");
+                Timestamp dateAdded = resultSet.getTimestamp("date_added");
 
                 book = new Book(bookID, bookTitle, bookAuthor, imagePath, bookStatus, shelveNo, isbn, publisher, dateAdded);
             }
@@ -66,15 +59,15 @@ public class BookRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                bookID = resultSet.getString("book_id");
-                bookTitle = resultSet.getString("title");
-                bookAuthor = resultSet.getString("author");
-                imagePath = resultSet.getString("image_path");
-                bookStatus = resultSet.getString("book_status");
-                shelveNo = resultSet.getString("shelve_no");
-                isbn = resultSet.getString("isbn");
-                publisher = resultSet.getString("publisher");
-                dateAdded = resultSet.getString("date_added");
+                String bookID = resultSet.getString("book_id");
+                String bookTitle = resultSet.getString("title");
+                String bookAuthor = resultSet.getString("author");
+                String imagePath = resultSet.getString("image_path");
+                String bookStatus = resultSet.getString("book_status");
+                String shelveNo = resultSet.getString("shelve_no");
+                String isbn = resultSet.getString("isbn");
+                String publisher = resultSet.getString("publisher");
+                Timestamp dateAdded = resultSet.getTimestamp("date_added");
 
                 book = new Book(bookID, bookTitle, bookAuthor, imagePath, bookStatus, shelveNo, isbn, publisher, dateAdded);
                 libraryBooks.add(book);
@@ -105,13 +98,13 @@ public class BookRepository {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                issueId = resultSet.getInt("issue_id");
-                bookID = resultSet.getString("book_id");
+                int issueId = resultSet.getInt("issue_id");
+                String bookID = resultSet.getString("book_id");
 
                 book = findBookById(bookID); //get the book using the id
 
-                bookTitle = book.getTitle(); //get the book title using the book object
-                borrowerLibraryId = resultSet.getString("student_lib_id");
+                String bookTitle = book.getTitle(); //get the book title using the book object
+                String borrowerLibraryId = resultSet.getString("student_lib_id");
 
                 //if the borrower is not a student (i.e. the student_lib_id field is null), check the staff_lib_id field.
                 if(borrowerLibraryId == null) {
@@ -121,10 +114,10 @@ public class BookRepository {
                 UserRepository userRepository = new UserRepository();
                 user = userRepository.findUserByLibraryID(borrowerLibraryId); //get the user who borrowed the book by id
 
-                borrowerName = user.getFirstName() + " " + user.getLastName();
-                userType = resultSet.getString("user_type");
-                issueDate = resultSet.getString("issue_date");
-                dueDate = resultSet.getString("due_date");
+                String borrowerName = user.getFirstName() + " " + user.getLastName();
+                String userType = resultSet.getString("user_type");
+                Timestamp issueDate = resultSet.getTimestamp("issue_date");
+                Timestamp dueDate = resultSet.getTimestamp("due_date");
 
                 issuedBook = book.new IssuedBook(issueId, bookID, bookTitle, borrowerLibraryId, borrowerName, userType, issueDate, dueDate);
                 borrowedBooks.add(issuedBook);
@@ -145,7 +138,7 @@ public class BookRepository {
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "INSERT INTO books(book_id, title, author, image_path, book_status, shelve_no, isbn, publisher) VALUES(?, ?, ?, ?, \"AVAILABLE\", ?, ?, ?)";
+            String query = "INSERT INTO books (book_id, title, author, image_path, book_status, shelve_no, isbn, publisher) VALUES (?, ?, ?, ?, 'AVAILABLE', ?, ?, ?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, book.getBookId());
@@ -159,7 +152,11 @@ public class BookRepository {
             int rowInserted = statement.executeUpdate();
 
             if (rowInserted > 0) {
-                result = true;
+                EventRepository eventRepository = new EventRepository();
+
+                if(eventRepository.logEventForBookRegistration(book)) {
+                    result = true;
+                }
             }
 
             statement.close();
@@ -167,19 +164,111 @@ public class BookRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return result;
     }
 
     public boolean issueBook(User user, Book book) {
+        UserRepository userRepository = new UserRepository();
+
+        boolean result = false;
+        boolean isStudent = false;
+        String semiQuery, userType;
+        Timestamp dueDate;
+
+        User userToPass = userRepository.findStudentByLibraryId(user.getUserLibraryId());
+
+        if(userToPass.getUserLibraryId().equals(user.getUserLibraryId())) {isStudent = true;}
+
+        if(isStudent) {
+            userType = "STUDENT";
+            dueDate = calculateDueDate(7);
+            semiQuery = "INSERT INTO issued_books (book_id, student_lib_id, user_type, due_date) ";
+        }
+        else {
+            userType = "STAFF";
+            dueDate = calculateDueDate(14);
+            semiQuery = "INSERT INTO issued_books (book_id, staff_lib_id, user_type, due_date) ";
+        }
+
+        String query = semiQuery + "VALUES (?, ?, ?, ?)";
+
+        try (Connection connection = DBConnector.connect();
+            PreparedStatement statement = connection.prepareStatement(query))
+        {
+            statement.setString(1, book.getBookId());
+            statement.setString(2, userToPass.getUserLibraryId());
+            statement.setString(3, userType);
+            statement.setTimestamp(4, dueDate);
+
+            int rowInserted = statement.executeUpdate();
+
+            if(rowInserted > 0) {
+                if(updateBookStatus(book)) { // changes the book status to ISSUED
+                    EventRepository eventRepository = new EventRepository();
+
+                    if(eventRepository.logEventForBookIssue(user, book)) { // logs the event in the event_history table
+                        result = true;
+                    }
+                }
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    private boolean updateBookStatus(Book book) {
+        boolean result = false;
+        String bookStatus = book.getBookStatus();
+        String query = null;
+
+        if(bookStatus.equals("AVAILABLE")) query = "UPDATE books SET book_status = 'ISSUED' WHERE book_id = ?";
+        else if(bookStatus.equals("ISSUED")) query = "UPDATE books SET book_status = 'AVAILABLE' WHERE book_id = ?";
+
         try {
             Connection connection = DBConnector.connect();
 
-            String query = "INSERT INTO issued_books(book_id, stud";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, book.getBookId());
+
+            int rowsUpdated = statement.executeUpdate();
+
+            if(rowsUpdated > 0) result = true;
+
+            statement.close();
+            connection.close();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public boolean checkBookAvailability(Book book) {
+        boolean result = false;
+
+        try {
+            Connection connection = DBConnector.connect();
+
+            String query = "SELECT book_id FROM books where book_id = ? AND book_status = 'AVAILABLE'";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, book.getBookId());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                result = true;
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return result;
     }
 
     public int booksIssuedToday() {
@@ -276,6 +365,12 @@ public class BookRepository {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    private Timestamp calculateDueDate(int daysToAdd) {
+        long currentTimeMillis = System.currentTimeMillis();
+        long dueDateTimeMillis = currentTimeMillis + daysToAdd * 24 * 60 * 60 * 1000;
+        return new Timestamp(dueDateTimeMillis);
     }
 
 }

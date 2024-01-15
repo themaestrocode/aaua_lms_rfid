@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -37,7 +38,7 @@ public class AllBorrowedBooksPageController implements Initializable {
     @FXML
     private TableColumn<Book.IssuedBook, String> borrowerTypeTableColumn;
     @FXML
-    private TableColumn<Book.IssuedBook, String> issueDateTableColumn;
+    private TableColumn<Book.IssuedBook, Timestamp> issueDateTableColumn;
     @FXML
     private TableView<Book.IssuedBook> issuedBooksTableView;
     @FXML

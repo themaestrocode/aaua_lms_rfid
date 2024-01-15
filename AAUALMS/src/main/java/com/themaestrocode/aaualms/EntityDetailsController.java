@@ -135,7 +135,7 @@ public class EntityDetailsController implements Initializable {
         label5Value.setText(book.getShelveNo());
         label6Value.setText(book.getIsbn());
         label7Value.setText(book.getPublisher());
-        label8Value.setText(book.getDateAdded());
+        label8Value.setText(book.getDateAdded().toString());
     }
 
     public void issuedBookData(Book.IssuedBook issuedBook) {
@@ -168,8 +168,8 @@ public class EntityDetailsController implements Initializable {
         label4Value.setText(issuedBook.getBorrowerName());
         label5Value.setText(issuedBook.getBorrowerLibraryId());
         label6Value.setText(issuedBook.getUserType());
-        label7Value.setText(issuedBook.getIssueDate());
-        label8Value.setText(issuedBook.getDueDate());
+        label7Value.setText(issuedBook.getIssueDate().toString());
+        label8Value.setText(issuedBook.getDueDate().toString());
     }
 
     public void showBookDetailedView() {

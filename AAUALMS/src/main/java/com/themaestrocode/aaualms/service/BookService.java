@@ -82,6 +82,10 @@ public class BookService {
         return bookRepository.issueBook(user, book);
     }
 
+    public boolean checkBookAvailability(Book book) {
+        return bookRepository.checkBookAvailability(book);
+    }
+
     public String booksIssuedToday() {
         if(bookRepository.booksIssuedToday() == 0) {
             return "0";
