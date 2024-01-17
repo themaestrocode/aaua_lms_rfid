@@ -218,6 +218,27 @@ public class BookRepository {
         return result;
     }
 
+    public boolean returnBook(User user, Book book) {
+        boolean result = false;
+
+        try {
+            if(deleteBookFromIssuedBooks(book)) {
+                if(updateBookStatus(book)) {
+                    EventRepository eventRepository = new EventRepository();
+
+                    if(eventRepository.logEventForBookReturn(user, book)) {
+                        result = true;
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     private boolean updateBookStatus(Book book) {
         boolean result = false;
         String bookStatus = book.getBookStatus();
@@ -265,6 +286,49 @@ public class BookRepository {
             resultSet.close();
             statement.close();
             connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public boolean verifyReturner(User user, Book book) {
+        boolean result = false;
+        String query = "SELECT CASE WHEN user_type = 'STUDENT' THEN student_lib_id WHEN user_type = 'STAFF' THEN staff_lib_id ELSE NULL END AS user_lib_id FROM issued_books WHERE book_id = ?";
+
+        try (Connection connection = DBConnector.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, book.getBookId());
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                String userLibraryId = resultSet.getString("user_lib_id");
+
+                if(userLibraryId != null && user.getUserLibraryId().equals(userLibraryId)) {
+                    result = true;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    private boolean deleteBookFromIssuedBooks(Book book) {
+        boolean result = false;
+        String query = "DELETE FROM issued_books WHERE book_id = ?";
+
+        try (Connection connection = DBConnector.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, book.getBookId());
+
+            int rowsDeleted = statement.executeUpdate();
+
+            if(rowsDeleted > 0) {result = true;}
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

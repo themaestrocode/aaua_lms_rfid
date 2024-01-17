@@ -82,6 +82,14 @@ public class BookService {
         return bookRepository.issueBook(user, book);
     }
 
+    public boolean returnBook(User user, Book book) {
+        return bookRepository.returnBook(user, book);
+    }
+
+    public boolean verifyReturner(User user, Book book) {
+        return bookRepository.verifyReturner(user, book);
+    }
+
     public boolean checkBookAvailability(Book book) {
         return bookRepository.checkBookAvailability(book);
     }

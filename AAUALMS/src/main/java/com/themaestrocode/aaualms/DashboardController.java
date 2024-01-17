@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class DashboardController implements Initializable {
 
     @FXML
     private Label numberOfBooksIssuedLabel, numberOfBooksDueLabel, numberOfBooksAvailable;
+    @FXML
+    private TextField searchUserTextField, searchBookTextField;
     @FXML
     private TableColumn<Event, Integer> indexTableColumn;
     @FXML

@@ -136,7 +136,7 @@ public class IssueBookPageController implements Initializable {
                         else {
                             bookFrame.setVisible(false);
                             Platform.runLater(() -> {
-                                utilityMethods.showInformationAlert("Error", "Book not found!", "Book not found in the library database.");
+                                utilityMethods.showInformationAlert("Error", "Book not found!", "Book does not exist in the library database.");
                             });
                         }
                     });
@@ -163,7 +163,7 @@ public class IssueBookPageController implements Initializable {
                 }
             }
             else {
-                utilityMethods.showInformationAlert("Error", "Transaction failed!", "Book is currently not available in the database.");
+                utilityMethods.showInformationAlert("Error", "Transaction failed!", "This book has been issued out and should not be in the library. Perhaps you wanted to process a book return transaction?");
             }
         }
     }

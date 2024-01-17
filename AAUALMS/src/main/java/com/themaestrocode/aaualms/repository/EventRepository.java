@@ -40,7 +40,8 @@ public class EventRepository {
                 Event event = new Event(eventId, eventType, bookId, userLibraryId, eventDate);
                 todaysEvents.add(event);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return todaysEvents;

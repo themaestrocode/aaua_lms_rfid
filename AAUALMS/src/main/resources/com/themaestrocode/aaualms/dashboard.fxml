@@ -45,12 +45,12 @@
                </Label>
                <HBox fx:id="searchBarsLabel" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                   <children>
-                     <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search users...">
+                     <TextField fx:id="searchUserTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search users...">
                         <HBox.margin>
                            <Insets left="20.0" right="40.0" top="5.0" />
                         </HBox.margin>
                      </TextField>
-                     <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search books...">
+                     <TextField fx:id="searchBookTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search books...">
                         <HBox.margin>
                            <Insets top="5.0" />
                         </HBox.margin>

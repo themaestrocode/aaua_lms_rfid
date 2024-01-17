@@ -89,11 +89,9 @@ public class AllStudentsPageController implements Initializable {
 
             Image image = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
 
-            // Get the controller associated with the detailed view
-            EntityDetailsController entityDetailsController = fxmlLoader.getController();
+            EntityDetailsController entityDetailsController = fxmlLoader.getController(); //Get the controller associated with the detailed view
 
-            // Pass the selected user to the detailed view controller
-            entityDetailsController.studentData(selectedUser);
+            entityDetailsController.studentData(selectedUser); //Pass the selected user to the detailed view controller
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

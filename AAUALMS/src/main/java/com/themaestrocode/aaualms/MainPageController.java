@@ -174,6 +174,11 @@ public class MainPageController implements Initializable {
         loadIssueBookPage();
     }
 
+    public void returnBook() throws IOException {
+        System.out.println("returning book...");
+        loadReturnBookPage();
+    }
+
     /**
      * loads/opens a non-resizable stage: "the add user page" upon the main page for entering student/staff details to be added.
      * @throws IOException
@@ -249,5 +254,28 @@ public class MainPageController implements Initializable {
         issueBookStage.getIcons().add(issueBookIcon);
         issueBookStage.setResizable(false);
         issueBookStage.show();
+    }
+
+    public void loadReturnBookPage() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("returnBookPage.fxml"));
+        Parent root = fxmlLoader.load();
+
+        ReturnBookPageController returnBookPageController = fxmlLoader.getController();
+        Stage returnBookStage = new Stage();
+        returnBookPageController.setReturnBookStage(returnBookStage);
+
+        Scene scene = new Scene(root);
+
+        String css = this.getClass().getResource("/com/themaestrocode/css/styling.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
+        Image bookIcon = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/book icon.png"));
+
+        returnBookStage.initModality(Modality.APPLICATION_MODAL);
+        returnBookStage.setTitle("Return Book");
+        returnBookStage.setScene(scene);
+        returnBookStage.getIcons().add(bookIcon);
+        returnBookStage.setResizable(false);
+        returnBookStage.show();
     }
 }

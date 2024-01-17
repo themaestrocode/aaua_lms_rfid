@@ -5,10 +5,7 @@ import com.themaestrocode.aaualms.entity.User;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,6 +22,7 @@ public class UtilityMethods {
     private String booksInitialDirectory = "C:\\Users\\VICTOR A. SODERU\\Documents\\BOOKS PHOTO ALBUM";
     private String usersInitialDirectory = "C:\\Users\\VICTOR A. SODERU\\Documents\\USERS PHOTO ALBUM";
     private String userEntityType = "user", bookEntityType = "book";
+    private static String email, password, filePath = "C:\\Users\\VICTOR A. SODERU\\Documents\\My Files\\email details.txt";
 
 
     public File normalizeFile(String filePath) {
@@ -35,6 +33,40 @@ public class UtilityMethods {
         Path normalizedPath = Paths.get(filePath);
 
         return normalizedPath.toFile();
+    }
+
+    private void fetchEmailDetails() throws FileNotFoundException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+
+        try {
+            email = bufferedReader.readLine();
+            password = bufferedReader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void sendBookIssueConfirmationEmail(String recipientEmail, String borrowerName, String bookTitle) throws FileNotFoundException {
+        fetchEmailDetails();
+
+        EmailSender emailSender = new EmailSender(email, password);
+
+        String subject = "AAUA Library notification";
+        String body = String.format("Hello %s.\n\nYou are receiving this email as a reminder of the time the book you just borrowed, \"%s\" will be due for return" +
+                "Students: 7 days\nStaff: 14 days.\n\nThank you!", borrowerName, bookTitle);
+        emailSender.sendEmail(recipientEmail, subject, body);
+    }
+
+    public void sendNewUserWelcomeMessage(String recipientEmail, String username) throws FileNotFoundException {
+        fetchEmailDetails();
+
+        EmailSender emailSender = new EmailSender(email, password);
+
+        String subject = "AAUA Library notification";
+        String body = String.format("Welcome, %s.\n\nCongratulations on registering as a library patron! Always remember to come along with your library card when visiting the library." +
+                "See you around!", username);
+
+        emailSender.sendEmail(recipientEmail, subject, body);
     }
 
     /**
@@ -167,6 +199,23 @@ public class UtilityMethods {
             rotate.stop();
             image.setVisible(false);
         }
+    }
+
+    public boolean showConfirmationAlert(String title, String headerText, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(message);
+
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Wait for the user's decision
+        alert.showAndWait();
+
+        return alert.getResult() == yesButton;
     }
 
     /**

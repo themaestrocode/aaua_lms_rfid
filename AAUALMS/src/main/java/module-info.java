@@ -2,6 +2,7 @@ module com.themaestrocode.aaualms {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires javax.mail.api;
 
 
     opens com.themaestrocode.aaualms to javafx.fxml;
