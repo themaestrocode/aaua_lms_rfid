@@ -2,172 +2,225 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.themaestrocode.aaualms.DashboardController">
 
     <fx:include source="mainPageScene.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   <AnchorPane layoutX="136.0" layoutY="65.0" prefHeight="589.0" prefWidth="919.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
+   <StackPane layoutX="130.0" layoutY="60.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0">
       <children>
-         <GridPane alignment="CENTER" hgap="10.0" prefHeight="605.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="221.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="215.0" />
-               <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="199.0" />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="136.0" minHeight="5.0" prefHeight="54.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="297.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="330.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-               <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
-            </rowConstraints>
+         <AnchorPane prefHeight="589.0" prefWidth="919.0">
             <children>
-               <Label fx:id="dashboardLabel" styleClass="headerText" text="Dashboard" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-                  <GridPane.margin>
-                     <Insets bottom="10.0" left="10.0" right="10.0" />
-                  </GridPane.margin>
-               </Label>
-               <HBox fx:id="searchBarsLabel" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+               <GridPane fx:id="dashBoardGridPane" alignment="CENTER" hgap="10.0" prefHeight="605.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="221.0" minWidth="10.0" prefWidth="221.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="221.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.0" minWidth="10.0" prefWidth="215.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="199.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="136.0" minHeight="5.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="297.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="330.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                     <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
                   <children>
-                     <TextField fx:id="searchUserTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search users...">
-                        <HBox.margin>
-                           <Insets left="20.0" right="40.0" top="5.0" />
-                        </HBox.margin>
-                     </TextField>
-                     <TextField fx:id="searchBookTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="250.0" promptText="search books...">
-                        <HBox.margin>
-                           <Insets top="5.0" />
-                        </HBox.margin>
-                     </TextField>
-                  </children>
-                  <GridPane.margin>
-                     <Insets left="10.0" right="30.0" top="15.0" />
-                  </GridPane.margin>
-               </HBox>
-               <Label fx:id="todayLabel" alignment="CENTER" prefWidth="900.0" styleClass="subHeaderText" text="Today's Transactions at a glance" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
-                  <GridPane.margin>
-                     <Insets left="20.0" right="20.0" top="7.0" />
-                  </GridPane.margin>
-                  <padding>
-                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                  </padding>
-               </Label>
-               <AnchorPane GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.rowSpan="2">
-                  <GridPane.margin>
-                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                  </GridPane.margin>
-                  <children>
-                     <HBox alignment="TOP_CENTER" layoutX="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <Label fx:id="dashboardLabel" styleClass="headerText" text="Dashboard" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <GridPane.margin>
+                           <Insets bottom="10.0" left="10.0" right="10.0" />
+                        </GridPane.margin>
+                     </Label>
+                     <HBox fx:id="searchBarsLabel" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
                         <children>
-                           <StackPane>
+                           <TextField fx:id="searchUserTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="330.0" promptText="search user by matric no/staff ID...">
                               <HBox.margin>
-                                 <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                 <Insets left="20.0" right="40.0" top="5.0" />
                               </HBox.margin>
-                              <children>
-                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                 <Label styleClass="rectangleTexts" text="Books Issued Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                    <StackPane.margin>
-                                       <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                                 <Label fx:id="numberOfBooksIssuedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                    <StackPane.margin>
-                                       <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                              </children>
-                           </StackPane>
-                           <StackPane>
+                           </TextField>
+                           <ImageView fx:id="searchIcon" fitHeight="28.0" fitWidth="27.0" onMouseClicked="#performSearch" pickOnBounds="true" preserveRatio="true">
                               <HBox.margin>
-                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 <Insets right="3.0" top="5.0" />
                               </HBox.margin>
-                              <children>
-                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                 <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                    <StackPane.margin>
-                                       <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                                 <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                    <StackPane.margin>
-                                       <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                              </children>
-                           </StackPane>
-                           <StackPane>
+                              <image>
+                                 <Image url="@../images/search_icon.png" />
+                              </image>
+                           </ImageView>
+                           <TextField fx:id="searchBookTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="28.0" prefWidth="330.0" promptText="search books by title or author...">
                               <HBox.margin>
-                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 <Insets left="30.0" top="5.0" />
                               </HBox.margin>
-                              <children>
-                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                                 <Label styleClass="rectangleTexts" text="Available Books" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
-                                    <StackPane.margin>
-                                       <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                                 <Label fx:id="numberOfBooksAvailable" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
-                                    <StackPane.margin>
-                                       <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
-                                    </StackPane.margin>
-                                 </Label>
-                              </children>
-                           </StackPane>
-                           <StackPane>
-                              <HBox.margin>
-                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                              </HBox.margin>
-                              <children>
-                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4341" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
-                              </children>
-                           </StackPane>
+                           </TextField>
                         </children>
+                        <GridPane.margin>
+                           <Insets left="10.0" right="30.0" top="15.0" />
+                        </GridPane.margin>
                      </HBox>
+                     <Label fx:id="todayLabel" alignment="CENTER" prefWidth="900.0" styleClass="subHeaderText" text="Today's Transactions at a glance" textAlignment="CENTER" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+                        <GridPane.margin>
+                           <Insets left="20.0" right="20.0" top="7.0" />
+                        </GridPane.margin>
+                        <padding>
+                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        </padding>
+                     </Label>
+                     <AnchorPane GridPane.columnSpan="2147483647" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                        <GridPane.margin>
+                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        </GridPane.margin>
+                        <children>
+                           <HBox alignment="TOP_CENTER" layoutX="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                 <StackPane>
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                                    </HBox.margin>
+                                    <children>
+                                       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0e3254" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                       <Label styleClass="rectangleTexts" text="Books Issued Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                          <StackPane.margin>
+                                             <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                       <Label fx:id="numberOfBooksIssuedLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <StackPane.margin>
+                                             <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                    </children>
+                                 </StackPane>
+                                 <StackPane>
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </HBox.margin>
+                                    <children>
+                                       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#46182f" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                       <Label styleClass="rectangleTexts" text="Books due Today" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                          <StackPane.margin>
+                                             <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                       <Label fx:id="numberOfBooksDueLabel" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <StackPane.margin>
+                                             <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                    </children>
+                                 </StackPane>
+                                 <StackPane>
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </HBox.margin>
+                                    <children>
+                                       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#184d25" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                       <Label styleClass="rectangleTexts" text="Available Books" textFill="WHITE" StackPane.alignment="BOTTOM_LEFT">
+                                          <StackPane.margin>
+                                             <Insets bottom="12.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                       <Label fx:id="numberOfBooksAvailable" styleClass="rectangleNum" text="100" textFill="WHITE" StackPane.alignment="CENTER_RIGHT">
+                                          <StackPane.margin>
+                                             <Insets bottom="50.0" left="10.0" right="10.0" top="10.0" />
+                                          </StackPane.margin>
+                                       </Label>
+                                    </children>
+                                 </StackPane>
+                                 <StackPane>
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </HBox.margin>
+                                    <children>
+                                       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0d4341" height="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+                                    </children>
+                                 </StackPane>
+                              </children>
+                           </HBox>
+                        </children>
+                     </AnchorPane>
+                     <Label styleClass="subHeaderText" text="Recent activites and Event history" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                        <GridPane.margin>
+                           <Insets left="10.0" />
+                        </GridPane.margin>
+                     </Label>
+                     <TableView fx:id="todaysEventTableView" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" GridPane.rowSpan="2147483647">
+                        <columns>
+                           <TableColumn fx:id="indexTableColumn" prefWidth="74.0" text="Index" />
+                           <TableColumn fx:id="eventIdTableColumn" prefWidth="75.0" text="Event ID" />
+                           <TableColumn fx:id="eventTypeTableColumn" prefWidth="218.0" text="Event Type" />
+                           <TableColumn fx:id="bookIdTableColumn" minWidth="0.0" prefWidth="139.0" text="Book ID" />
+                           <TableColumn fx:id="userLibraryIdTableColumn" prefWidth="131.0" text="User Library ID" />
+                           <TableColumn fx:id="dateAndTimeTableColumn" prefWidth="201.0" text="Date and Time" />
+                        </columns>
+                        <GridPane.margin>
+                           <Insets left="20.0" right="20.0" />
+                        </GridPane.margin>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                     </TableView>
                   </children>
-               </AnchorPane>
-               <Label styleClass="subHeaderText" text="Recent activites and Event history" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-                  <GridPane.margin>
-                     <Insets left="10.0" />
-                  </GridPane.margin>
-               </Label>
-               <TableView fx:id="todaysEventTableView" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" GridPane.rowSpan="2147483647">
-                  <columns>
-                     <TableColumn fx:id="indexTableColumn" prefWidth="74.0" text="Index" />
-                     <TableColumn fx:id="eventIdTableColumn" prefWidth="75.0" text="Event ID" />
-                     <TableColumn fx:id="eventTypeTableColumn" prefWidth="218.0" text="Event Type" />
-                     <TableColumn fx:id="bookIdTableColumn" minWidth="0.0" prefWidth="139.0" text="Book ID" />
-                     <TableColumn fx:id="userLibraryIdTableColumn" prefWidth="131.0" text="User Library ID" />
-                     <TableColumn fx:id="dateAndTimeTableColumn" prefWidth="201.0" text="Date and Time" />
-                  </columns>
-                  <GridPane.margin>
-                     <Insets left="20.0" right="20.0" />
-                  </GridPane.margin>
-                  <columnResizePolicy>
-                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                  </columnResizePolicy>
-               </TableView>
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+               </GridPane>
             </children>
-            <padding>
-               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </padding>
-         </GridPane>
+         </AnchorPane>
+         <VBox fx:id="bookListViewBox">
+            <StackPane.margin>
+               <Insets bottom="270.0" left="482.0" right="80.0" top="115.0" />
+            </StackPane.margin>
+            <children>
+               <ImageView fx:id="bookListViewCancelIcon" fitHeight="18.0" fitWidth="17.0" onMouseClicked="#closeBookListView" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/cancel_icon.png" />
+                  </image>
+               </ImageView>
+               <ListView fx:id="searchBookListView" prefHeight="210.0" prefWidth="375.0">
+                  <VBox.margin>
+                     <Insets top="3.0" />
+                  </VBox.margin>
+               </ListView>
+            </children>
+         </VBox>
+         <VBox fx:id="userListViewBox">
+            <StackPane.margin>
+               <Insets bottom="270.0" left="50.0" right="510.0" top="115.0" />
+            </StackPane.margin>
+            <children>
+               <ImageView fx:id="UserListViewCancelIcon" fitHeight="18.0" fitWidth="17.0" onMouseClicked="#closeUserListView" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/cancel_icon.png" />
+                  </image>
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </ImageView>
+               <ListView fx:id="searchUserListView" prefHeight="210.0" prefWidth="375.0">
+                  <VBox.margin>
+                     <Insets top="3.0" />
+                  </VBox.margin>
+               </ListView>
+            </children>
+         </VBox>
       </children>
-   </AnchorPane>
+   </StackPane>
 
 </AnchorPane>

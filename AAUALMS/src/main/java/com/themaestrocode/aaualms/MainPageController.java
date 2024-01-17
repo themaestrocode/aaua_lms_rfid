@@ -45,8 +45,12 @@ public class MainPageController implements Initializable {
      */
     public void goToDashboard(ActionEvent event) throws IOException {
         DashboardController dashboardController = new DashboardController();
-
         dashboardController.loadDashboard(event);
+    }
+
+    public void goToInsightPage(ActionEvent event) throws IOException {
+        InsightPageController insightPageController = new InsightPageController();
+        insightPageController.loadInsightPage(event);
     }
 
     /**

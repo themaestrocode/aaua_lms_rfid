@@ -35,7 +35,7 @@
                         <String fx:value="myButtons" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="Insight">
+                  <Button mnemonicParsing="false" onAction="#goToInsightPage" prefHeight="26.0" prefWidth="70.0" text="Insight">
                      <HBox.margin>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
                      </HBox.margin>

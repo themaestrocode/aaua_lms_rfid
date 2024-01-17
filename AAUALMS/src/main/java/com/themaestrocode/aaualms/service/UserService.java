@@ -27,6 +27,14 @@ public class UserService {
         return userRepository.getAllStaff();
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    public User findUserByName(String name) {
+        return userRepository.findUserByName(name);
+    }
+
     public boolean addStudent(User student) {
         return userRepository.addStudent(student);
     }

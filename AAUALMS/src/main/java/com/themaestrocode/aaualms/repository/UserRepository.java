@@ -286,4 +286,26 @@ public class UserRepository {
         }
         return staffLibraryUsers;
     }
+
+    public List<User> getAllUsers() {
+        List<User> allUsers = getAllStudents();
+        try {
+            allUsers.addAll(getAllStaff());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allUsers;
+    }
+
+    public User findUserByName(String name) {
+        for(User user: getAllUsers()) {
+            String username = user.getFirstName() + " " + user.getLastName();
+
+            if(username.equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

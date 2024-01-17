@@ -4,6 +4,7 @@ import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.UserService;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,7 +91,6 @@ public class AllStudentsPageController implements Initializable {
             Image image = new Image(getClass().getResourceAsStream("/com/themaestrocode/images/a user icon.png"));
 
             EntityDetailsController entityDetailsController = fxmlLoader.getController(); //Get the controller associated with the detailed view
-
             entityDetailsController.studentData(selectedUser); //Pass the selected user to the detailed view controller
 
             Stage stage = new Stage();
