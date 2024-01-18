@@ -38,7 +38,7 @@
                   <Insets bottom="200.0" left="200.0" right="200.0" top="200.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="70.0" styleClass="myButtons" text="Login" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="120.0" styleClass="myButtons" text="Login" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
             <Label fx:id="errorMessageID" alignment="CENTER" prefHeight="20.0" prefWidth="500.0" styleClass="errorMessageLabel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
       </GridPane>

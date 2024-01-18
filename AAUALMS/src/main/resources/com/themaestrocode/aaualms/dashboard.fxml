@@ -167,7 +167,7 @@
                            <TableColumn fx:id="eventTypeTableColumn" prefWidth="218.0" text="Event Type" />
                            <TableColumn fx:id="bookIdTableColumn" minWidth="0.0" prefWidth="139.0" text="Book ID" />
                            <TableColumn fx:id="userLibraryIdTableColumn" prefWidth="131.0" text="User Library ID" />
-                           <TableColumn fx:id="dateAndTimeTableColumn" prefWidth="201.0" text="Date and Time" />
+                           <TableColumn fx:id="dateAndTimeTableColumn" prefWidth="201.0" text="Date and Time of Event" />
                         </columns>
                         <GridPane.margin>
                            <Insets left="20.0" right="20.0" />
