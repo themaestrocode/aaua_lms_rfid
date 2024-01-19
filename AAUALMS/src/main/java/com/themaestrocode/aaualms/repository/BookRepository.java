@@ -247,18 +247,14 @@ public class BookRepository {
         if(bookStatus.equals("AVAILABLE")) query = "UPDATE books SET book_status = 'ISSUED' WHERE book_id = ?";
         else if(bookStatus.equals("ISSUED")) query = "UPDATE books SET book_status = 'AVAILABLE' WHERE book_id = ?";
 
-        try {
-            Connection connection = DBConnector.connect();
+        try (Connection connection = DBConnector.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, book.getBookId());
 
             int rowsUpdated = statement.executeUpdate();
 
             if(rowsUpdated > 0) result = true;
-
-            statement.close();
-            connection.close();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

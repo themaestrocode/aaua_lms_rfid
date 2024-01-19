@@ -148,6 +148,8 @@ public class UtilityMethods {
         bookFrame.setVisible(true);
     }
 
+
+
     /**
      * displays an alert of INFORMATION type on the screen
      * @param title
@@ -157,6 +159,31 @@ public class UtilityMethods {
     public void showInformationAlert(String title, String headerText, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public boolean showConfirmationAlert(String title, String headerText, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(message);
+
+        ButtonType yesButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Wait for the user's decision
+        alert.showAndWait();
+
+        return alert.getResult() == yesButton;
+    }
+
+    public void showErrorAlert(String headerText, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
         alert.setHeaderText(headerText);
         alert.setContentText(message);
         alert.showAndWait();
@@ -199,23 +226,6 @@ public class UtilityMethods {
             rotate.stop();
             image.setVisible(false);
         }
-    }
-
-    public boolean showConfirmationAlert(String title, String headerText, String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(message);
-
-        ButtonType yesButton = new ButtonType("Yes");
-        ButtonType noButton = new ButtonType("No");
-
-        alert.getButtonTypes().setAll(yesButton, noButton);
-
-        // Wait for the user's decision
-        alert.showAndWait();
-
-        return alert.getResult() == yesButton;
     }
 
     /**

@@ -19,6 +19,10 @@
     -fx-font-weight: bold;
 }
 
+#resetPasswordButton {
+    -fx-font-size: 11;
+}
+
 .pane {
     -fx-background-image: url("../images/aaua.png");
     -fx-background-size: cover;
@@ -72,6 +76,11 @@
     -fx-font-color: black;
     -fx-font-size: 13;
     -fx-font-weight: bold;
+}
+
+.settingsLabels {
+    -fx-text-fill: blue;
+    -fx-font-size: 12;
 }
 
 #footerAnchor {

@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,12 +23,10 @@ public class MainPageController implements Initializable {
     private Button logoutButton;
     @FXML
     private Hyperlink manageUsersLink, manageBooksLink;
-
-    private LoginPageController loginPageController;
+    private UtilityMethods utilityMethods = new UtilityMethods();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UtilityMethods utilityMethods = new UtilityMethods();
 
         logoutButton.setOnMouseEntered(mouseEvent -> {
             utilityMethods.changeRedButtonColor(logoutButton);
@@ -43,14 +42,27 @@ public class MainPageController implements Initializable {
      * @param event
      * @throws IOException
      */
-    public void goToDashboard(ActionEvent event) throws IOException {
+    public void goToDashboard(ActionEvent event) {
         DashboardController dashboardController = new DashboardController();
-        dashboardController.loadDashboard(event);
+
+        try {
+            dashboardController.loadDashboard(event);
+        }
+        catch (Exception e) {
+            utilityMethods.showInformationAlert("Error", "Failed to load!", "The requested page has failed to load. Please try again later.");
+            e.printStackTrace();
+        }
     }
 
     public void goToInsightPage(ActionEvent event) throws IOException {
         InsightPageController insightPageController = new InsightPageController();
-        insightPageController.loadInsightPage(event);
+
+        try {
+            insightPageController.loadInsightPage(event);
+        }
+        catch (Exception e) {
+            utilityMethods.showInformationAlert("Error", "Failed to load!", "The requested page has failed to load. Please try again later.");
+        }
     }
 
     /**
@@ -64,11 +76,13 @@ public class MainPageController implements Initializable {
         logoutAlert.setContentText("Are you sure you want to logout?");
 
         if(logoutAlert.showAndWait().get() == ButtonType.OK) {
+            LoginPageController loginPageController = new LoginPageController();
+
             try {
-                loginPageController = new LoginPageController();
                 loginPageController.loadLoginPage(event);
             }
             catch (Exception e) {
+                utilityMethods.showInformationAlert("Error", "Failed to load!", "The requested page has failed to load. Please try again later.");
                 e.printStackTrace();
             }
         }
@@ -90,9 +104,9 @@ public class MainPageController implements Initializable {
             try {
                 loadAddUserPage();
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
             }
-            System.out.println("Adding a student/staff...");
         });
 
         seeAllStudentsItem.setOnAction(e -> {
@@ -101,9 +115,9 @@ public class MainPageController implements Initializable {
             try {
                 allStudentsPageController.loadAllStudentsPage(event);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
             }
-            System.out.println("showing all students...");
         });
 
         seeAllStaffItem.setOnAction(e -> {
@@ -112,9 +126,9 @@ public class MainPageController implements Initializable {
             try {
                 allStaffPageController.loadAllStaffPage(event);
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
             }
-            System.out.println("showing all staff...");
         });
 
         contextMenu.getItems().addAll(addUserItem, seeAllStudentsItem, seeAllStaffItem);
@@ -137,10 +151,11 @@ public class MainPageController implements Initializable {
         addBookItem.setOnAction(e -> {
             try {
                 loadAddBookPage();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
-            System.out.println("adding a new book...");
+            catch (IOException ex) {
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
+            }
         });
 
         seeAllBooksItem.setOnAction(e -> {
@@ -148,10 +163,11 @@ public class MainPageController implements Initializable {
 
             try {
                 allBooksPageController.loadAllBooksPage(event);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
-            System.out.println("showing all books...");
+            catch (IOException ex) {
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
+            }
         });
 
         seeAllBorrowedBooksItems.setOnAction(e -> {
@@ -159,10 +175,11 @@ public class MainPageController implements Initializable {
 
             try {
                 allBorrowedBooksPageController.loadAllBorrowedBooksPage(event);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
-            System.out.println("showing all borrowed books...");
+            catch (IOException ex) {
+                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+                //throw new RuntimeException(ex);
+            }
         });
 
         contextMenu.getItems().addAll(addBookItem, seeAllBooksItem, seeAllBorrowedBooksItems);
@@ -173,21 +190,41 @@ public class MainPageController implements Initializable {
         contextMenu.show(manageBooksLink, x, y);
     }
 
-    public void issueBook() throws IOException {
-        System.out.println("issueing book...");
-        loadIssueBookPage();
+    public void issueBook() {
+        try {
+            loadIssueBookPage();
+        }
+        catch (Exception e){
+            utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+            //throw new RuntimeException(ex);
+        }
     }
 
-    public void returnBook() throws IOException {
-        System.out.println("returning book...");
-        loadReturnBookPage();
+    public void returnBook() {
+        try {
+            loadReturnBookPage();
+        }
+        catch (IOException e) {
+            utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+            //throw new RuntimeException(ex);
+        }
+    }
+
+    public void loadSettingsPage(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("settingsPage.fxml"));
+            ((Node) event.getSource()).getScene().setRoot(root);
+        }
+        catch (Exception e) {
+
+        }
     }
 
     /**
      * loads/opens a non-resizable stage: "the add user page" upon the main page for entering student/staff details to be added.
      * @throws IOException
      */
-    public void loadAddUserPage() throws IOException {
+    private void loadAddUserPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserPage.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -214,7 +251,7 @@ public class MainPageController implements Initializable {
      * loads/opens a non-resizable stage: "the add book page" upon the main page for entering book details to be added.
      * @throws IOException
      */
-    public void loadAddBookPage() throws IOException {
+    private void loadAddBookPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBookPage.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -237,7 +274,7 @@ public class MainPageController implements Initializable {
         addBookStage.show();
     }
 
-    public void loadIssueBookPage() throws IOException {
+    private void loadIssueBookPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("issueBookPage.fxml"));
         Parent root = fxmlLoader.load();
 
@@ -260,7 +297,7 @@ public class MainPageController implements Initializable {
         issueBookStage.show();
     }
 
-    public void loadReturnBookPage() throws IOException {
+    private void loadReturnBookPage() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("returnBookPage.fxml"));
         Parent root = fxmlLoader.load();
 

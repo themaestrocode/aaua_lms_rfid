@@ -145,26 +145,31 @@ public class IssueBookPageController implements Initializable {
     };
 
     public void confirmBookIssue() {
-        if(user != null && book != null) {
-            BookService bookService = new BookService();
+        try {
+            if(user != null && book != null) {
+                BookService bookService = new BookService();
 
-            boolean bookAvailable = bookService.checkBookAvailability(book);
+                boolean bookAvailable = bookService.checkBookAvailability(book);
 
-            if(bookAvailable) {
-                boolean issueSuccessful = bookService.issueBook(user, book);
+                if(bookAvailable) {
+                    boolean issueSuccessful = bookService.issueBook(user, book);
 
-                if(issueSuccessful) {
-                    utilityMethods.showInformationAlert("Notification", "Transaction successful!",
-                            "Book successfully issued to " + user.getFirstName() + " " + user.getLastName());
+                    if(issueSuccessful) {
+                        utilityMethods.showInformationAlert("Notification", "Transaction successful!",
+                                "Book successfully issued to " + user.getFirstName() + " " + user.getLastName());
+                    }
+                    else {
+                        utilityMethods.showInformationAlert("Error", "Transaction could not be processed!",
+                                "Please try again or lodge a complain via the CONTACT section if the error persists. You can also visit the HELP section to learn about possible causes and solutions.");
+                    }
                 }
                 else {
-                    utilityMethods.showInformationAlert("Error", "Transaction could not be processed!",
-                            "Please try again or lodge a complain via the CONTACT section if the error persists. You can also visit the HELP section to learn about possible causes and solutions.");
+                    utilityMethods.showInformationAlert("Error", "Transaction failed!", "This book has been issued out and should not be in the library. Perhaps you wanted to process a book return transaction?");
                 }
             }
-            else {
-                utilityMethods.showInformationAlert("Error", "Transaction failed!", "This book has been issued out and should not be in the library. Perhaps you wanted to process a book return transaction?");
-            }
+        }
+        catch (Exception e) {
+            utilityMethods.showErrorAlert("Failed to issue book!", "An error occurred while trying to process the transaction.");
         }
     }
 

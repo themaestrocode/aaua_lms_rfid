@@ -142,39 +142,45 @@ public class ReturnBookPageController implements Initializable {
     };
 
     public void confirmBookReturn() {
-        if(user != null && book != null) {
-            BookService bookService = new BookService();
+        try {
+            if(user != null && book != null) {
+                BookService bookService = new BookService();
 
-            //checking if the book being returned is available. To return a book, it must not be available in the first place.
-            boolean bookAvailable = bookService.checkBookAvailability(book);
+                //checking if the book being returned is available. To return a book, it must not be available in the first place.
+                boolean bookAvailable = bookService.checkBookAvailability(book);
 
-            if(!bookAvailable) {
-                //verifying if the returner is the same person who borrowed the book is the one returning it.
-                boolean returnerIsBorrower = bookService.verifyReturner(user, book);
-                boolean proceed = false;
+                if(!bookAvailable) {
+                    //verifying if the returner is the same person who borrowed the book is the one returning it.
+                    boolean returnerIsBorrower = bookService.verifyReturner(user, book);
+                    boolean proceed = false;
 
-                if(!returnerIsBorrower) {
-                    proceed = utilityMethods.showConfirmationAlert("Confirmation Alert", "The returner is not the borrower!",
-                            "Do you want to proceed with this return transaction?");
-                }
-
-                if(returnerIsBorrower || proceed) {
-                    boolean returnSuccessful = bookService.returnBook(user, book);
-
-                    if(returnSuccessful) {
-                        utilityMethods.showInformationAlert("Notification", "Transaction successful!",
-                                "Book successfully returned by " + user.getFirstName() + " " + user.getLastName());
+                    if(!returnerIsBorrower) {
+                        proceed = utilityMethods.showConfirmationAlert("Confirmation Alert", "The returner is not the borrower!",
+                                "Do you want to proceed with this return transaction?");
                     }
-                    else {
-                        utilityMethods.showInformationAlert("Error", "Transaction could not be processed!",
-                                "Please try again or lodge a complain via the CONTACT section if the error persists. You can also visit the HELP section to learn about possible causes and solutions.");
+
+                    if(returnerIsBorrower || proceed) {
+                        boolean returnSuccessful = bookService.returnBook(user, book);
+
+                        if(returnSuccessful) {
+                            utilityMethods.showInformationAlert("Notification", "Transaction successful!",
+                                    "Book successfully returned by " + user.getFirstName() + " " + user.getLastName());
+                        }
+                        else {
+                            utilityMethods.showErrorAlert("Transaction could not be processed!",
+                                    "Please try again or lodge a complain via the CONTACT section if the error persists. You can also visit the HELP section to learn about possible causes and solutions.");
+                        }
                     }
                 }
-            }
-            else {
-                utilityMethods.showInformationAlert("Error", "Transaction failed!", "The book being returned was not borrowed. Perhaps you wanted to issue the book?");
+                else {
+                    utilityMethods.showInformationAlert("Error", "Transaction aborted!", "The book being returned was not borrowed. Perhaps you wanted to issue the book?");
+                }
             }
         }
+        catch (Exception e) {
+            utilityMethods.showErrorAlert("Failed to return book!", "An error occurred while trying to process the transaction.");
+        }
+
     }
 
     public Stage getReturnBookStage() {

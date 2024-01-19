@@ -4,7 +4,6 @@ import com.themaestrocode.aaualms.entity.User;
 import com.themaestrocode.aaualms.service.UserService;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
