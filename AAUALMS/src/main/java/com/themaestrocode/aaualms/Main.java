@@ -2,11 +2,9 @@ package com.themaestrocode.aaualms;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,16 +35,6 @@ public class Main extends Application {
         catch(Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void openingStageSize(Stage stage) {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-
-        stage.setX(bounds.getMinX());
-        stage.setY(bounds.getMinY());
-        stage.setWidth(bounds.getWidth());
-        stage.setHeight(bounds.getHeight());
     }
 
     public static void main(String[] args) {
