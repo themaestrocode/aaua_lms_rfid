@@ -19,25 +19,28 @@ public class ResetPasswordPageController {
         UtilityMethods utilityMethods = new UtilityMethods();
 
         try {
-            if(newPasswordTextField.getText().equals(confirmPasswordTextField.getText())) {
-                boolean proceed = utilityMethods.showConfirmationAlert("Confirmation Alert", "Confirm the new access code", "Are you sure you want to reset the access code?");
+            if(newPasswordTextField.getText().length() >= 5) {
+                if(newPasswordTextField.getText().equals(confirmPasswordTextField.getText())) {
+                    boolean proceed = utilityMethods.showConfirmationAlert("Confirmation Alert", "Confirm the new access code", "Are you sure you want to reset the access code?");
 
-                if(proceed) {
-                    PasswordHasher passwordHasher = new PasswordHasher();
+                    if(proceed) {
+                        PasswordHasher passwordHasher = new PasswordHasher();
 
-                    String salt = passwordHasher.generateSalt(); //generate salt
-                    String hashedPassword = passwordHasher.hashPassword(confirmPasswordTextField.getText(), salt); //hash the new password
+                        String salt = passwordHasher.generateSalt(); //generate salt
+                        String hashedPassword = passwordHasher.hashPassword(confirmPasswordTextField.getText(), salt); //hash the new password
 
-                    PasswordService passwordService = new PasswordService();
+                        PasswordService passwordService = new PasswordService();
 
-                     if(passwordService.savePassword(hashedPassword, salt)) {
-                         utilityMethods.showInformationAlert("Notification", "Access code changed!", "You have successfully changed the access code. Ensure to keep it safe.");
-                         resetPasswordStage.close();
-                     }
+                        if(passwordService.savePassword(hashedPassword, salt)) {
+                            utilityMethods.showInformationAlert("Notification", "Access code changed!", "You have successfully changed the access code. Ensure to keep it safe.");
+                            resetPasswordStage.close();
+                        }
+                    }
+                } else {
+                    utilityMethods.showErrorAlert("Passwords do not match", "The passwords you've entered do not match. Check and try again.");
                 }
-            }
-            else {
-                utilityMethods.showErrorAlert("Passwords do not match", "The passwords you've entered do not match. Check and try again.");
+            } else {
+                utilityMethods.showErrorAlert("Password too short!", "The password you've provided is too short. Password must be at least 5 characters long.");
             }
         }
         catch (Exception e) {

@@ -27,9 +27,9 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.getIcons().add(appIcon);
             //openingStageSize(stage);
-            //stage.setMaximized(true);
-            //stage.setResizable(false);
-            //stage.centerOnScreen();
+            stage.setMaximized(true);
+            stage.setResizable(false);
+            stage.centerOnScreen();
             stage.show();
         }
         catch(Exception e) {
