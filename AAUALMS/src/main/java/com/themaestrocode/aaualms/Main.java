@@ -26,10 +26,9 @@ public class Main extends Application {
             stage.setTitle("AAUA LIBRARY MANAGEMENT SYSTEM");
             stage.setScene(scene);
             stage.getIcons().add(appIcon);
-            //openingStageSize(stage);
             stage.setMaximized(true);
             stage.setResizable(false);
-            stage.centerOnScreen();
+            //stage.centerOnScreen();
             stage.show();
         }
         catch(Exception e) {

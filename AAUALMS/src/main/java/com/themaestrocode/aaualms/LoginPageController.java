@@ -61,26 +61,38 @@ public class LoginPageController implements Initializable {
      */
     public void login(ActionEvent event) {
         String accessCode = accessCodeField.getText();
-
         PasswordHasher passwordHasher = new PasswordHasher();
-        boolean isValid = passwordHasher.verifyPassword(accessCode);
 
-        if(isValid) {
-            try {
-                DashboardController dashboardController = new DashboardController();
-                dashboardController.loadDashboard(event);
-            } catch (Exception e) {
-                utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
-            }
-        } else {
-            attempts++;
-            if(attempts < MAX_ATTEMPTS) {
-                errorMessageID.setText("Incorrect access code! Please check and try again.");
-            } else {
-                errorMessageID.setText("Too many incorrect attempts! Wait for 30 seconds");
-                loginButton.setDisable(true);
-                scheduleButtonEnable(30000);
-            }
+        // catching the error for a failed connection when attempting to login.
+        try {
+            boolean isValid = passwordHasher.verifyPassword(accessCode);
+
+            if(isValid) {loadDashboard(event);}
+            else {handleInvalidAccessCode();}
+        }
+        catch (RuntimeException re) {
+            utilityMethods.showErrorAlert("Failed to connect!", "There was a problem establishing connection to the server");
+        }
+    }
+
+    private void loadDashboard(ActionEvent event) {
+        try {
+            DashboardController dashboardController = new DashboardController();
+            dashboardController.loadDashboard(event);
+        }
+        catch (Exception e) {
+            utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
+        }
+    }
+
+    private void handleInvalidAccessCode() {
+        attempts++;
+
+        if(attempts < MAX_ATTEMPTS) {errorMessageID.setText("Incorrect access code! Please check and try again.");}
+        else {
+            errorMessageID.setText("Too many incorrect attempts! Wait for 30 seconds");
+            loginButton.setDisable(true);
+            scheduleButtonEnable(30000);
         }
     }
 
@@ -96,8 +108,6 @@ public class LoginPageController implements Initializable {
     }
 
     public void resetPassword() {
-        UtilityMethods utilityMethods = new UtilityMethods();
-
         try {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Notification");
@@ -113,16 +123,15 @@ public class LoginPageController implements Initializable {
                     PasswordService passwordService = new PasswordService();
                     Password password = passwordService.findPassword(providedPassword);
 
-                    if(password != null) {
-                        loadResetPasswordPage();
-                    } else {
-                        utilityMethods.showErrorAlert("Password not found!", "The password you have entered does not match any previous password.");
-                    }
-                } catch (Exception e) {
+                    if(password != null) {loadResetPasswordPage();}
+                    else {utilityMethods.showErrorAlert("Password not found!", "The password you have entered does not match any previous password.");}
+                }
+                catch (Exception e) {
                     utilityMethods.showErrorAlert("Failed to load page!", "The requested page could not be loaded.");
                 }
             });
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             utilityMethods.showErrorAlert("An error has occurred", "Something went wrong.");
         }
     }
