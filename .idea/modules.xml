@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/AAUALMS/AAUALMS.iml" filepath="$PROJECT_DIR$/AAUALMS/AAUALMS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/aaua_lms_rfid.iml" filepath="$PROJECT_DIR$/.idea/aaua_lms_rfid.iml" />
-    </modules>
-  </component>
-</project>

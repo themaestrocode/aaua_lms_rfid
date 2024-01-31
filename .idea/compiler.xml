@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AAUALMS" />
+        <module name="aaualms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AAUALMS" target="17" />
+      <module name="aaua_lms_rfid" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
